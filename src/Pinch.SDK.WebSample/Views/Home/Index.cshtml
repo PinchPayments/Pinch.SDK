@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Welcome to the Sample Application</h1>
+        <p>This sample MVC app shows you how to successfully integrate with Pinch!</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <h2>Understanding the keys</h2>
+        <p>There are three key credentials when integrating with Pinch:</p>
+        <ul>
+            <li><strong>ClientId:</strong> A code to identify your application. In our case, we're identified as the Pinch Web Sample Application.</li>
+            <li><strong>Publishable Key:</strong> This key lets you perform public API actions and is mostly used by browser widgets. This key is OK to expose to the internet.</li>
+            <li><strong>Secret Key:</strong> This key lets you perform server-to-server API actions and must be kept secret! <strong>Do not expose this key to the internet.</strong></li>
+        </ul>
+    </div>
+    <div class="col-sm-6">
+        <h2>Sample keys</h2>
+        <p>These are the current valid keys for this sample application.</p>
+        <ul>
+            <li><strong>ClientId:</strong> cl_9999</li>
+            <li><strong>Publishable Key:</strong> pk_5678</li>
+            <li><strong>Secret Key:</strong> sk_1234</li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Not Connected to Pinch</h2>
+        <p>We need to let this sample application connect to your Pinch account. Click the button below to start the consent workflow.</p>
+        <a href="https://localhost:44329/connect/authorize?client_id=cl_9999&redirect_uri=https://localhost:44389/pinch/callback&response_type=code&scope=api1" class="btn btn-primary">Connect to Pinch</a>
+    </div>
+</div>
