@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet5-Pinch.SDK.WebSample-035714b9-1391-452f-876c-de29839a80c8",
   "version": "1.0.0-*",
   "compilationOptions": {
@@ -25,7 +25,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "Microsoft.AspNet.Session": "1.0.0-rc1-final"
+    "Microsoft.AspNet.Session": "1.0.0-rc1-final",
+    "Pinch.SDK": "1.0.0-*"
   },
 
   "commands": {
@@ -34,8 +35,7 @@
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": { }
+    "dnx451": { }
   },
 
   "exclude": [

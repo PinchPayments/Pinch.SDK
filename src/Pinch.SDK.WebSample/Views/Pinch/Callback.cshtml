@@ -1,0 +1,13 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Callback";
+}
+
+<h2>Pinch Callback Page</h2>
+<p>Here we will see the authorization code returned to us by the Pinch Auth server.</p>
+
+<label>Authorization Code</label>
+<p>@Model</p>
+
+<a href="@Url.Action("GetAccessToken", "Pinch", new {code = @Model})" class="btn btn-primary">Get Access Codes using Authorization Code</a>

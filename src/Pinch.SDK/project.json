@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "description": "Pinch.SDK Class Library",
+  "authors": [ "Ben" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "dnx451": {
+    }
+  },
+  "dependencies": {
+    "RestSharp": "105.2.3"
+  }
+}

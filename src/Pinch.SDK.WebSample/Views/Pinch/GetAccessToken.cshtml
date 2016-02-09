@@ -1,0 +1,32 @@
+﻿@model Pinch.SDK.Auth.GetAccessTokenResponse
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>Access Token</h2>
+
+<table class="table table-responsive">
+    <tbody>
+    <tr>
+        <th>Access Token</th>
+        <td>@Model.AccessToken</td>
+    </tr>
+    <tr>
+        <th>Refresh Token</th>
+        <td>@Model.RefreshToken</td>
+    </tr>
+        <tr>
+            <th>Token Type</th>
+            <td>@Model.TokenType</td>
+        </tr>
+        <tr>
+            <th>Expires In</th>
+            <td>@Model.ExpiresIn</td>
+        </tr>
+        <tr>
+            <th>ID Token</th>
+            <td>@Model.IdToken</td>
+        </tr>
+    </tbody>
+</table>
