@@ -14,7 +14,7 @@ namespace Pinch.SDK.WebSample.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var token = HttpContext.Session.GetObjectFromJson<GetAccessTokenResponse>("AccessToken");
+            var token = HttpContext.Session.GetObjectFromJson<GetAccessTokenFromCodeResponse>("AccessToken");
             var model = new IndexVm()
             {
                 AccessToken = token
@@ -22,7 +22,7 @@ namespace Pinch.SDK.WebSample.Controllers
 
             if (!string.IsNullOrEmpty(model.AccessToken?.AccessToken))
             {
-                var api = new PinchApi("TestSecretKey");
+                var api = new PinchApi("sk_1234", "mr_9999");
                 var result =  await api.Auth.GetClaims(model.AccessToken.AccessToken);
                 model.Claims = result;
             }

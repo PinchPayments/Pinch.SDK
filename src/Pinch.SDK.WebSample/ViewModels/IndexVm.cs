@@ -5,7 +5,7 @@ namespace Pinch.SDK.WebSample.ViewModels
 {
     public class IndexVm
     {
-        public GetAccessTokenResponse AccessToken { get; set; }
+        public GetAccessTokenFromCodeResponse AccessToken { get; set; }
         public List<GetClaimsResponseItem> Claims { get; set; }
     }
 }

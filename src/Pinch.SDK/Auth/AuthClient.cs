@@ -20,7 +20,7 @@ namespace Pinch.SDK.Auth
             _client = new RestClient(authUri);
         }
 
-        public async Task<GetAccessTokenResponse> GetAccessToken(string code, string clientId, string redirectUri)
+        public async Task<GetAccessTokenFromCodeResponse> GetAccessTokenFromCode(string code, string clientId, string redirectUri)
         {
             _client.Authenticator = new HttpBasicAuthenticator(clientId, _apiKey);
 
@@ -29,7 +29,22 @@ namespace Pinch.SDK.Auth
             request.AddParameter("code", code);
             request.AddParameter("redirect_uri", redirectUri);
 
-            var response = await _client.ExecuteTaskAsync<GetAccessTokenResponse>(request);
+            var response = await _client.ExecuteTaskAsync<GetAccessTokenFromCodeResponse>(request);
+
+            _client.Authenticator = null;
+
+            return response.Data;
+        }
+
+        public async Task<GetAccessTokenFromSecretKeyResponse> GetAccessTokenFromSecretKey(string secretKey, string clientId)
+        {
+            _client.Authenticator = new HttpBasicAuthenticator(clientId, _apiKey);
+
+            var request = new RestRequest("connect/token", Method.POST);
+            request.AddParameter("grant_type", "client_credentials");
+            request.AddParameter("scope", "api1");
+
+            var response = await _client.ExecuteTaskAsync<GetAccessTokenFromSecretKeyResponse>(request);
 
             _client.Authenticator = null;
 

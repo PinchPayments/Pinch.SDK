@@ -21,9 +21,9 @@ namespace Pinch.SDK.WebSample.Controllers
 
         public async Task<IActionResult> GetAccessToken(string code)
         {
-            var api = new PinchApi("TestSecretKey");
+            var api = new PinchApi("sk_1234", "mr_9999");
 
-            var result = await api.Auth.GetAccessToken(code, "cl_9999", "https://localhost:44389/pinch/callback");
+            var result = await api.Auth.GetAccessTokenFromCode(code, "ap_9999", "https://localhost:44389/pinch/callback");
 
             HttpContext.Session.SetObjectAsJson("AccessToken", result);
 
