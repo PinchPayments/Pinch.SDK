@@ -5,14 +5,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
 
-namespace Pinch.SDK.Merchant
+namespace Pinch.SDK.Payer
 {
-    public class MerchantClient
+    public class PayerClient
     {
         private readonly HttpClient _client;
         private readonly Func<Task<string>> _getAccessToken;
 
-        public MerchantClient(string baseUri, Func<Task<string>> getAccessToken)
+        public PayerClient(string baseUri, Func<Task<string>> getAccessToken)
         {
             _getAccessToken = getAccessToken;
             _client = new HttpClient()
@@ -21,15 +21,14 @@ namespace Pinch.SDK.Merchant
             };
         }
 
-        public async Task<Merchant> GetMerchant()
+        public async Task<List<Payer>> GetPayers()
         {
             var token = await _getAccessToken();
             _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
 
-            var response = await _client.Get<Merchant>("merchants");
+            var response = await _client.Get<List<Payer>>("payers");
 
             return response.Data;
         }
     }
-
 }

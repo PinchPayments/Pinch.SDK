@@ -1,0 +1,38 @@
+﻿@model List<Pinch.SDK.Payer.Payer>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2>Woo payers</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Account Name</th>
+        <th>BSB</th>
+        <th>Account Number</th>
+        <th>Shortcode</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var payer in Model)
+    {
+        <tr>
+            <td>@payer.Id</td>
+            <td>@payer.FirstName</td>
+            <td>@payer.LastName</td>
+            <td>@payer.EmailAddress</td>
+            <td>@payer.AccountName</td>
+            <td>@payer.BSB</td>
+            <td>@payer.AccountNumber</td>
+            <td>@payer.Shortcode</td>
+        </tr>
+    }
+    </tbody>
+</table>

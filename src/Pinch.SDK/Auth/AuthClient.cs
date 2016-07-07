@@ -2,61 +2,81 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RestSharp;
-using RestSharp.Authenticators;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using Newtonsoft.Json;
+using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Auth
 {
     public class AuthClient
     {
-        private readonly string _apiKey;
+        private readonly string _secretKey;
         private readonly string _baseUri;
-        private readonly RestClient _client;
+        private readonly string _authUri;
 
-        public AuthClient(string apiKey, string authUri, string baseUri)
+        public AuthClient(string secretKey, string authUri, string baseUri)
         {
-            _apiKey = apiKey;
+            _secretKey = secretKey;
             _baseUri = baseUri;
-            _client = new RestClient(authUri);
+            _authUri = authUri;
         }
 
         public async Task<GetAccessTokenFromCodeResponse> GetAccessTokenFromCode(string code, string clientId, string redirectUri)
         {
-            _client.Authenticator = new HttpBasicAuthenticator(clientId, _apiKey);
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_authUri)
+            };
+            client.DefaultRequestHeaders.Authorization = BasicAuthHeader.GetHeader(clientId, _secretKey);
 
-            var request = new RestRequest("connect/token", Method.POST);
-            request.AddParameter("grant_type", "authorization_code");
-            request.AddParameter("code", code);
-            request.AddParameter("redirect_uri", redirectUri);
+            var parameters = new Dictionary<string, string>()
+            {
+                {"grant_type", "authorization_code"},
+                {"code", code},
+                {"redirect_uri", redirectUri}
+            };
 
-            var response = await _client.ExecuteTaskAsync<GetAccessTokenFromCodeResponse>(request);
-
-            _client.Authenticator = null;
+            var response = await client.Post<GetAccessTokenFromCodeResponse>("connect/token", parameters);
 
             return response.Data;
         }
 
         public async Task<GetAccessTokenFromSecretKeyResponse> GetAccessTokenFromSecretKey(string secretKey, string clientId)
         {
-            _client.Authenticator = new HttpBasicAuthenticator(clientId, _apiKey);
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_authUri)
+            };
+            client.DefaultRequestHeaders.Authorization = BasicAuthHeader.GetHeader(clientId, secretKey);
 
-            var request = new RestRequest("connect/token", Method.POST);
-            request.AddParameter("grant_type", "client_credentials");
-            request.AddParameter("scope", "api1");
+            var parameters = new Dictionary<string, string>()
+            {
+                {"grant_type", "client_credentials"},
+                {"scope", "api1"}
+            };            
 
-            var response = await _client.ExecuteTaskAsync<GetAccessTokenFromSecretKeyResponse>(request);
-
-            _client.Authenticator = null;
+            var response = await client.Post<GetAccessTokenFromSecretKeyResponse>("connect/token", parameters);            
+                
+            if (response.Data?.AccessToken == null)
+            {
+                throw new Exception($"Could not get access token. Error: {response.ResponseBody}");
+            }
 
             return response.Data;
         }
 
         public async Task<List<GetClaimsResponseItem>> GetClaims(string accessToken)
         {
-            var client = new RestClient(_baseUri);
-            client.Authenticator = new JwtAuthenticator(accessToken);
-            var request = new RestRequest("values/claims", Method.GET);
-            var response = await client.ExecuteTaskAsync<List<GetClaimsResponseItem>>(request);
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_baseUri)
+            };
+
+            client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(accessToken);
+
+            var response = await client.Get<List<GetClaimsResponseItem>>("values/claims");
 
             return response.Data;
         }

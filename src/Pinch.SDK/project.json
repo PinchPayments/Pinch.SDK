@@ -1,16 +1,25 @@
 {
   "version": "1.0.0-*",
   "description": "Pinch.SDK Class Library",
-  "authors": [ "Ben" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "authors": [ "Ben Cull" ],
 
   "frameworks": {
-    "dnx451": {
+    "net46": {
+    },
+    "netstandard1.3": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      }
     }
   },
   "dependencies": {
-    "RestSharp": "105.2.3"
-  }
+    "System.Net.Http": "4.1.0",
+    "Newtonsoft.Json": "9.0.1",
+    "System.Text.Encoding.Extensions": "4.0.11"
+  },
+  //"scripts": {
+  //  "postcompile": [
+  //    "dotnet pack --no-build --configuration %compile:Configuration%"
+  //  ]
+  //}
 }

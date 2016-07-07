@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Pinch.SDK.Auth;
 using Pinch.SDK.Merchant;
+using Pinch.SDK.Payer;
 
 namespace Pinch.SDK
 {
@@ -17,27 +18,28 @@ namespace Pinch.SDK
 
         private AuthClient _auth;
         private MerchantClient _merchant;
+        private PayerClient _payer;
 
-        public PinchApi(string secretKey, string clientId)
-            : this(secretKey, clientId, Settings.ApiBaseUri_Production, Settings.AuthBaseUri_Production)
+        public PinchApi(string secretKey, string clientId, bool isLive = true, string baseUri = null, string authUri = null)
         {
-        }
+            if (!string.IsNullOrEmpty(baseUri))
+            {
+                _baseUri = baseUri;
+            }
+            else
+            {
+                _baseUri = isLive ? Settings.ApiBaseUri_Production : Settings.ApiBaseUri_Test;
+            }
 
-        public PinchApi(string secretKey, string clientId, string baseUri)
-            : this(secretKey, clientId, baseUri, Settings.AuthBaseUri_Production)
-        {
-        }
+            _authUri = !string.IsNullOrEmpty(authUri) ? authUri : Settings.AuthBaseUri_Production;
 
-        public PinchApi(string secretKey, string clientId, string baseUri, string authUri)
-        {
             _secretKey = secretKey;
-            _baseUri = baseUri;
-            _authUri = authUri;
             _clientId = clientId;
         }
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _authUri, _baseUri));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_baseUri, GetAccessToken));
+        public PayerClient Payer => _payer ?? (_payer = new PayerClient(_baseUri, GetAccessToken));
 
         protected async Task<string> GetAccessToken()
         {
