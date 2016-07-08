@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Pinch.SDK.Auth;
 using Pinch.SDK.WebSample.Helpers;
 using Pinch.SDK.WebSample.Models;
@@ -30,23 +31,13 @@ namespace Pinch.SDK.WebSample.Controllers
             return View(model);
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Connect()
         {
-            ViewData["Message"] = "Your application description page.";
+            var model = new IndexVm()
+            {
+            };
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
+            return View(model);
         }
     }
 }

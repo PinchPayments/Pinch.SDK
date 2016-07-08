@@ -1,0 +1,64 @@
+﻿@model Pinch.SDK.WebSample.ViewModels.IndexVm
+@{
+    ViewBag.Title = "Connect";
+}
+
+<h1>Pinch Connect</h1>
+<p>Make your platform available to all Pinch users. Pinch Connect lets you control all aspects of any other Pinch account, giving you the tools to let your users get paid sooner.</p>
+
+@if (Model.AccessToken == null)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Not Connected to Pinch</h2>
+            <p>We need to let this sample application connect to your Pinch account. Click the button below to start the consent workflow.</p>
+            <a href="https://localhost:44329/connect/authorize?client_id=ap_9999&redirect_uri=https://localhost:44389/pinch/callback&response_type=code&scope=api1 offline_access" class="btn btn-primary">Connect to Pinch</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Connected to Pinch</h2>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul>
+                        @foreach (var claim in Model.Claims)
+                        {
+                            <li><strong>@claim.Type</strong> - @claim.Value</li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <th>Access Token</th>
+                                <td style="word-break: break-all">@Model.AccessToken.AccessToken</td>
+                            </tr>
+                            <tr>
+                                <th>Refresh Token</th>
+                                <td>@Model.AccessToken.RefreshToken</td>
+                            </tr>
+                            <tr>
+                                <th>Token Type</th>
+                                <td>@Model.AccessToken.TokenType</td>
+                            </tr>
+                            <tr>
+                                <th>Expires In</th>
+                                <td>@Model.AccessToken.ExpiresIn</td>
+                            </tr>
+                            <tr>
+                                <th>ID Token</th>
+                                <td>@Model.AccessToken.IdToken</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

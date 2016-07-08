@@ -30,5 +30,15 @@ namespace Pinch.SDK.Payer
 
             return response.Data;
         }
+
+        public async Task<Payer> Get(string id)
+        {
+            var token = await _getAccessToken();
+            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
+
+            var response = await _client.Get<Payer>($"payers/{id}");
+
+            return response.Data;
+        }
     }
 }

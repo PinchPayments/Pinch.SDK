@@ -18,7 +18,7 @@
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -29,21 +29,25 @@
                     <a asp-controller="Home" asp-action="Index" class="navbar-brand">Pinch.SDK.WebSample</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Payers" asp-action="Index">Payers</a></li>
-                    </ul>
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
             </div>
         </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2016 - Pinch.SDK.WebSample</p>
-            </footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a asp-controller="Home" asp-action="Index">Overview</a></li>
+                    <li><a asp-controller="Payers" asp-action="Index">Payers</a></li>
+                    <li><a asp-controller="Home" asp-action="Connect">Connect</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                @RenderBody()
+            </div>
         </div>
+        <hr/>
+    </div>
 
         <environment names="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
