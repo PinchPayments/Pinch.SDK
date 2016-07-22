@@ -13,7 +13,7 @@ namespace Pinch.SDK.WebSample.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var api = new PinchApi("4ahSs0HKAiMj1Jx5pFhDKoN8R9Zuzpuy", "cl_bentest1", true);
+            var api = new PinchApi("sk_GyKk2PXBjUi3W2FcWigMiI8cCwFfqEbg", "mch_nOLLjoWECzyFjW", true);
 
             var payers = await api.Payer.GetPayers();
 

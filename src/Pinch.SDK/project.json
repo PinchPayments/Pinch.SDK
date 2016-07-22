@@ -1,25 +1,27 @@
 {
-  "version": "1.0.0-*",
-  "description": "Pinch.SDK Class Library",
-  "authors": [ "Ben Cull" ],
-
+  "version": "0.7.0-*",
+  "description": "Pinch Payments API SDK",
+  "authors": ["Ben Cull"],
   "frameworks": {
-    "net46": {
+    "net45": {
+      "dependencies": {
+        "System.Net.Http": "4.0.0"
+      }
     },
     "netstandard1.3": {
       "dependencies": {
-        "NETStandard.Library": "1.6.0"
+        "NETStandard.Library": "1.6.0",
+        "System.Text.Encoding.Extensions": "4.0.11",
+        "System.Net.Http": "4.1.0"
       }
     }
   },
-  "dependencies": {
-    "System.Net.Http": "4.1.0",
-    "Newtonsoft.Json": "9.0.1",
-    "System.Text.Encoding.Extensions": "4.0.11"
+  "dependencies": {    
+    "Newtonsoft.Json": "9.0.1"    
   },
-  //"scripts": {
-  //  "postcompile": [
-  //    "dotnet pack --no-build --configuration %compile:Configuration%"
-  //  ]
-  //}
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration%"
+    ]
+  }
 }

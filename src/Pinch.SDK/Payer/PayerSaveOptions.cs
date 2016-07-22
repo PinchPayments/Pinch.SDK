@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Pinch.SDK.Payer
 {
-    public class Payer
+    public class PayerSaveOptions
     {
         public string Id { get; set; }
         public string FirstName { get; set; }

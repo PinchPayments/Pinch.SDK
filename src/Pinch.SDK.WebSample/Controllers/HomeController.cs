@@ -15,27 +15,23 @@ namespace Pinch.SDK.WebSample.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            //var token = HttpContext.Session.GetObjectFromJson<GetAccessTokenFromCodeResponse>("AccessToken");
-            var model = new IndexVm()
-            {
-                //AccessToken = token
-            };
-
-            //if (!string.IsNullOrEmpty(model.AccessToken?.AccessToken))
-            //{
-            //    var api = new PinchApi("sk_1234", "mr_9999");
-            //    var result =  await api.Auth.GetClaims(model.AccessToken.AccessToken);
-            //    model.Claims = result;
-            //}
-
-            return View(model);
+            return View();
         }
 
         public async Task<IActionResult> Connect()
         {
+            var token = HttpContext.Session.GetObjectFromJson<GetAccessTokenFromCodeResponse>("AccessToken");
             var model = new IndexVm()
             {
+                AccessToken = token
             };
+
+            if (!string.IsNullOrEmpty(model.AccessToken?.AccessToken))
+            {
+                var api = new PinchApi("sk_GyKk2PXBjUi3W2FcWigMiI8cCwFfqEbg", "mch_nOLLjoWECzyFjW");
+                var result = await api.Auth.GetClaims(model.AccessToken.AccessToken);
+                model.Claims = result;
+            }
 
             return View(model);
         }

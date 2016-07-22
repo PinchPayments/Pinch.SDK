@@ -40,5 +40,32 @@ namespace Pinch.SDK.Payer
 
             return response.Data;
         }
+
+        public async Task<ApiResponse<Payer>> Save(PayerSaveOptions options)
+        {
+            var token = await _getAccessToken();
+            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
+
+            var response = await _client.Post<Payer>("payers", options);
+
+            return new ApiResponse<Payer>()
+            {
+                Data = response.Data,
+                Errors = response.Errors
+            };
+        }
+
+        public async Task<ApiResponse> Delete(string id)
+        {
+            var token = await _getAccessToken();
+            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
+
+            var response = await _client.Delete($"payers/{id}");
+
+            return new ApiResponse()
+            {
+                Errors = response.Errors
+            };
+        }
     }
 }
