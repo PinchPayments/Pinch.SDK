@@ -1,7 +1,14 @@
 {
-  "version": "0.7.0-*",
-  "description": "Pinch Payments API SDK",
-  "authors": ["Ben Cull"],
+  "version": "0.7.1-*",
+  "title": "Pinch Payments",
+  "description": "The easiest way to integrate your .net application with Pinch Payments. Create payers, add payments, receive webhooks, fetch payments, get paid. Really all the good stuff. It's for bank accounts if you didn't already know. I'll assume you did if you got this far, if not, Welcome! but you should probably check out getpinch.com.au to get up to speed.",
+  "authors": [ "Ben Cull" ],
+  "packOptions": {
+    "iconUrl": "https://raw.githubusercontent.com/bjcull/Pinch.SDK/master/assets/img/circle_logo_64x64.png",
+    "repository": { "url": "https://github.com/bjcull/Pinch.SDK" },
+    "projectUrl": "https://github.com/bjcull/Pinch.SDK",
+    "tags": ["payments", "pinch", "sdk", "direct debit"]
+  },
   "frameworks": {
     "net45": {
       "dependencies": {
@@ -16,8 +23,8 @@
       }
     }
   },
-  "dependencies": {    
-    "Newtonsoft.Json": "9.0.1"    
+  "dependencies": {
+    "Newtonsoft.Json": "9.0.1"
   },
   "scripts": {
     "postcompile": [
