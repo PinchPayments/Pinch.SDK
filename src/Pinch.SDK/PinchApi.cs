@@ -6,6 +6,7 @@ using Pinch.SDK.Auth;
 using Pinch.SDK.Merchant;
 using Pinch.SDK.Payer;
 using Pinch.SDK.Payment;
+using Pinch.SDK.Transfer;
 
 namespace Pinch.SDK
 {
@@ -21,6 +22,7 @@ namespace Pinch.SDK
         private MerchantClient _merchant;
         private PayerClient _payer;
         private PaymentClient _payment;
+        private TransferClient _transfer;
 
         public PinchApi(string secretKey, string clientId, bool isLive = true, string baseUri = null, string authUri = null)
         {
@@ -43,6 +45,7 @@ namespace Pinch.SDK
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_baseUri, GetAccessToken));
         public PayerClient Payer => _payer ?? (_payer = new PayerClient(_baseUri, GetAccessToken));
         public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_baseUri, GetAccessToken));
+        public TransferClient Transfer => _transfer ?? (_transfer = new TransferClient(_baseUri, GetAccessToken));
 
         protected async Task<string> GetAccessToken()
         {

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Pinch.SDK.WebSample.Models;
 using Pinch.SDK.WebSample.Services;
 using Microsoft.EntityFrameworkCore;
+using Pinch.SDK.WebSample.Helpers;
 
 namespace Pinch.SDK.WebSample
 {
@@ -33,6 +34,8 @@ namespace Pinch.SDK.WebSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PinchSettings>(options => Configuration.GetSection("Pinch").Bind(options));
+
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));

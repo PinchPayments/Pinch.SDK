@@ -1,0 +1,39 @@
+﻿@model List<Pinch.SDK.Transfer.Transfer>
+
+@{
+    ViewBag.Title = "Transfers";
+}
+
+<h2>Transfers</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Transfer Date</th>
+        <th>Amount</th>
+        <th>Account Number</th>
+        <th>Bsb</th>
+        <th>Reference</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var row in Model)
+    {
+        <tr>
+            <td><a href="@Url.Action("Details", "Transfers", new { id = row.Id })">@row.Id</a></td>
+            <td>@row.TransferDate</td>
+            <td>@row.Amount</td>
+            <td>@row.AccountNumber</td>
+            <td>@row.Bsb</td>
+            <td>@row.Reference</td>
+            <td>@row.Status</td>
+        </tr>
+    }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="7" class="text-center">No Transfers Found</td></tr>
+        }
+    </tbody>
+</table>

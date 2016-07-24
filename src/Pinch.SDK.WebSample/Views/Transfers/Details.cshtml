@@ -1,0 +1,39 @@
+﻿@model List<Pinch.SDK.Transfer.TransferLineItem>
+
+@{
+    ViewBag.Title = "Transfer Line Items";
+}
+
+<h2>Transfer Line Items</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Gross</th>
+            <th>Fees</th>
+            <th>Description</th>
+            <th>Transaction Date</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model)
+        {
+            <tr>
+                <td>@row.Id</td>
+                <td>@row.Type</td>
+                <td>@row.Gross</td>
+                <td>@row.Fees</td>
+                <td>@row.Description</td>
+                <td>@row.TransactionDate</td>
+                <td>@row.Total</td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="7" class="text-center">No Transfers Found</td></tr>
+        }
+    </tbody>
+</table>
