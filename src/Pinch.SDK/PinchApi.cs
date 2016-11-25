@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pinch.SDK.Auth;
-using Pinch.SDK.Merchant;
-using Pinch.SDK.Payer;
-using Pinch.SDK.Payment;
-using Pinch.SDK.Transfer;
+using Pinch.SDK.Merchants;
+using Pinch.SDK.Payers;
+using Pinch.SDK.Payments;
+using Pinch.SDK.Transfers;
 
 namespace Pinch.SDK
 {

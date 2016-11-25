@@ -23,6 +23,12 @@ namespace Pinch.SDK.Auth
             _authUri = authUri;
         }
 
+        public string GetConnectUrl(string applicationId, string redirectUri)
+        {
+            //https://localhost:44329/connect/authorize?client_id=app_123&redirect_uri=https://localhost:44389/pinch/callback&response_type=code&scope=api1 offline_access
+            return $"{_authUri}/connect/authorize?client_id={applicationId}&redirect_uri={redirectUri}&response_type=code&scope=api1 offline_access";
+        }
+
         public async Task<GetAccessTokenFromCodeResponse> GetAccessTokenFromCode(string code, string clientId, string redirectUri)
         {
             var client = new HttpClient()
@@ -75,7 +81,7 @@ namespace Pinch.SDK.Auth
             };
 
             client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(accessToken);
-
+            
             var response = await client.Get<List<GetClaimsResponseItem>>("values/claims");
 
             return response.Data;

@@ -21,20 +21,15 @@ namespace Pinch.SDK.WebSample.Controllers
             _settings = settings.Value;
         }
 
-        public IActionResult Callback(string code)
-        {
-            return View("Callback", code);
-        }
-
-        public async Task<IActionResult> GetAccessToken(string code)
+        public async Task<IActionResult> Callback(string code)
         {
             var api = new PinchApi(_settings.SecretKey, _settings.MerchantId);
 
-            var result = await api.Auth.GetAccessTokenFromCode(code, "app_123", "https://localhost:44389/pinch/callback");
+            var result = await api.Auth.GetAccessTokenFromCode(code, _settings.ApplicationId, Url.Action("Callback", "Pinch", null, Request.Scheme));
 
             HttpContext.Session.SetObjectAsJson("AccessToken", result);
 
-            return View("GetAccessToken", result);
+            return RedirectToAction("Connect", "Home");
         }
     }
 }

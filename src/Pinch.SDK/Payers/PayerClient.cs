@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
 
-namespace Pinch.SDK.Payer
+namespace Pinch.SDK.Payers
 {
     public class PayerClient
     {

@@ -34,11 +34,20 @@ namespace Pinch.SDK.WebSample.Controllers
                 AccessToken = token
             };
 
+            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId);
             if (!string.IsNullOrEmpty(model.AccessToken?.AccessToken))
             {
-                var api = new PinchApi(_settings.SecretKey, _settings.MerchantId);
-                var result = await api.Auth.GetClaims(model.AccessToken.AccessToken);
+                //var result = await api.Auth.GetClaims(model.AccessToken.AccessToken);
+                var result = User.Claims.Select(x => new GetClaimsResponseItem()
+                {
+                    Type = x.Type,
+                    Value = x.Value
+                }).ToList();
                 model.Claims = result;
+            }
+            else
+            {
+                model.ConnectUrl = api.Auth.GetConnectUrl(_settings.ApplicationId, Url.Action("Callback", "Pinch", null, Request.Scheme));
             }
 
             return View(model);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Pinch.SDK.Payer
+﻿namespace Pinch.SDK.Payers
 {
     public class Payer
     {

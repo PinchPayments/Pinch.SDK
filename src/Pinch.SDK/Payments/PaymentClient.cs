@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
 
-namespace Pinch.SDK.Payment
+namespace Pinch.SDK.Payments
 {
     public class PaymentClient
     {
@@ -21,11 +20,16 @@ namespace Pinch.SDK.Payment
             };
         }
 
-        public async Task<IEnumerable<Payment>> GetScheduledAll(List<Payment> list = null, int currentPage = 1, int pageSize = 50)
+        public async Task<IEnumerable<PaymentExpanded>> GetScheduledAll(DateTime? startDate = null, DateTime? endDate = null)
         {
-            list = list ?? new List<Payment>();
+            return await GetScheduledAll(null, 1, 50, startDate, endDate);
+        }
 
-            var data = await GetScheduled(currentPage, pageSize);
+        private async Task<IEnumerable<PaymentExpanded>> GetScheduledAll(List<PaymentExpanded> list, int currentPage, int pageSize, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            list = list ?? new List<PaymentExpanded>();
+
+            var data = await GetScheduled(currentPage, pageSize, startDate, endDate);
             list.AddRange(data.Data);
 
             if (data.totalPages > currentPage)
@@ -36,7 +40,7 @@ namespace Pinch.SDK.Payment
             return list;
         }
 
-        public async Task<Paged<Payment>> GetScheduled(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<Paged<PaymentExpanded>> GetScheduled(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
             var token = await _getAccessToken();
             _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
@@ -53,16 +57,22 @@ namespace Pinch.SDK.Payment
                 url += $"&endDate={endDate.Value:yyyy-MM-dd}";
             }
 
-            var response = await _client.Get<Paged<Payment>>(url);
+            var response = await _client.Get<Paged<PaymentExpanded>>(url);
 
             return response.Data;
         }
 
-        public async Task<IEnumerable<Payment>> GetProcessedAll(List<Payment> list = null, int currentPage = 1, int pageSize = 50)
-        {
-            list = list ?? new List<Payment>();
 
-            var data = await GetProcessed(currentPage, pageSize);
+        public async Task<IEnumerable<PaymentExpanded>> GetProcessedAll(DateTime? startDate = null, DateTime? endDate = null)
+        {
+            return await GetProcessedAll(null, 1, 50, startDate, endDate);
+        }
+
+        private async Task<IEnumerable<PaymentExpanded>> GetProcessedAll(List<PaymentExpanded> list, int currentPage, int pageSize, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            list = list ?? new List<PaymentExpanded>();
+
+            var data = await GetProcessed(currentPage, pageSize, startDate, endDate);
             list.AddRange(data.Data);
 
             if (data.totalPages > currentPage)
@@ -73,7 +83,7 @@ namespace Pinch.SDK.Payment
             return list;
         }
 
-        public async Task<Paged<Payment>> GetProcessed(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<Paged<PaymentExpanded>> GetProcessed(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
             var token = await _getAccessToken();
             _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
@@ -90,29 +100,39 @@ namespace Pinch.SDK.Payment
                 url += $"&endDate={endDate.Value:yyyy-MM-dd}";
             }
 
-            var response = await _client.Get<Paged<Payment>>(url);
+            var response = await _client.Get<Paged<PaymentExpanded>>(url);
 
             return response.Data;
         }
 
-        public async Task<Payment> Get(string id)
+        public async Task<PaymentDetailed> Get(string id)
         {
             var token = await _getAccessToken();
             _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
 
-            var response = await _client.Get<Payment>($"payments/{id}");
+            var response = await _client.Get<PaymentDetailed>($"payments/{id}");
+
+            return response.Data;
+        }
+        
+        public async Task<IEnumerable<Payment>> GetForPayer(string payerId)
+        {
+            var token = await _getAccessToken();
+            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
+
+            var response = await _client.Get<IEnumerable<Payment>>($"payments/payer/{payerId}");
 
             return response.Data;
         }
 
-        public async Task<ApiResponse<Payment>> Save(PaymentSaveOptions options)
+        public async Task<ApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
         {
             var token = await _getAccessToken();
             _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
 
-            var response = await _client.Post<Payment>("payments", options);
+            var response = await _client.Post<PaymentDetailed>("payments", options);
 
-            return new ApiResponse<Payment>()
+            return new ApiResponse<PaymentDetailed>()
             {
                 Data = response.Data,
                 Errors = response.Errors
