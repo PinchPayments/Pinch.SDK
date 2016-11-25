@@ -27,7 +27,7 @@
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
-    "Pinch.SDK": "1.0.0-*",
+    "Pinch.SDK": "*",
     "Microsoft.Extensions.Configuration.Binder": "1.0.0"
   },
 
