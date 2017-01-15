@@ -10,5 +10,7 @@ namespace Pinch.SDK.WebSample.Helpers
         public string SecretKey { get; set; }
         public string MerchantId { get; set; }
         public string ApplicationId { get; set; }
+        public string BaseUri { get; set; }
+        public string AuthUri { get; set; }
     }
 }

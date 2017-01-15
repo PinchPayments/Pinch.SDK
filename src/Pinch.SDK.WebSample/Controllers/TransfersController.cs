@@ -21,7 +21,7 @@ namespace Pinch.SDK.WebSample.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, false);
+            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, false, _settings.BaseUri, _settings.AuthUri);
 
             var transfers = await api.Transfer.GetTransfers();
 
@@ -30,7 +30,7 @@ namespace Pinch.SDK.WebSample.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, false);
+            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, false, _settings.BaseUri, _settings.AuthUri);
 
             var lineItems = await api.Transfer.GetLineItemsAll(id);
 

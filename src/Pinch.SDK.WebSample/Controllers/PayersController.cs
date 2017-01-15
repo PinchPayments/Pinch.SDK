@@ -22,7 +22,7 @@ namespace Pinch.SDK.WebSample.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId);
+            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, false, _settings.BaseUri, _settings.AuthUri);
 
             var payers = await api.Payer.GetPayers();
 

@@ -23,7 +23,7 @@ namespace Pinch.SDK.WebSample.Controllers
 
         public async Task<IActionResult> Callback(string code)
         {
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId);
+            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, true, _settings.BaseUri, _settings.AuthUri);
 
             var result = await api.Auth.GetAccessTokenFromCode(code, _settings.ApplicationId, Url.Action("Callback", "Pinch", null, Request.Scheme));
 

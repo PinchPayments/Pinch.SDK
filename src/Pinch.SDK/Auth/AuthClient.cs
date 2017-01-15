@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
+using IdentityModel.Client;
 using Newtonsoft.Json;
 using Pinch.SDK.Helpers;
 
@@ -26,7 +28,7 @@ namespace Pinch.SDK.Auth
         public string GetConnectUrl(string applicationId, string redirectUri)
         {
             //https://localhost:44329/connect/authorize?client_id=app_123&redirect_uri=https://localhost:44389/pinch/callback&response_type=code&scope=api1 offline_access
-            return $"{_authUri}/connect/authorize?client_id={applicationId}&redirect_uri={redirectUri}&response_type=code&scope=api1 offline_access";
+            return $"{_authUri}/connect/authorize?client_id={applicationId}&redirect_uri={redirectUri}&response_type=code&scope=api1 offline_access openid merchant";
         }
 
         public async Task<GetAccessTokenFromCodeResponse> GetAccessTokenFromCode(string code, string clientId, string redirectUri)
@@ -73,18 +75,14 @@ namespace Pinch.SDK.Auth
             return response.Data;
         }
 
-        public async Task<List<GetClaimsResponseItem>> GetClaims(string accessToken)
+        public async Task<List<Claim>> GetClaims(string accessToken)
         {
-            var client = new HttpClient()
-            {
-                BaseAddress = new Uri(_baseUri)
-            };
+            var discoveryClient = new DiscoveryClient(_authUri);
+            var doc = await discoveryClient.GetAsync();
+            var userInfoClient = new UserInfoClient(doc.UserInfoEndpoint);
+            var response = await userInfoClient.GetAsync(accessToken);
 
-            client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(accessToken);
-            
-            var response = await client.Get<List<GetClaimsResponseItem>>("values/claims");
-
-            return response.Data;
+            return response.Claims.ToList();
         }
     }
 }

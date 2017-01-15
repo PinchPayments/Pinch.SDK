@@ -34,15 +34,15 @@ namespace Pinch.SDK.WebSample.Controllers
                 AccessToken = token
             };
 
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId);
+            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, true, _settings.BaseUri, _settings.AuthUri);
             if (!string.IsNullOrEmpty(model.AccessToken?.AccessToken))
             {
-                //var result = await api.Auth.GetClaims(model.AccessToken.AccessToken);
-                var result = User.Claims.Select(x => new GetClaimsResponseItem()
-                {
-                    Type = x.Type,
-                    Value = x.Value
-                }).ToList();
+                var result = await api.Auth.GetClaims(model.AccessToken.AccessToken);
+                //var result = User.Claims.Select(x => new GetClaimsResponseItem()
+                //{
+                //    Type = x.Type,
+                //    Value = x.Value
+                //}).ToList();
                 model.Claims = result;
             }
             else
