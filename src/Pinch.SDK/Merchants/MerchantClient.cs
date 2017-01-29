@@ -6,46 +6,30 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Merchants
 {
-    public class MerchantClient
+    public class MerchantClient : BaseClient
     {
-        private readonly HttpClient _client;
-        private readonly Func<Task<string>> _getAccessToken;
-
-        public MerchantClient(string baseUri, Func<Task<string>> getAccessToken)
+        public MerchantClient(string baseUri, Func<bool, Task<string>> getAccessToken) 
+            : base(baseUri, getAccessToken)
         {
-            _getAccessToken = getAccessToken;
-            _client = new HttpClient()
-            {
-                BaseAddress = new Uri(baseUri)
-            };
         }
 
         public async Task<Merchant> GetMerchant()
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Get<Merchant>("merchants");
+            var response = await GetHttp<Merchant>("merchants");
 
             return response.Data;
         }
 
         public async Task<IEnumerable<ManagedMerchant>> GetAllManagedMerchants()
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Get<IEnumerable<ManagedMerchant>>("merchants/managed");
+            var response = await GetHttp<IEnumerable<ManagedMerchant>>("merchants/managed");
 
             return response.Data;
         }
 
         public async Task<ApiResponse<Merchant>> UpdateMerchant(MerchantUpdateOptions options)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Post<Merchant>("merchants", options);
+            var response = await PostHttp<Merchant>("merchants", options);
 
             return new ApiResponse<Merchant>()
             {
@@ -56,10 +40,7 @@ namespace Pinch.SDK.Merchants
 
         public async Task<ApiResponse<ManagedMerchant>> CreateManagedMerchant(ManagedMerchantCreateOptions options)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Post<ManagedMerchant>("merchants/managed", options);
+            var response = await PostHttp<ManagedMerchant>("merchants/managed", options);
 
             return new ApiResponse<ManagedMerchant>()
             {

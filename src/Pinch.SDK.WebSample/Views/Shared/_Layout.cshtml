@@ -37,10 +37,12 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li class="active"><a asp-controller="Home" asp-action="Index">Overview</a></li>
-                    <li><a asp-controller="Payers" asp-action="Index">Payers</a></li>
-                    <li><a asp-controller="Transfers" asp-action="Index">Transfers</a></li>
-                    <li><a asp-controller="Home" asp-action="Connect">Connect</a></li>
+                    <li is-active-route asp-controller="Home" asp-action="Index"><a asp-controller="Home" asp-action="Index">Overview</a></li>
+                    <li is-active-route asp-controller="Payers"><a asp-controller="Payers" asp-action="Index">Payers</a></li>
+                    <li is-active-route asp-controller="Transfers"><a asp-controller="Transfers" asp-action="Index">Transfers</a></li>
+                    <li is-active-route asp-controller="Events"><a asp-controller="Events" asp-action="Index">Events</a></li>
+                    <li is-active-route asp-controller="Merchants"><a asp-controller="Merchants" asp-action="Index">Merchants</a></li>
+                    <li is-active-route asp-controller="Home" asp-action="Connect"><a asp-controller="Home" asp-action="Connect">Connect</a></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
