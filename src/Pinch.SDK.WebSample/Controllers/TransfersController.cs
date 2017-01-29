@@ -10,29 +10,25 @@ using Pinch.SDK.WebSample.Helpers;
 
 namespace Pinch.SDK.WebSample.Controllers
 {
-    public class TransfersController : Controller
+    public class TransfersController : BaseController
     {
         private readonly PinchSettings _settings;
 
-        public TransfersController(IOptions<PinchSettings> settings)
+        public TransfersController(IOptions<PinchSettings> settings) : base(settings)
         {
             _settings = settings.Value;
         }
 
         public async Task<IActionResult> Index()
         {
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, false, _settings.BaseUri, _settings.AuthUri);
-
-            var transfers = await api.Transfer.GetTransfers();
+            var transfers = await GetApi().Transfer.GetTransfers();
 
             return View(transfers);
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, false, _settings.BaseUri, _settings.AuthUri);
-
-            var lineItems = await api.Transfer.GetLineItemsAll(id);
+            var lineItems = await GetApi().Transfer.GetLineItemsAll(id);
 
             return View(lineItems);
         }

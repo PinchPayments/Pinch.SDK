@@ -5,26 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pinch.SDK.WebSample.Helpers;
+using Pinch.SDK.WebSample.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Pinch.SDK.WebSample.Controllers
 {
-    public class PayersController : BaseController
+    public class MerchantsController : BaseController
     {
-        private readonly PinchSettings _settings;
-
-        public PayersController(IOptions<PinchSettings> settings) : base(settings)
-        {
-            _settings = settings.Value;
+        public MerchantsController(IOptions<PinchSettings> settings) : base(settings)
+        {            
         }
 
-        // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var payers = await GetApi().Payer.GetPayers();
+            var model = new MerchantsVm()
+            {
+                MyMerchant = await GetApi().Merchant.GetMerchant(),
+                ManagedMerchants = await GetApi().Merchant.GetAllManagedMerchants()
+            };
 
-            return View(payers);
+            return View(model);
         }
     }
 }

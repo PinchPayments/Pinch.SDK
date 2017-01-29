@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pinch.SDK.Auth;
+using Pinch.SDK.Events;
 using Pinch.SDK.Merchants;
 using Pinch.SDK.Payers;
 using Pinch.SDK.Payments;
@@ -23,6 +24,7 @@ namespace Pinch.SDK
         private PayerClient _payer;
         private PaymentClient _payment;
         private TransferClient _transfer;
+        private EventClient _event;
 
         public PinchApi(string secretKey, string clientId, bool isLive = true, string baseUri = null, string authUri = null)
         {
@@ -46,6 +48,7 @@ namespace Pinch.SDK
         public PayerClient Payer => _payer ?? (_payer = new PayerClient(_baseUri, GetAccessToken));
         public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_baseUri, GetAccessToken));
         public TransferClient Transfer => _transfer ?? (_transfer = new TransferClient(_baseUri, GetAccessToken));
+        public EventClient Event => _event ?? (_event = new EventClient(_baseUri, GetAccessToken));
 
         protected async Task<string> GetAccessToken()
         {

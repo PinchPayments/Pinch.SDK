@@ -1,0 +1,27 @@
+﻿@using System.Threading.Tasks
+@using Newtonsoft.Json
+@model IEnumerable<Pinch.SDK.Events.Event>
+
+<h2>Events</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Event Date</th>
+            <th>Metadata</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evt in Model)
+        {
+            <tr>
+                <td>@evt.Id</td>
+                <td>@evt.Type</td>
+                <td>@evt.EventDate</td>
+                <td>@JsonConvert.SerializeObject(evt.Metadata)</td>
+            </tr>
+        }
+    </tbody>
+</table>

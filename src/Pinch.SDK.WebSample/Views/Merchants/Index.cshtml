@@ -1,0 +1,78 @@
+﻿@model MerchantsVm
+
+<h2>My Merchant</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Company Name</th>
+        <th>Contact Email</th>
+        <th>Account Name</th>
+        <th>BSB</th>
+        <th>Account Number</th>
+        <th>Street Address</th>
+        <th>Suburb</th>
+        <th>Postcode</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.MyMerchant.Id</td>
+            <td>@Model.MyMerchant.CompanyName</td>
+            <td>@Model.MyMerchant.ContactEmail</td>
+            <td>@Model.MyMerchant.AccountName</td>
+            <td>@Model.MyMerchant.BSB</td>
+            <td>@Model.MyMerchant.AccountNumber</td>
+            <td>@Model.MyMerchant.StreetAddress</td>
+            <td>@Model.MyMerchant.Suburb</td>
+            <td>@Model.MyMerchant.Postcode</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Managed Merchants</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Company Name</th>
+        <th>Contact Email</th>
+        <th>Account Name</th>
+        <th>BSB</th>
+        <th>Account Number</th>
+        <th>Street Address</th>
+        <th>Suburb</th>
+        <th>Postcode</th>
+        <th>Keys</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var merchant in Model.ManagedMerchants)
+    {
+        <tr>
+            <td>@merchant.Id</td>
+            <td>@merchant.CompanyName</td>
+            <td>@merchant.ContactEmail</td>
+            <td>@merchant.AccountName</td>
+            <td>@merchant.BSB</td>
+            <td>@merchant.AccountNumber</td>
+            <td>@merchant.StreetAddress</td>
+            <td>@merchant.Suburb</td>
+            <td>@merchant.Postcode</td>
+            <td>
+                <p>@merchant.SecretKey</p>
+                <p>@merchant.TestPublishableKey</p>
+                <p>@merchant.LivePublishableKey</p>
+            </td>
+        </tr>
+    }
+    @if (!Model.ManagedMerchants.Any())
+    {
+        <tr>
+            <td colspan="9">You have no managed merchants</td>
+        </tr>
+    }
+    </tbody>
+</table>

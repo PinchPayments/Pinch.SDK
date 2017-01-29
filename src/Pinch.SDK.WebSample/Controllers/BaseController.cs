@@ -10,21 +10,18 @@ using Pinch.SDK.WebSample.Helpers;
 
 namespace Pinch.SDK.WebSample.Controllers
 {
-    public class PayersController : BaseController
+    public class BaseController : Controller
     {
         private readonly PinchSettings _settings;
 
-        public PayersController(IOptions<PinchSettings> settings) : base(settings)
+        public BaseController(IOptions<PinchSettings> options)
         {
-            _settings = settings.Value;
+            _settings = options.Value;
         }
 
-        // GET: /<controller>/
-        public async Task<IActionResult> Index()
+        protected PinchApi GetApi()
         {
-            var payers = await GetApi().Payer.GetPayers();
-
-            return View(payers);
+            return new PinchApi(_settings.SecretKey, _settings.MerchantId, false, _settings.BaseUri, _settings.AuthUri);            
         }
     }
 }

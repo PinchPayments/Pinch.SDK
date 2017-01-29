@@ -10,21 +10,23 @@ using Pinch.SDK.WebSample.Helpers;
 
 namespace Pinch.SDK.WebSample.Controllers
 {
-    public class PayersController : BaseController
+    public class EventsController : BaseController
     {
-        private readonly PinchSettings _settings;
-
-        public PayersController(IOptions<PinchSettings> settings) : base(settings)
+        public EventsController(IOptions<PinchSettings> settings) : base(settings)
         {
-            _settings = settings.Value;
         }
 
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var payers = await GetApi().Payer.GetPayers();
+            var model = await GetApi().Event.GetEventsAll();
 
-            return View(payers);
+            return View(model);
         }
+
+        //public async Task<IActionResult> Details(string id)
+        //{
+        //    var model = await GetApi().Event.Get();
+        //}
     }
 }

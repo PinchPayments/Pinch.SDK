@@ -4,7 +4,7 @@ namespace Pinch.SDK.Transfers
 {
     public class TransferLineItem
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Type { get; set; }
         public int Gross { get; set; }
         public int Fees { get; set; }

@@ -18,6 +18,7 @@ namespace Pinch.SDK.Merchants
         public string Postcode { get; set; }
 
         public string SecretKey { get; set; }
-        public string PublishableKey { get; set; }
+        public string TestPublishableKey { get; set; }
+        public string LivePublishableKey { get; set; }
     }
 }
