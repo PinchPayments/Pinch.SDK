@@ -1,0 +1,34 @@
+﻿@using System.Threading.Tasks
+@using Newtonsoft.Json
+@model Pinch.SDK.Events.EventDetailed
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2>Event: @Model.Id</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Event Date</th>
+        <th>Metadata</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.Type</td>
+        <td>@Model.EventDate</td>
+        <td>@JsonConvert.SerializeObject(Model.Metadata)</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Event Data</h3>
+<p>
+    @JsonConvert.SerializeObject(Model.Data)
+</p>

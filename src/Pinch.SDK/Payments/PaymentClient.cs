@@ -6,18 +6,11 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Payments
 {
-    public class PaymentClient
+    public class PaymentClient : BaseClient
     {
-        private readonly HttpClient _client;
-        private readonly Func<Task<string>> _getAccessToken;
-
-        public PaymentClient(string baseUri, Func<Task<string>> getAccessToken)
+        public PaymentClient(string baseUri, Func<bool, Task<string>> getAccessToken)
+            : base(baseUri, getAccessToken)
         {
-            _getAccessToken = getAccessToken;
-            _client = new HttpClient()
-            {
-                BaseAddress = new Uri(baseUri)
-            };
         }
 
         public async Task<IEnumerable<PaymentExpanded>> GetScheduledAll(DateTime? startDate = null, DateTime? endDate = null)
@@ -42,9 +35,6 @@ namespace Pinch.SDK.Payments
 
         public async Task<Paged<PaymentExpanded>> GetScheduled(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
             var url = $"payments/scheduled?page={page}&pagesize={pageSize}";
 
             if (startDate.HasValue)
@@ -57,7 +47,7 @@ namespace Pinch.SDK.Payments
                 url += $"&endDate={endDate.Value:yyyy-MM-dd}";
             }
 
-            var response = await _client.Get<Paged<PaymentExpanded>>(url);
+            var response = await GetHttp<Paged<PaymentExpanded>>(url);
 
             return response.Data;
         }
@@ -85,9 +75,6 @@ namespace Pinch.SDK.Payments
 
         public async Task<Paged<PaymentExpanded>> GetProcessed(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
             var url = $"payments/processed?page={page}&pagesize={pageSize}";
 
             if (startDate.HasValue)
@@ -100,37 +87,28 @@ namespace Pinch.SDK.Payments
                 url += $"&endDate={endDate.Value:yyyy-MM-dd}";
             }
 
-            var response = await _client.Get<Paged<PaymentExpanded>>(url);
+            var response = await GetHttp<Paged<PaymentExpanded>>(url);
 
             return response.Data;
         }
 
         public async Task<PaymentDetailed> Get(string id)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Get<PaymentDetailed>($"payments/{id}");
+            var response = await GetHttp<PaymentDetailed>($"payments/{id}");
 
             return response.Data;
         }
         
         public async Task<IEnumerable<Payment>> GetForPayer(string payerId)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Get<IEnumerable<Payment>>($"payments/payer/{payerId}");
+            var response = await GetHttp<IEnumerable<Payment>>($"payments/payer/{payerId}");
 
             return response.Data;
         }
 
         public async Task<ApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Post<PaymentDetailed>("payments", options);
+            var response = await PostHttp<PaymentDetailed>("payments", options);
 
             return new ApiResponse<PaymentDetailed>()
             {
@@ -141,10 +119,7 @@ namespace Pinch.SDK.Payments
 
         public async Task<ApiResponse> Delete(string id)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Delete($"payments/{id}");
+            var response = await DeleteHttp($"payments/{id}");
 
             return new ApiResponse()
             {

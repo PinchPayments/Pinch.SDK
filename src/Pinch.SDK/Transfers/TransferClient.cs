@@ -6,36 +6,23 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Transfers
 {
-    public class TransferClient
+    public class TransferClient : BaseClient
     {
-        private readonly HttpClient _client;
-        private readonly Func<Task<string>> _getAccessToken;
-
-        public TransferClient(string baseUri, Func<Task<string>> getAccessToken)
+        public TransferClient(string baseUri, Func<bool, Task<string>> getAccessToken)
+            : base(baseUri, getAccessToken)
         {
-            _getAccessToken = getAccessToken;
-            _client = new HttpClient()
-            {
-                BaseAddress = new Uri(baseUri)
-            };
         }
 
         public async Task<Transfer> Get(string id)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Get<Transfer>($"transfers/{id}");
+            var response = await GetHttp<Transfer>($"transfers/{id}");
 
             return response.Data;
         }
 
         public async Task<List<Transfer>> GetTransfers()
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Get<List<Transfer>>("transfers");
+            var response = await GetHttp<List<Transfer>>("transfers");
 
             return response.Data;
         }
@@ -57,9 +44,6 @@ namespace Pinch.SDK.Transfers
 
         public async Task<Paged<TransferLineItem>> GetLineItems(string id, int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
             var url = $"transfers/items/{id}?page={page}&pagesize={pageSize}";
 
             if (startDate.HasValue)
@@ -72,7 +56,7 @@ namespace Pinch.SDK.Transfers
                 url += $"&endDate={endDate.Value:yyyy-MM-dd}";
             }
 
-            var response = await _client.Get<Paged<TransferLineItem>>(url);
+            var response = await GetHttp<Paged<TransferLineItem>>(url);
 
             return response.Data;
         }

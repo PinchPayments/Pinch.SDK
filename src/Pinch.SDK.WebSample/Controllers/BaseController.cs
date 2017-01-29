@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Pinch.SDK.Auth;
 using Pinch.SDK.WebSample.Helpers;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,7 +22,26 @@ namespace Pinch.SDK.WebSample.Controllers
 
         protected PinchApi GetApi()
         {
-            return new PinchApi(_settings.SecretKey, _settings.MerchantId, false, _settings.BaseUri, _settings.AuthUri);            
+            var token = HttpContext.Session.GetObjectFromJson<GetAccessTokenFromCodeResponse>("AccessToken");
+
+            if (token != null)
+            {
+                return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions(){
+                    IsLive = false,
+                    BaseUri = _settings.BaseUri,
+                    AuthUri = _settings.AuthUri,
+                    ApplicationId = _settings.ApplicationId,
+                    AccessToken = token.AccessToken,
+                    RefreshToken = token.RefreshToken,
+                });
+            }
+
+            return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions()
+            {
+                IsLive = false,
+                BaseUri = _settings.BaseUri,
+                AuthUri = _settings.AuthUri
+            });
         }
     }
 }

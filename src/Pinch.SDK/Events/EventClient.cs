@@ -6,26 +6,15 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Events
 {
-    public class EventClient
+    public class EventClient : BaseClient
     {
-        private readonly HttpClient _client;
-        private readonly Func<Task<string>> _getAccessToken;
-
-        public EventClient(string baseUri, Func<Task<string>> getAccessToken)
+        public EventClient(string baseUri, Func<bool, Task<string>> getAccessToken) : base(baseUri, getAccessToken)
         {
-            _getAccessToken = getAccessToken;
-            _client = new HttpClient()
-            {
-                BaseAddress = new Uri(baseUri)
-            };
         }
 
         public async Task<EventDetailed> Get(string id)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
-            var response = await _client.Get<EventDetailed>($"events/{id}");
+            var response = await GetHttp<EventDetailed>($"events/{id}");
 
             return response.Data;
         }
@@ -52,9 +41,6 @@ namespace Pinch.SDK.Events
 
         public async Task<Paged<Event>> GetEvents(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
-            var token = await _getAccessToken();
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(token);
-
             var url = $"events?page={page}&pagesize={pageSize}";
 
             if (startDate.HasValue)
@@ -67,7 +53,7 @@ namespace Pinch.SDK.Events
                 url += $"&endDate={endDate.Value:yyyy-MM-dd}";
             }
 
-            var response = await _client.Get<Paged<Event>>(url);
+            var response = await GetHttp<Paged<Event>>(url);
 
             return response.Data;           
         }

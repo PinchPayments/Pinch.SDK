@@ -12,20 +12,18 @@ using Pinch.SDK.WebSample.Helpers;
 
 namespace Pinch.SDK.WebSample.Controllers
 {
-    public class PinchController : Controller
+    public class PinchController : BaseController
     {
         private readonly PinchSettings _settings;
 
-        public PinchController(IOptions<PinchSettings> settings)
+        public PinchController(IOptions<PinchSettings> settings) : base(settings)
         {
             _settings = settings.Value;
         }
 
         public async Task<IActionResult> Callback(string code)
-        {
-            var api = new PinchApi(_settings.SecretKey, _settings.MerchantId, true, _settings.BaseUri, _settings.AuthUri);
-
-            var result = await api.Auth.GetAccessTokenFromCode(code, _settings.ApplicationId, Url.Action("Callback", "Pinch", null, Request.Scheme));
+        {            
+            var result = await GetApi().Auth.GetAccessTokenFromCode(code, _settings.ApplicationId, Url.Action("Callback", "Pinch", null, Request.Scheme));
 
             HttpContext.Session.SetObjectAsJson("AccessToken", result);
 

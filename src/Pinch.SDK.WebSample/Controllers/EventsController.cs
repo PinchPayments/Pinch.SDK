@@ -24,9 +24,11 @@ namespace Pinch.SDK.WebSample.Controllers
             return View(model);
         }
 
-        //public async Task<IActionResult> Details(string id)
-        //{
-        //    var model = await GetApi().Event.Get();
-        //}
+        public async Task<IActionResult> Details(string id)
+        {
+            var model = await GetApi().Event.Get(id);
+
+            return View(model);
+        }
     }
 }

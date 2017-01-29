@@ -75,6 +75,23 @@ namespace Pinch.SDK.Auth
             return response.Data;
         }
 
+        public async Task<GetAccessTokenFromRefreshTokenResponse> GetAccessTokenFromRefreshToken(string refreshToken, string secretKey, string clientId)
+        {
+            var disco = await DiscoveryClient.GetAsync(_authUri);
+            if (disco.IsError) throw new Exception(disco.Error);
+
+            var tokenClient = new TokenClient(disco.TokenEndpoint, clientId, secretKey);
+            var tokenResult = await tokenClient.RequestRefreshTokenAsync(refreshToken);
+
+            return new GetAccessTokenFromRefreshTokenResponse()
+            {
+                AccessToken = tokenResult.AccessToken,
+                RefreshToken = tokenResult.RefreshToken,
+                ExpiresIn = tokenResult.ExpiresIn,
+                TokenType = tokenResult.TokenType,
+            };
+        }
+
         public async Task<List<Claim>> GetClaims(string accessToken)
         {
             var discoveryClient = new DiscoveryClient(_authUri);

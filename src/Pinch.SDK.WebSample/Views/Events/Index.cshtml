@@ -17,7 +17,7 @@
         @foreach (var evt in Model)
         {
             <tr>
-                <td>@evt.Id</td>
+                <td><a href="@Url.Action("Details", "Events", new { id = evt.Id })">@evt.Id</a></td>
                 <td>@evt.Type</td>
                 <td>@evt.EventDate</td>
                 <td>@JsonConvert.SerializeObject(evt.Metadata)</td>
