@@ -1,5 +1,5 @@
 {
-  "version": "0.8.1-*",
+  "version": "0.8.2-*",
   "title": "Pinch Payments",
   "description": "The easiest way to integrate your .net application with Pinch Payments. Create payers, add payments, receive webhooks, fetch payments, get paid. Really all the good stuff. It's for bank accounts if you didn't already know. I'll assume you did if you got this far, if not, Welcome! but you should probably check out getpinch.com.au to get up to speed.",
   "authors": [ "Ben Cull" ],
