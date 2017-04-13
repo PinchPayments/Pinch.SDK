@@ -13,39 +13,85 @@ namespace Pinch.SDK.Payers
         {
         }
 
-        public async Task<List<Payer>> GetPayers()
+        /// <summary>
+        /// Get all payers for the current Merchant. Warning, retrieves all pages; Please use sparingly.
+        /// </summary>
+        /// <param name="list">The current list of Payers</param>
+        /// <param name="currentPage">The current page</param>
+        /// <param name="pageSize">Number of payers to retrieve with each call to the API</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<IEnumerable<Payer>>> GetPayersAll(List<Payer> list = null, int currentPage = 1, int pageSize = 50)
         {
-            var response = await GetHttp<List<Payer>>("payers");
+            list = list ?? new List<Payer>();
 
-            return response.Data;
-        }
+            var data = await GetPayers(currentPage, pageSize);
 
-        public async Task<Payer> Get(string id)
-        {
-            var response = await GetHttp<Payer>($"payers/{id}");
-
-            return response.Data;
-        }
-
-        public async Task<ApiResponse<Payer>> Save(PayerSaveOptions options)
-        {
-            var response = await PostHttp<Payer>("payers", options);
-
-            return new ApiResponse<Payer>()
+            if (!data.Success)
             {
-                Data = response.Data,
-                Errors = response.Errors
+                return new ApiResponse<IEnumerable<Payer>>()
+                {
+                    Errors = data.Errors
+                };
+            }
+
+            list.AddRange(data.Data.Data);
+
+            if (data.Data.totalPages > currentPage)
+            {
+                await GetPayersAll(list, currentPage + 1, pageSize);
+            }
+
+            return new ApiResponse<IEnumerable<Payer>>()
+            {
+                Data = list                
             };
         }
 
+        /// <summary>
+        /// Get all Payers for the current Merchant (Paged).
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ApiResponse<Paged<Payer>>> GetPayers(int page = 1, int pageSize = 50)
+        {
+            var response = await GetHttp<Paged<Payer>>($"payers?page={page}&pagesize={pageSize}");            
+
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
+        /// Fetches detailed properties for a single Payer.
+        /// </summary>
+        /// <param name="id">Payer ID</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<PayerDetailed>> Get(string id)
+        {
+            var response = await GetHttp<PayerDetailed>($"payers/{id}");
+
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
+        /// Add or Update a Payer
+        /// </summary>
+        /// <param name="options">Payer information. All fields will be used.</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<PayerDetailed>> Save(PayerSaveOptions options)
+        {
+            var response = await PostHttp<PayerDetailed>("payers", options);
+
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
+        /// Delete a payer
+        /// </summary>
+        /// <param name="id">The Payer ID to delete</param>
+        /// <returns></returns>
         public async Task<ApiResponse> Delete(string id)
         {
             var response = await DeleteHttp($"payers/{id}");
 
-            return new ApiResponse()
-            {
-                Errors = response.Errors
-            };
+            return response.ToApiResponse();
         }
     }
 }

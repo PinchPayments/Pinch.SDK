@@ -1,14 +1,18 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Pinch.SDK.Agreements;
 
 namespace Pinch.SDK.Payers
 {
     /// <summary>
-    /// Payer Information
+    /// The full list of properties for a Payer
     /// </summary>
-    public class PayerSaveOptions
+    public class PayerDetailed
     {
         /// <summary>
-        /// Payer ID. Leave blank to create a new Payer.
+        /// The Payer ID
         /// </summary>
         public string Id { get; set; }
         /// <summary>
@@ -24,21 +28,25 @@ namespace Pinch.SDK.Payers
         /// </summary>
         public string EmailAddress { get; set; }
         /// <summary>
-        /// The Payer's BSB (Bank State Branch number). Must be 6 digits. Everything except numbers will be stripped.
+        /// Mobile Number
+        /// </summary>
+        public string MobileNumber { get; set; }
+        /// <summary>
+        /// BSB
         /// </summary>
         public string BSB { get; set; }
         /// <summary>
-        /// The Payer's Bank Account Number. Currently must be between 3 and 10 digits long (inclusive). Everything except numbers will be stripped.
+        /// Account Number
         /// </summary>
         public string AccountNumber { get; set; }
         /// <summary>
-        /// The Payer's Bank Account Name. If left blank, it will be set to the Payer's name.
+        /// Account Name
         /// </summary>
         public string AccountName { get; set; }
 
         /// <summary>
-        /// This can only be used by trusted/internal clients. It allows you to select which merchant the payer will be added to.
+        /// A list of Agreements for the current payer
         /// </summary>
-        public string MerchantId { get; set; }
+        public IEnumerable<Agreement> Agreements { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -24,28 +25,39 @@ namespace Pinch.SDK.Helpers
 
     public static class HttpClientExtensions
     {
-        public static async Task<QuickResponse<T>> Get<T>(this HttpClient client, string url)
+        public static async Task<ApiResponse<T>> Get<T>(this HttpClient client, string url)
         {
             var response = await client.GetAsync(url);
-            return await QuickResponse<T>.FromMessage(response);
+            var qr = await QuickResponse<T>.FromMessage(response);
+            return qr.ToApiResponse();
         }
 
-        public static async Task<QuickResponse<T>> Post<T>(this HttpClient client, string url, Dictionary<string, string> parameters)
+        public static async Task<ApiResponse> GetFile(this HttpClient client, string url)
+        {
+            var response = await client.GetAsync(url);
+            var qr = await QuickFile.FromMessage(response);
+            return qr.ToApiResponse();
+        }
+
+        public static async Task<ApiResponse<T>> Post<T>(this HttpClient client, string url, Dictionary<string, string> parameters)
         {
             var response = await client.PostAsync(url, HttpClientHelpers.GetPostBody(parameters));
-            return await QuickResponse<T>.FromMessage(response);
+            var qr = await QuickResponse<T>.FromMessage(response);
+            return qr.ToApiResponse();
         }
 
-        public static async Task<QuickResponse<T>> Post<T>(this HttpClient client, string url, object data)
+        public static async Task<ApiResponse<T>> Post<T>(this HttpClient client, string url, object data)
         {
             var response = await client.PostAsync(url, HttpClientHelpers.GetJsonBody(data));
-            return await QuickResponse<T>.FromMessage(response);
+            var qr = await QuickResponse<T>.FromMessage(response);
+            return qr.ToApiResponse();
         }
 
-        public static async Task<QuickResponse> Delete(this HttpClient client, string url)
+        public static async Task<ApiResponse> Delete(this HttpClient client, string url)
         {
             var response = await client.DeleteAsync(url);
-            return await QuickResponse.FromMessage(response);
+            var qr = await QuickResponse.FromMessage(response);
+            return qr.ToApiResponse();
         }
     }
 
@@ -62,6 +74,14 @@ namespace Pinch.SDK.Helpers
             Errors = new List<ApiError>();
         }
 
+        public ApiResponse ToApiResponse()
+        {
+            return new ApiResponse()
+            {
+                Errors = Errors
+            };
+        }
+
         public static async Task<QuickResponse> FromMessage(HttpResponseMessage message)
         {
             var response = new QuickResponse();
@@ -70,26 +90,48 @@ namespace Pinch.SDK.Helpers
 
             if (!message.IsSuccessStatusCode)
             {
-                try
-                {
-                    response.Errors = JsonConvert.DeserializeObject<List<ApiError>>(response.ResponseBody);
-                }
-                catch (Exception ex)
-                {
-                    response.Errors.Add(new ApiError()
-                    {
-                        ErrorMessage = response.ResponseBody
-                    });
-                }
+                response.HandleFailedCall();
             }
 
             return response;
+        }
+
+        protected void HandleFailedCall()
+        {
+            try
+            {
+                Errors = JsonConvert.DeserializeObject<List<ApiError>>(ResponseBody) ?? new List<ApiError>();
+
+                if (!Errors.Any())
+                {
+                    Errors.Add(new ApiError()
+                    {
+                        ErrorMessage = !string.IsNullOrEmpty(ResponseBody) ? ResponseBody : Message.StatusCode.ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Errors.Add(new ApiError()
+                {
+                    ErrorMessage = !string.IsNullOrEmpty(ResponseBody) ? ResponseBody : Message.StatusCode.ToString()
+                });
+            }
         }
     }
 
     public class QuickResponse<T> : QuickResponse
     {
         public T Data { get; set; }
+
+        public new ApiResponse<T> ToApiResponse()
+        {
+            return new ApiResponse<T>()
+            {
+                Errors = Errors,
+                Data = Data
+            };
+        }
 
         public new static async Task<QuickResponse<T>> FromMessage(HttpResponseMessage message)
         {
@@ -103,17 +145,28 @@ namespace Pinch.SDK.Helpers
             }
             else
             {
-                try
-                {
-                    response.Errors = JsonConvert.DeserializeObject<List<ApiError>>(response.ResponseBody);
-                }
-                catch (Exception ex)
-                {
-                    response.Errors.Add(new ApiError()
-                    {
-                        ErrorMessage = response.ResponseBody
-                    });
-                }
+                response.HandleFailedCall();
+            }
+
+            return response;
+        }
+    }
+
+    public class QuickFile : QuickResponse<Stream>
+    {
+        public new static async Task<QuickFile> FromMessage(HttpResponseMessage message)
+        {
+            var response = new QuickFile();
+            response.Message = message;
+            response.ResponseBody = await message.Content.ReadAsStringAsync();
+
+            if (message.IsSuccessStatusCode)
+            {
+                response.Data = await message.Content.ReadAsStreamAsync();
+            }
+            else
+            {
+                response.HandleFailedCall();
             }
 
             return response;

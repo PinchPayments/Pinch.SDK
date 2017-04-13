@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pinch.SDK.Agreements;
 using Pinch.SDK.Auth;
 using Pinch.SDK.Events;
 using Pinch.SDK.Merchants;
@@ -11,6 +12,9 @@ using Pinch.SDK.Transfers;
 
 namespace Pinch.SDK
 {
+    /// <summary>
+    /// The Pinch API. This class is all you need to call every method of our API.
+    /// </summary>
     public class PinchApi
     {
         private readonly string _secretKey;
@@ -27,6 +31,7 @@ namespace Pinch.SDK
         private PaymentClient _payment;
         private TransferClient _transfer;
         private EventClient _event;
+        private AgreementClient _agreement;
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _authUri, _baseUri));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_baseUri, GetAccessToken));
@@ -34,8 +39,15 @@ namespace Pinch.SDK
         public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_baseUri, GetAccessToken));
         public TransferClient Transfer => _transfer ?? (_transfer = new TransferClient(_baseUri, GetAccessToken));
         public EventClient Event => _event ?? (_event = new EventClient(_baseUri, GetAccessToken));
+        public AgreementClient Agreement => _agreement ?? (_agreement = new AgreementClient(_baseUri, GetAccessToken));
 
-        public PinchApi(string clientId, string secretKey, PinchApiOptions options)
+        /// <summary>
+        /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.
+        /// </summary>
+        /// <param name="merchantId">Your Merchant ID</param>
+        /// <param name="secretKey">Your Secret Key</param>
+        /// <param name="options">Mostly used to set IsLive. There are a few things you can override in here.</param>
+        public PinchApi(string merchantId, string secretKey, PinchApiOptions options)
         {
             if (!string.IsNullOrEmpty(options.BaseUri))
             {
@@ -49,12 +61,17 @@ namespace Pinch.SDK
             _authUri = !string.IsNullOrEmpty(options.AuthUri) ? options.AuthUri : Settings.AuthBaseUri_Production;
 
             _secretKey = secretKey;
-            _clientId = clientId;
+            _clientId = merchantId;
             _accessToken = options.AccessToken;
             _refreshToken = options.RefreshToken;
             _applicationId = options.ApplicationId;
         }
 
+        /// <summary>
+        /// This method fetches and caches an Access Token, requested from the Auth API.
+        /// </summary>
+        /// <param name="renew">Set to <c>true</c> to force a new token to be fetched, rather than using the cache.</param>
+        /// <returns></returns>
         protected async Task<string> GetAccessToken(bool renew = false)
         {
             if (_accessToken == null || renew)

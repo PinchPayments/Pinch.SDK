@@ -22,9 +22,14 @@ namespace Pinch.SDK.WebSample.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var payers = await GetApi().Payer.GetPayers();
+            var payers = await GetApi().Payer.GetPayersAll();
 
-            return View(payers);
+            if (!payers.Success)
+            {
+                throw new Exception(string.Join(" - ", payers.Errors.Select(x => x.ErrorMessage)));
+            }
+
+            return View(payers.Data.ToList());
         }
     }
 }

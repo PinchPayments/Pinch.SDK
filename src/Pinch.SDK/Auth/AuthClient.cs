@@ -27,7 +27,6 @@ namespace Pinch.SDK.Auth
 
         public string GetConnectUrl(string applicationId, string redirectUri)
         {
-            //https://localhost:44329/connect/authorize?client_id=app_123&redirect_uri=https://localhost:44389/pinch/callback&response_type=code&scope=api1 offline_access
             return $"{_authUri}/connect/authorize?client_id={applicationId}&redirect_uri={redirectUri}&response_type=code&scope=api1 offline_access openid merchant";
         }
 
@@ -65,8 +64,9 @@ namespace Pinch.SDK.Auth
                 {"scope", "api1"}
             };            
 
-            var response = await client.Post<GetAccessTokenFromSecretKeyResponse>("connect/token", parameters);            
-                
+            var clientResponse = await client.PostAsync("connect/token", HttpClientHelpers.GetPostBody(parameters));
+            var response = await QuickResponse<GetAccessTokenFromSecretKeyResponse>.FromMessage(clientResponse);            
+
             if (response.Data?.AccessToken == null)
             {
                 throw new Exception($"Could not get access token. Error: {response.ResponseBody}");
