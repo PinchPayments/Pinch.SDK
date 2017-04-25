@@ -55,7 +55,7 @@ namespace Pinch.SDK.Merchants
         /// <returns></returns>
         public async Task<ApiResponse<Merchant>> UpdateMerchant(MerchantUpdateOptions options)
         {
-            var response = await PostHttp<Merchant>("merchants", options);
+            var response = await PostHttp<Merchant>("merchants/update", options);
 
             return response.ToApiResponse();
         }
