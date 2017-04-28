@@ -55,6 +55,8 @@ namespace Pinch.SDK.WebSample.Helpers
             {
                 MakeActive(output);
             }
+
+            output.Attributes.RemoveAll("is-active-route");
         }
 
         private bool ShouldBeActive()
