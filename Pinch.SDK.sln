@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{74D307F2-34AB-489C-BDC7-B770BFCD3CA7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BCB43A02-9028-4F2A-BA2C-B66C99197E3F}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Pinch.SDK.WebSample", "src\Pinch.SDK.WebSample\Pinch.SDK.WebSample.xproj", "{7509CEE7-D9B1-41C2-9E66-CD008DF23DBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinch.SDK.WebSample", "src\Pinch.SDK.WebSample\Pinch.SDK.WebSample.csproj", "{7509CEE7-D9B1-41C2-9E66-CD008DF23DBF}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Pinch.SDK", "src\Pinch.SDK\Pinch.SDK.xproj", "{9F5524CF-52D6-4B39-80AF-52F2D591D790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinch.SDK", "src\Pinch.SDK\Pinch.SDK.csproj", "{9F5524CF-52D6-4B39-80AF-52F2D591D790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
