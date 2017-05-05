@@ -99,9 +99,9 @@ namespace Pinch.SDK.Payments
             return response.Data;
         }
         
-        public async Task<IEnumerable<Payment>> GetForPayer(string payerId)
+        public async Task<IEnumerable<PaymentExpanded>> GetForPayer(string payerId)
         {
-            var response = await GetHttp<IEnumerable<Payment>>($"payments/payer/{payerId}");
+            var response = await GetHttp<IEnumerable<PaymentExpanded>>($"payments/payer/{payerId}");
 
             return response.Data;
         }

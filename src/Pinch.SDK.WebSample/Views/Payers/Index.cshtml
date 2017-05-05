@@ -5,7 +5,10 @@
 @{
 }
 
-<h2>Woo payers</h2>
+<h2>
+    Payers
+    <a href="@Url.Action("New", "Payers")" class="btn btn-primary pull-right">New Payer</a>
+</h2>
 
 <table class="table">
     <thead>
@@ -14,16 +17,21 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     @foreach (var payer in Model)
     {
         <tr>
-            <td>@payer.Id</td>
+            <td><a href="@Url.Action("Details", "Payers", new {id=payer.Id})">@payer.Id</a></td>
             <td>@payer.FirstName</td>
             <td>@payer.LastName</td>
             <td>@payer.EmailAddress</td>
+            <td class="text-right">
+                <a href="@Url.Action("Edit", "Payers", new { id = payer.Id })" class="btn btn-link">Edit</a>
+                <a href="@Url.Action("Delete", "Payers", new { id = payer.Id })" class="btn btn-link">Delete</a>
+            </td>
         </tr>
     }
     </tbody>

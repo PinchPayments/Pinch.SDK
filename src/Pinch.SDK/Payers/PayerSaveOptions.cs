@@ -24,6 +24,10 @@ namespace Pinch.SDK.Payers
         /// </summary>
         public string EmailAddress { get; set; }
         /// <summary>
+        /// Mobile Number
+        /// </summary>
+        public string MobileNumber { get; set; }
+        /// <summary>
         /// The Payer's BSB (Bank State Branch number). Must be 6 digits. Everything except numbers will be stripped.
         /// </summary>
         public string BSB { get; set; }

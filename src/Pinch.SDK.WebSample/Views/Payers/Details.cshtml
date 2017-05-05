@@ -1,0 +1,44 @@
+﻿@using Newtonsoft.Json
+@model PayerDetailsVm
+
+@{
+    ViewBag.Title = "Payments for Payer";
+}
+
+<h2>Payer Details</h2>
+
+<p>
+    <pre>@JsonConvert.SerializeObject(Model.Payer, Formatting.Indented)</pre>
+</p>
+
+<h3>Payments for Payer</h3>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Transaction Date</th>
+        <th>Description</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var payer in Model.Payments)
+    {
+        <tr>
+            <td>@payer.Id</td>
+            <td>@payer.Amount</td>
+            <td>@payer.TransactionDate</td>
+            <td>@payer.Description</td>
+            <td>@payer.Status</td>
+        </tr>
+    }
+        @if (!Model.Payments.Any())
+        {
+            <tr>
+                <td colspan="5">No payments found for payer</td>
+            </tr>
+        }
+    </tbody>
+</table>

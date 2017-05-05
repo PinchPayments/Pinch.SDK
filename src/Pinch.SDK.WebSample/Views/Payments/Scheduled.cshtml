@@ -1,0 +1,37 @@
+﻿@model List<Pinch.SDK.Payments.PaymentExpanded>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2>Scheduled Payments</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Transaction Date</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model)
+        {
+            <tr>
+                <td><a href="@Url.Action("Details", "Payments", new { id = payment.Id })">@payment.Id</a></td>
+                <td>@payment.Amount</td>
+                <td>@payment.TransactionDate</td>
+                <td>@payment.Description</td>
+                <td>@payment.Status</td>
+                <td class="text-right">
+                    <a href="@Url.Action("Edit", "Payments", new { id=payment.Id })" class="btn btn-link">Edit</a>
+                    <a href="@Url.Action("Delete", "Payments", new { id=payment.Id })" class="btn btn-link">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Summary>The official Pinch Payments SDK</Summary>
     <Description>The easiest way to integrate your .net application with Pinch Payments. Create payers, add payments, receive webhooks, fetch payments, get paid. Really all the good stuff. It's for bank accounts if you didn't already know. I'll assume you did if you got this far, if not, Welcome! but you should probably check out getpinch.com.au to get up to speed.</Description>
     <AssemblyTitle>Pinch Payments</AssemblyTitle>
     <VersionPrefix>0.9.1</VersionPrefix>
@@ -21,7 +22,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.9.3</Version>
+    <Version>0.9.4</Version>
   </PropertyGroup>
 
   <ItemGroup>

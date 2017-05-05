@@ -1,0 +1,32 @@
+﻿@model List<Pinch.SDK.Payments.PaymentExpanded>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2>Processed Payments</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Transaction Date</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payer in Model)
+        {
+            <tr>
+                <td>@payer.Id</td>
+                <td>@payer.Amount</td>
+                <td>@payer.TransactionDate</td>
+                <td>@payer.Description</td>
+                <td>@payer.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
