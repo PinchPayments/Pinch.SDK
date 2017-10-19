@@ -67,18 +67,20 @@ namespace Pinch.SDK.WebSample
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                try
+            }
+            // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
+            try
+            {
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                    .CreateScope())
                 {
-                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                        .CreateScope())
-                    {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.Migrate();
-                    }
+                    serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                        .Database.Migrate();
                 }
-                catch { }
+            }
+            catch (Exception ex)
+            {
+                var test = ex;
             }
 
             app.UseStaticFiles();
