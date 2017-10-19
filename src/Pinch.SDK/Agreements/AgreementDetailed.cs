@@ -23,6 +23,7 @@ namespace Pinch.SDK.Agreements
         public DateTime? ConfirmedDateUtc { get; set; }
 
         public string AnonymousViewToken { get; set; }
+        public bool IsPdfGenerated { get; set; }
 
         public Payer Payer { get; set; }
     }

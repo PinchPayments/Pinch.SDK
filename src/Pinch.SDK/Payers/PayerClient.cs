@@ -62,10 +62,11 @@ namespace Pinch.SDK.Payers
         /// Fetches detailed properties for a single Payer.
         /// </summary>
         /// <param name="id">Payer ID</param>
+        /// <param name="merchantId">Internal use only</param>
         /// <returns></returns>
-        public async Task<ApiResponse<PayerDetailed>> Get(string id)
+        public async Task<ApiResponse<PayerDetailed>> Get(string id, string merchantId = null)
         {
-            var response = await GetHttp<PayerDetailed>($"payers/{id}");
+            var response = await GetHttp<PayerDetailed>($"payers/{id}" + (!string.IsNullOrEmpty(merchantId) ? $"?merchantId={merchantId}": ""));
 
             return response.ToApiResponse();
         }

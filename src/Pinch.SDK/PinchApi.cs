@@ -9,6 +9,7 @@ using Pinch.SDK.Merchants;
 using Pinch.SDK.Payers;
 using Pinch.SDK.Payments;
 using Pinch.SDK.Transfers;
+using Pinch.SDK.Webhooks;
 
 namespace Pinch.SDK
 {
@@ -17,6 +18,7 @@ namespace Pinch.SDK
     /// </summary>
     public class PinchApi
     {
+        private readonly PinchApiOptions _options;
         private readonly string _secretKey;
         private readonly string _clientId;
         private readonly string _baseUri;
@@ -32,6 +34,7 @@ namespace Pinch.SDK
         private TransferClient _transfer;
         private EventClient _event;
         private AgreementClient _agreement;
+        private WebhookClient _webhook;
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _authUri, _baseUri));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_baseUri, GetAccessToken));
@@ -40,6 +43,7 @@ namespace Pinch.SDK
         public TransferClient Transfer => _transfer ?? (_transfer = new TransferClient(_baseUri, GetAccessToken));
         public EventClient Event => _event ?? (_event = new EventClient(_baseUri, GetAccessToken));
         public AgreementClient Agreement => _agreement ?? (_agreement = new AgreementClient(_baseUri, GetAccessToken));
+        public WebhookClient Webhook => _webhook ?? (_webhook = new WebhookClient(_options, GetAccessToken));
 
         /// <summary>
         /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.
@@ -65,6 +69,7 @@ namespace Pinch.SDK
             _accessToken = options.AccessToken;
             _refreshToken = options.RefreshToken;
             _applicationId = options.ApplicationId;
+            _options = options;
         }
 
         /// <summary>

@@ -4,7 +4,6 @@
     <Summary>The official Pinch Payments SDK</Summary>
     <Description>The easiest way to integrate your .net application with Pinch Payments. Create payers, add payments, receive webhooks, fetch payments, get paid. Really all the good stuff. It's for bank accounts if you didn't already know. I'll assume you did if you got this far, if not, Welcome! but you should probably check out getpinch.com.au to get up to speed.</Description>
     <AssemblyTitle>Pinch Payments</AssemblyTitle>
-    <VersionPrefix>0.9.1</VersionPrefix>
     <Authors>Ben Cull</Authors>
     <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -14,7 +13,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/bjcull/Pinch.SDK/master/assets/img/circle_logo_64x64.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/bjcull/Pinch.SDK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bjcull/Pinch.SDK</RepositoryUrl>
-    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.1</NetStandardImplicitPackageVersion>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -22,16 +21,17 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.9.4</Version>
+    <Version>0.9.8</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="IdentityModel" Version="2.0.2" />
+    <PackageReference Include="System.Net.Http" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <PackageReference Include="System.Net.Http" Version="4.1.1" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
@@ -41,9 +41,8 @@
   </Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.Text.Encoding.Extensions" Version="4.0.11" />
-    <PackageReference Include="System.Net.Http" Version="4.1.1" />
-    <PackageReference Include="System.Security.Claims" Version="4.0.1" />
+    <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Security.Claims" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

@@ -13,5 +13,11 @@ namespace Pinch.SDK
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
         public string ApplicationId { get; set; }
+
+        /// <summary>
+        /// The maximum difference in seconds between the current time and the webhook timestamp.
+        /// Used to verify authenticity of webhook requests and to avoid replay attacks.
+        /// </summary>
+        public int WebhookVerificationClockSkewThreshold { get; set; } = 300; // 5 minutes
     }
 }

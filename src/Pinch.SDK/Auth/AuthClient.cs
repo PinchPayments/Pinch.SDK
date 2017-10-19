@@ -27,7 +27,7 @@ namespace Pinch.SDK.Auth
 
         public string GetConnectUrl(string applicationId, string redirectUri)
         {
-            return $"{_authUri}/connect/authorize?client_id={applicationId}&redirect_uri={redirectUri}&response_type=code&scope=api1 offline_access openid merchant";
+            return $"{_authUri}/connect/authorize?client_id={applicationId}&redirect_uri={redirectUri}&response_type=code&scope=api1 offline_access openid";
         }
 
         public async Task<GetAccessTokenFromCodeResponse> GetAccessTokenFromCode(string code, string clientId, string redirectUri)
