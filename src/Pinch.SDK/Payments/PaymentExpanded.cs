@@ -8,6 +8,7 @@ namespace Pinch.SDK.Payments
         public string Id { get; set; }
         public int Amount { get; set; }
         public DateTime TransactionDate { get; set; }
+        public DateTime EstimatedTransferDate { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
 

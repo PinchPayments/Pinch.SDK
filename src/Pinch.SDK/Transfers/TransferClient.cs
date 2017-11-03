@@ -13,9 +13,9 @@ namespace Pinch.SDK.Transfers
         {
         }
 
-        public async Task<Transfer> Get(string id)
+        public async Task<TransferDetailed> Get(string id)
         {
-            var response = await GetHttp<Transfer>($"transfers/{id}");
+            var response = await GetHttp<TransferDetailed>($"transfers/{id}");
 
             return response.Data;
         }

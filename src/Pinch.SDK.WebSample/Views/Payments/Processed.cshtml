@@ -13,19 +13,21 @@
             <th>ID</th>
             <th>Amount</th>
             <th>Transaction Date</th>
+            <th>Estimated Settlement Date</th>
             <th>Description</th>
             <th>Status</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var payer in Model)
+        @foreach (var payment in Model)
         {
             <tr>
-                <td>@payer.Id</td>
-                <td>@payer.Amount</td>
-                <td>@payer.TransactionDate</td>
-                <td>@payer.Description</td>
-                <td>@payer.Status</td>
+                <td>@payment.Id</td>
+                <td>@payment.Amount</td>
+                <td>@payment.TransactionDate</td>
+                <td>@payment.EstimatedTransferDate</td>
+                <td>@payment.Description</td>
+                <td>@payment.Status</td>
             </tr>
         }
     </tbody>

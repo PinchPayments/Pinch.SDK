@@ -1,8 +1,15 @@
-﻿@model List<Pinch.SDK.Transfers.TransferLineItem>
+﻿@using Newtonsoft.Json
+@model TransferDetailsVm
 
 @{
     ViewBag.Title = "Transfer Line Items";
 }
+
+<h2>Transfer Details</h2>
+
+<p>
+    <pre>@JsonConvert.SerializeObject(Model.Transfer, Formatting.Indented)</pre>
+</p>
 
 <h2>Transfer Line Items</h2>
 
@@ -19,7 +26,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var row in Model)
+        @foreach (var row in Model.LineItems)
         {
             <tr>
                 <td>@row.Id</td>
@@ -31,7 +38,7 @@
                 <td>@row.Total</td>
             </tr>
         }
-        @if (!Model.Any())
+        @if (!Model.LineItems.Any())
         {
             <tr><td colspan="7" class="text-center">No Transfers Found</td></tr>
         }
