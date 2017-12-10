@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pinch.SDK.Payments;
 using Pinch.SDK.WebSample.Helpers;
+using Pinch.SDK.WebSample.ViewModels.Realtime;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,6 +35,41 @@ namespace Pinch.SDK.WebSample.Controllers
             var payments = result.Data;
 
             return View(payments.ToList());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Realtime()
+        {
+            var model = new CreateRealtimePaymentVm();
+
+            model.PublishableKey = _settings.PublishableKey;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Realtime(CreateRealtimePaymentVm model)
+        {
+            var result = await GetApi().Payment.ExecuteRealtime(new RealtimePaymentSaveOptions()
+            {
+                FullName = model.PayerName,
+                Email = model.PayerEmail,
+                CreditCardToken = model.CreditCardToken,
+                Amount = Convert.ToInt32(model.Amount * 100),                
+                Description = model.Description                
+            });
+
+            if (!result.Success)
+            {
+                result.Errors.ForEach(x =>
+                {
+                    ModelState.AddModelError(x.PropertyName, x.ErrorMessage);
+                });
+
+                return View(model);
+            }
+
+            return RedirectToAction("Processed");
         }
 
         public async Task<IActionResult> Details(string id)

@@ -1,0 +1,117 @@
+﻿@model Pinch.SDK.WebSample.ViewModels.Realtime.CreateRealtimePaymentVm
+
+@{
+    ViewBag.Title = "Realtime Payments";
+}
+
+<h2>Create Realtime Payment</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form id="cc-form" asp-action="Realtime">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="CreditCardToken" type="hidden"/>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label asp-for="PayerName" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="PayerName" class="form-control"/>
+                        <span asp-validation-for="PayerName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PayerEmail" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="PayerEmail" class="form-control"/>
+                        <span asp-validation-for="PayerEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amount" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Amount" class="form-control"/>
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Description" class="form-control"/>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Credit Card</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input id="cardNumber" class="form-control" placeholder="Card Number"/>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <input id="expiryMonth" class="form-control" placeholder="Expiry Month"/>
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="expiryYear" class="form-control" placeholder="Expiry Year"/>
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="cvc" class="form-control" placeholder="CVC"/>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input id="cardHolderName" class="form-control" placeholder="Card Holder Name"/>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="realtimeSubmitButton" class="btn btn-primary">Pay Now</button>
+                    </div>
+                </div>
+                <div class="form-group" id="errors">
+                    <p></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="https://localhost:44339/capture/capture.bundle.js"></script>
+    <script>
+        var form = document.getElementById("cc-form");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var capture = Pinch.Capture({
+                publishableKey: "@Model.PublishableKey",
+                apiUrl: "https://localhost:44307/"
+            });
+
+            capture.createToken({
+                cardNumber: document.getElementById("cardNumber").value,
+                expiryMonth: document.getElementById("expiryMonth").value,
+                expiryYear: document.getElementById("expiryYear").value,
+                cvc: document.getElementById("cvc").value,
+                cardHolderName: document.getElementById("cardHolderName").value
+            }).then(function(result) {
+                console.log("Client received token: " + result.token);
+                document.getElementById("CreditCardToken").value = result.token;
+                form.submit();
+            }).catch(function(err) {
+                document.querySelector("#errors p").innerText = JSON.stringify(err);
+                console.log("Client error: " + err);
+            });
+        });
+    </script>
+}
