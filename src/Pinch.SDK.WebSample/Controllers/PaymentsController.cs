@@ -4,8 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Pinch.SDK.Payers;
 using Pinch.SDK.Payments;
 using Pinch.SDK.WebSample.Helpers;
+using Pinch.SDK.WebSample.ViewModels.Payers;
+using Pinch.SDK.WebSample.ViewModels.Payments;
 using Pinch.SDK.WebSample.ViewModels.Realtime;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -79,9 +82,12 @@ namespace Pinch.SDK.WebSample.Controllers
             return View(payment);
         }
 
-        public async Task<IActionResult> New()
+        public async Task<IActionResult> New(string payerId)
         {
-            return View("Edit", new Payment());
+            return View("Edit", new EditPaymentVm()
+            {
+                PayerId = payerId
+            });
         }
 
         [HttpGet]
@@ -89,21 +95,22 @@ namespace Pinch.SDK.WebSample.Controllers
         {
             var details = await GetApi().Payment.Get(id);
 
-            var payment = new Payment()
+            var payment = new EditPaymentVm()
             {
                 Id = details.Id,
                 Amount = details.Amount,
                 TransactionDate = details.TransactionDate,
                 Description = details.Description,
                 PayerId = details.Payer.Id,
-                Status = details.Status
+                SourceId = details.Attempts.OrderByDescending(x => x.TransactionDate)
+                    .FirstOrDefault()?.Source?.Id
             };
 
             return View(payment);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Payment model)
+        public async Task<IActionResult> Edit(EditPaymentVm model)
         {
             var result = await GetApi().Payment.Save(new PaymentSaveOptions()
             {
@@ -111,7 +118,8 @@ namespace Pinch.SDK.WebSample.Controllers
                 PayerId = model.PayerId,
                 TransactionDate = model.TransactionDate,
                 Amount = model.Amount,
-                Description = model.Description
+                Description = model.Description,
+                SourceId = model.SourceId
             });
 
             if (!result.Success)

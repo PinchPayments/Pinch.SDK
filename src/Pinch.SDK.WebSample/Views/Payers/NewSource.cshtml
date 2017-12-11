@@ -1,0 +1,106 @@
+@model Pinch.SDK.WebSample.ViewModels.Payers.SourceSaveVm
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>New Source</h2>
+
+<div class="row">
+    <div class="col-sm-6">
+
+        <form asp-action="NewSource">
+            <div class="form-horizontal">
+                <h4>Payer @Model.PayerId</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="PayerId" />
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Bank Account</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input asp-for="BankAccountBsb" class="form-control" placeholder="BSB" />
+                                            <span asp-validation-for="BankAccountBsb" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input asp-for="BankAccountNumber" class="form-control" placeholder="Account Number" />
+                                            <span asp-validation-for="BankAccountNumber" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="BankAccountName" class="form-control" placeholder="Account Name" />
+                                    <span asp-validation-for="BankAccountName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-6">
+                        <p class="text-center"><strong>-- or --</strong></p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Credit Card</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input id="cardNumber" class="form-control" placeholder="Card Number" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <input id="expiryMonth" class="form-control" placeholder="Expiry Month" />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="expiryYear" class="form-control" placeholder="Expiry Year" />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="cvc" class="form-control" placeholder="CVC" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input id="cardHolderName" class="form-control" placeholder="Card Holder Name" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save Source" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -82,7 +82,7 @@ namespace Pinch.SDK.WebSample
             {
                 var test = ex;
             }
-
+            
             app.UseStaticFiles();
 
             app.UseIdentity();

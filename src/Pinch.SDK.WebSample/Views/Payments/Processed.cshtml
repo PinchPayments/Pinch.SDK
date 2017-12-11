@@ -21,14 +21,14 @@
     <tbody>
         @foreach (var payment in Model)
         {
-            <tr>
-                <td>@payment.Id</td>
-                <td>@payment.Amount</td>
-                <td>@payment.TransactionDate</td>
-                <td>@payment.EstimatedTransferDate</td>
-                <td>@payment.Description</td>
-                <td>@payment.Status</td>
-            </tr>
+        <tr>
+            <td><a href="@Url.Action("Details", "Payments", new { id = payment.Id })">@payment.Id</a></td>
+            <td>@payment.Amount</td>
+            <td>@payment.TransactionDate</td>
+            <td>@payment.EstimatedTransferDate</td>
+            <td>@payment.Description</td>
+            <td>@payment.Status</td>
+        </tr>
         }
     </tbody>
 </table>

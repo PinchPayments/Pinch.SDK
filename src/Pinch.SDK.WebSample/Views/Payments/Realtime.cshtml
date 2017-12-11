@@ -7,6 +7,8 @@
 <h2>Create Realtime Payment</h2>
 <div class="row">
     <div class="col-md-6">
+        <h4>Custom Form</h4>
+        <hr />
         <form id="cc-form" asp-action="Realtime">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input asp-for="CreditCardToken" type="hidden"/>
@@ -82,6 +84,33 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-sm-6">
+        <h4>Checkout Widget</h4>
+        <hr/>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2">Amount</label>
+                <div class="col-sm-10">
+                    <input id="checkoutAmount" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <form action="/embed/test" method="post">
+                        <input type="hidden" name="modalId" value="Elise"/>
+                        <script async src="https://localhost:44339/embed/checkout"
+                                data-publishable-key="pk_test_d2jikFwqQrg2nLoQnjciKwOMhQP2CfzU"
+                                data-amount="2000"
+                                data-frequency="oneoff"
+                                data-interval="1"
+                                data-title="Pinch SDK Sample"
+                                data-description="A payment made using the checkout widget"
+                                data-api-url="https://localhost:44307"></script>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

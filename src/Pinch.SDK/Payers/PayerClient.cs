@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
+using Pinch.SDK.Payments;
+using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Payers
 {
@@ -79,6 +81,19 @@ namespace Pinch.SDK.Payers
         public async Task<ApiResponse<PayerDetailed>> Save(PayerSaveOptions options)
         {
             var response = await PostHttp<PayerDetailed>("payers", options);
+
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
+        /// Add a new Payment Source to a Payer
+        /// </summary>
+        /// <param name="payerId">Payer ID to attach source to</param>
+        /// <param name="options">The source information. Only supply the parts you need.</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<Source>> SaveSource(string payerId, SourceSaveOptions options)
+        {
+            var response = await PostHttp<Source>($"payers/{payerId}/sources", options);
 
             return response.ToApiResponse();
         }
