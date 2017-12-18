@@ -10,17 +10,24 @@ namespace Pinch.SDK
 {
     public class BaseClient
     {
-        protected readonly HttpClient _client;
+        protected readonly PinchApiOptions Options;
+        protected readonly HttpClient Client;
         private readonly Func<bool, Task<string>> _getAccessToken;
         private string _accessToken;
 
-        public BaseClient(string baseUri, Func<bool, Task<string>> getAccessToken)
+        public BaseClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken)
         {
-            _client = new HttpClient()
+            Options = options;
+            Client = new HttpClient()
             {
-                BaseAddress = new Uri(baseUri)
+                BaseAddress = new Uri(options.BaseUri)
             };
-            _getAccessToken = getAccessToken;            
+            _getAccessToken = getAccessToken;
+
+            if (!string.IsNullOrEmpty(options.ImpersonateMerchantId))
+            {
+                Client.DefaultRequestHeaders.Add("Current-Merchant", options.ImpersonateMerchantId);
+            }
         }
 
         protected async Task<QuickResponse<T>> GetHttp<T>(string url)
@@ -29,12 +36,12 @@ namespace Pinch.SDK
             {
                 await SetInitialToken();
 
-                var response = await _client.GetAsync(url);
+                var response = await Client.GetAsync(url);
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     await GetToken();
-                    response = await _client.GetAsync(url);
+                    response = await Client.GetAsync(url);
                 }
 
                 return await QuickResponse<T>.FromMessage(response);
@@ -58,12 +65,12 @@ namespace Pinch.SDK
         {
             await SetInitialToken();
 
-            var response = await _client.GetAsync(url);
+            var response = await Client.GetAsync(url);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 await GetToken();
-                response = await _client.GetAsync(url);
+                response = await Client.GetAsync(url);
             }
             
             return await QuickFile.FromMessage(response);
@@ -73,12 +80,12 @@ namespace Pinch.SDK
         {
             await SetInitialToken();
 
-            var response = await _client.PostAsync(url, HttpClientHelpers.GetPostBody(parameters));
+            var response = await Client.PostAsync(url, HttpClientHelpers.GetPostBody(parameters));
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 await GetToken();
-                response = await _client.PostAsync(url, HttpClientHelpers.GetPostBody(parameters));
+                response = await Client.PostAsync(url, HttpClientHelpers.GetPostBody(parameters));
             }
 
             return await QuickResponse<T>.FromMessage(response);
@@ -88,12 +95,12 @@ namespace Pinch.SDK
         {
             await SetInitialToken();
 
-            var response = await _client.PostAsync(url, HttpClientHelpers.GetJsonBody(data));
+            var response = await Client.PostAsync(url, HttpClientHelpers.GetJsonBody(data));
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 await GetToken();
-                response = await _client.PostAsync(url, HttpClientHelpers.GetJsonBody(data));
+                response = await Client.PostAsync(url, HttpClientHelpers.GetJsonBody(data));
             }
 
             return await QuickResponse<T>.FromMessage(response);
@@ -103,12 +110,12 @@ namespace Pinch.SDK
         {
             await SetInitialToken();
 
-            var response = await _client.DeleteAsync(url);
+            var response = await Client.DeleteAsync(url);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 await GetToken();
-                response = await _client.DeleteAsync(url);
+                response = await Client.DeleteAsync(url);
             }
 
             return await QuickResponse.FromMessage(response);
@@ -118,7 +125,7 @@ namespace Pinch.SDK
         {
             if (!string.IsNullOrEmpty(_accessToken))
             {
-                _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(_accessToken);
+                Client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(_accessToken);
                 return;
             }
 
@@ -129,7 +136,7 @@ namespace Pinch.SDK
         {
             _accessToken = await _getAccessToken(renew);
 
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(_accessToken);
+            Client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(_accessToken);
         }
 
         private string GetRecursiveErrorMessage(Exception ex, string delimeter = " --- ")

@@ -33,18 +33,6 @@ namespace Pinch.SDK.Payers
         /// Mobile Number
         /// </summary>
         public string MobileNumber { get; set; }
-        /// <summary>
-        /// BSB
-        /// </summary>
-        public string BSB { get; set; }
-        /// <summary>
-        /// Account Number
-        /// </summary>
-        public string AccountNumber { get; set; }
-        /// <summary>
-        /// Account Name
-        /// </summary>
-        public string AccountName { get; set; }
 
         /// <summary>
         /// A list of Agreements for the current payer

@@ -10,8 +10,8 @@ namespace Pinch.SDK.Payers
 {
     public class PayerClient : BaseClient
     {
-        public PayerClient(string baseUri, Func<bool, Task<string>> getAccessToken)
-            : base(baseUri, getAccessToken)
+        public PayerClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken)
+            : base(options, getAccessToken)
         {
         }
 

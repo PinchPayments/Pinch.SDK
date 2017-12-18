@@ -76,3 +76,18 @@
     }
     </tbody>
 </table>
+
+<h3>Impersonate Merchant</h3>
+@if (!string.IsNullOrEmpty(Model.ImpersonatedMerchantId))
+{
+    <p>Impersonated Merchant ID: <strong>@Model.ImpersonatedMerchantId</strong></p>
+    <a href="@Url.Action("Unimpersonate", "Merchants")" class="btn btn-primary">Unimpersonate</a>
+}
+else
+{
+    <p>Not currently impersonating.</p>
+    <form asp-action="Impersonate">
+        <input name="merchantId" />
+        <button class="btn btn-primary">Impersonate</button>
+    </form>
+}

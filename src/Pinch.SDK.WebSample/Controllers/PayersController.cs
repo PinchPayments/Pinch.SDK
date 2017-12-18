@@ -77,10 +77,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 EmailAddress = model.EmailAddress,
-                MobileNumber = model.MobileNumber,
-                AccountName = model.AccountName,
-                BSB = model.BSB,
-                AccountNumber = model.AccountNumber
+                MobileNumber = model.MobileNumber
             });
 
             if (!result.Success)

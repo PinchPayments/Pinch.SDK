@@ -8,8 +8,8 @@ namespace Pinch.SDK.Agreements
 {
     public class AgreementClient : BaseClient
     {
-        public AgreementClient(string baseUri, Func<bool, Task<string>> getAccessToken)
-            : base(baseUri, getAccessToken)
+        public AgreementClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken)
+            : base(options, getAccessToken)
         {
         }
 

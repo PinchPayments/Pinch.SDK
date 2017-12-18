@@ -22,10 +22,25 @@ namespace Pinch.SDK.WebSample.Controllers
             var model = new MerchantsVm()
             {
                 MyMerchant = await GetApi().Merchant.GetMerchant(),
-                ManagedMerchants = await GetApi().Merchant.GetAllManagedMerchants()
+                ManagedMerchants = await GetApi().Merchant.GetAllManagedMerchants(),
+                ImpersonatedMerchantId = ImpersonatedMerchantId
             };
 
             return View(model);
+        }
+
+        public IActionResult Impersonate(string merchantId)
+        {
+            HttpContext.Session.SetObjectAsJson(SessionConstants.IMPERSONATED_MERCHANT_ID, merchantId);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Unimpersonate()
+        {
+            HttpContext.Session.Remove(SessionConstants.IMPERSONATED_MERCHANT_ID);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

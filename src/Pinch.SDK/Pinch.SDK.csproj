@@ -21,7 +21,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.10.1-cc1</Version>
+    <Version>0.10.1-cc4</Version>
   </PropertyGroup>
 
   <ItemGroup>

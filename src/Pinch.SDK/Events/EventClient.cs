@@ -8,7 +8,8 @@ namespace Pinch.SDK.Events
 {
     public class EventClient : BaseClient
     {
-        public EventClient(string baseUri, Func<bool, Task<string>> getAccessToken) : base(baseUri, getAccessToken)
+        public EventClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken) 
+            : base(options, getAccessToken)
         {
         }
 
