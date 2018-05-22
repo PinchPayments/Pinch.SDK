@@ -69,6 +69,7 @@ namespace Pinch.SDK.WebSample.Controllers
                     ModelState.AddModelError(x.PropertyName, x.ErrorMessage);
                 });
 
+                model.PublishableKey = _settings.PublishableKey;
                 return View(model);
             }
 
