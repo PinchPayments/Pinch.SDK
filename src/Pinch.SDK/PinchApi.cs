@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Agreements;
 using Pinch.SDK.Auth;
@@ -18,6 +19,12 @@ namespace Pinch.SDK
     /// </summary>
     public class PinchApi
     {
+        // HttpClient is designed to be reused and is thread safe. 
+        // See: https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/
+        // Create one per instance for easy use, but also accept a Func to receive a properly managed HttpClient instance.        
+        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly Func<HttpClient> _httpClientFactory;
+
         private readonly PinchApiOptions _options;
         private readonly string _secretKey;
         private readonly string _clientId;
@@ -36,14 +43,27 @@ namespace Pinch.SDK
         private AgreementClient _agreement;
         private WebhookClient _webhook;
 
-        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _authUri, _baseUri));
-        public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken));
-        public PayerClient Payer => _payer ?? (_payer = new PayerClient(_options, GetAccessToken));
-        public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_options, GetAccessToken));
-        public TransferClient Transfer => _transfer ?? (_transfer = new TransferClient(_options, GetAccessToken));
-        public EventClient Event => _event ?? (_event = new EventClient(_options, GetAccessToken));
-        public AgreementClient Agreement => _agreement ?? (_agreement = new AgreementClient(_options, GetAccessToken));
-        public WebhookClient Webhook => _webhook ?? (_webhook = new WebhookClient(_options, GetAccessToken));
+        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _authUri, _baseUri, HttpClientFactoryOrStaticInstance()));
+        public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public PayerClient Payer => _payer ?? (_payer = new PayerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public TransferClient Transfer => _transfer ?? (_transfer = new TransferClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public EventClient Event => _event ?? (_event = new EventClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public AgreementClient Agreement => _agreement ?? (_agreement = new AgreementClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public WebhookClient Webhook => _webhook ?? (_webhook = new WebhookClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+
+        /// <summary>
+        /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.
+        /// </summary>
+        /// <param name="merchantId">Your Merchant ID</param>
+        /// <param name="secretKey">Your Secret Key</param>
+        /// <param name="isLive">Set to false to use the sandbox test system. Set to true to perform live production transactions.</param>
+        public PinchApi(string merchantId, string secretKey, bool isLive)
+        :this(merchantId, secretKey, new PinchApiOptions() {
+            IsLive = isLive
+        })
+        {
+        }
 
         /// <summary>
         /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.
@@ -51,8 +71,11 @@ namespace Pinch.SDK
         /// <param name="merchantId">Your Merchant ID</param>
         /// <param name="secretKey">Your Secret Key</param>
         /// <param name="options">Mostly used to set IsLive. There are a few things you can override in here.</param>
-        public PinchApi(string merchantId, string secretKey, PinchApiOptions options)
+        /// <param name="httpClientFactory">A function to get an instance of HttpClient. Use this to manage your own instance or make use of the HttpClientFactory to manage instances for you. If no factory is supplied, an instance is created per PinchApi instance.</param>
+        public PinchApi(string merchantId, string secretKey, PinchApiOptions options, Func<HttpClient> httpClientFactory = null)
         {
+            _httpClientFactory = httpClientFactory;
+
             if (!string.IsNullOrEmpty(options.BaseUri))
             {
                 _baseUri = options.BaseUri;
@@ -94,6 +117,11 @@ namespace Pinch.SDK
             }
 
             return _accessToken;
+        }
+
+        protected Func<HttpClient> HttpClientFactoryOrStaticInstance()
+        {
+            return _httpClientFactory ?? (() => _httpClient);
         }
     }
 }

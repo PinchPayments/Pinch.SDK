@@ -8,8 +8,8 @@ namespace Pinch.SDK.Transfers
 {
     public class TransferClient : BaseClient
     {
-        public TransferClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken)
-            : base(options, getAccessToken)
+        public TransferClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
+            : base(options, getAccessToken, httpClientFactory)
         {
         }
 

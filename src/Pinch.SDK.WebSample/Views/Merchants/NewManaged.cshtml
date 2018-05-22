@@ -1,0 +1,137 @@
+@model Pinch.SDK.Merchants.ManagedMerchant
+
+@{
+    ViewData["Title"] = "New Managed Merchant";
+}
+
+<h2>New</h2>
+
+<form asp-action="NewManaged">
+    <div class="form-horizontal">
+        <h4>Managed Merchant</h4>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="CompanyName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Abn" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Abn" class="form-control" />
+                <span asp-validation-for="Abn" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyEmail" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CompanyEmail" class="form-control" />
+                <span asp-validation-for="CompanyEmail" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyPhone" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CompanyPhone" class="form-control" />
+                <span asp-validation-for="CompanyPhone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AccountName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AccountName" class="form-control" />
+                <span asp-validation-for="AccountName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Bsb" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Bsb" class="form-control" />
+                <span asp-validation-for="Bsb" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AccountNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AccountNumber" class="form-control" />
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StreetAddress" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StreetAddress" class="form-control" />
+                <span asp-validation-for="StreetAddress" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Suburb" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Suburb" class="form-control" />
+                <span asp-validation-for="Suburb" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="State" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Postcode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Postcode" class="form-control" />
+                <span asp-validation-for="Postcode" class="text-danger"></span>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label asp-for="ContactFirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactFirstName" class="form-control" />
+                <span asp-validation-for="ContactFirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactLastName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactLastName" class="form-control" />
+                <span asp-validation-for="ContactLastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactEmail" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactEmail" class="form-control" />
+                <span asp-validation-for="ContactEmail" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactPhone" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactPhone" class="form-control" />
+                <span asp-validation-for="ContactPhone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

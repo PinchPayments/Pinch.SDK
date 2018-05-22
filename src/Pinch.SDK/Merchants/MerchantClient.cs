@@ -8,8 +8,8 @@ namespace Pinch.SDK.Merchants
 {
     public class MerchantClient : BaseClient
     {
-        public MerchantClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken) 
-            : base(options, getAccessToken)
+        public MerchantClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory) 
+            : base(options, getAccessToken, httpClientFactory)
         {
         }
 

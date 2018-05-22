@@ -1,37 +1,19 @@
-﻿@model MerchantsVm
+﻿@using Newtonsoft.Json
+@model MerchantsVm
 
-<h2>My Merchant</h2>
+<h2>
+    My Merchant
+    <a href="@Url.Action("Edit", "Merchants")" class="btn btn-primary pull-right">Edit Merchant</a>
+</h2>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Company Name</th>
-        <th>Contact Email</th>
-        <th>Account Name</th>
-        <th>BSB</th>
-        <th>Account Number</th>
-        <th>Street Address</th>
-        <th>Suburb</th>
-        <th>Postcode</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.MyMerchant.Id</td>
-            <td>@Model.MyMerchant.CompanyName</td>
-            <td>@Model.MyMerchant.ContactEmail</td>
-            <td>@Model.MyMerchant.AccountName</td>
-            <td>@Model.MyMerchant.BSB</td>
-            <td>@Model.MyMerchant.AccountNumber</td>
-            <td>@Model.MyMerchant.StreetAddress</td>
-            <td>@Model.MyMerchant.Suburb</td>
-            <td>@Model.MyMerchant.Postcode</td>
-        </tr>
-    </tbody>
-</table>
+<p>
+    <pre>@JsonConvert.SerializeObject(Model.MyMerchant, Formatting.Indented)</pre>
+</p>
 
-<h2>Managed Merchants</h2>
+<h2>
+    Managed Merchants
+    <a href="@Url.Action("NewManaged", "Merchants")" class="btn btn-primary pull-right">New Managed Merchant</a>
+</h2>
 
 <table class="table">
     <thead>
@@ -56,7 +38,7 @@
             <td>@merchant.CompanyName</td>
             <td>@merchant.ContactEmail</td>
             <td>@merchant.AccountName</td>
-            <td>@merchant.BSB</td>
+            <td>@merchant.Bsb</td>
             <td>@merchant.AccountNumber</td>
             <td>@merchant.StreetAddress</td>
             <td>@merchant.Suburb</td>

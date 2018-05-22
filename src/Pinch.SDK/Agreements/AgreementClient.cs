@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Pinch.SDK.Agreements
 {
     public class AgreementClient : BaseClient
     {
-        public AgreementClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken)
-            : base(options, getAccessToken)
+        public AgreementClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
+            : base(options, getAccessToken, httpClientFactory)
         {
         }
 
