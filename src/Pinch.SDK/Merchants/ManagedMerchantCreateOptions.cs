@@ -25,5 +25,10 @@ namespace Pinch.SDK.Merchants
         public string ContactLastName { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
+        public string Dob { get; set; }
+        public string GovernmentNumber { get; set; }
+
+        // Deprecated fields (Delete once version is no longer used).
+        public string Email => CompanyEmail; // Paul only (2018-05-24).
     }
 }

@@ -10,5 +10,6 @@ namespace Pinch.SDK
         public const string ApiBaseUri_Test = "https://api.getpinch.com.au/api/test/";
         public const string ApiBaseUri_Production = "https://api.getpinch.com.au/api/live/";
         public const string AuthBaseUri_Production = "https://auth.getpinch.com.au";
+        public const string LatestApiVersion = "2017.2";
     }
 }

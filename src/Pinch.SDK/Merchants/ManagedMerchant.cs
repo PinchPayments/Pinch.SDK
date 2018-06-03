@@ -26,7 +26,9 @@ namespace Pinch.SDK.Merchants
         public string ContactFirstName { get; set; }
         public string ContactLastName { get; set; }
         public string ContactEmail { get; set; }
-        public string ContactPhone { get; set; } 
+        public string ContactPhone { get; set; }
+        public string Dob { get; set; }
+        public string GovernmentNumber { get; set; }
 
         public string SecretKey { get; set; }
         public string TestPublishableKey { get; set; }

@@ -55,7 +55,9 @@ namespace Pinch.SDK.WebSample.Controllers
                 ContactFirstName = model.ContactFirstName,
                 ContactLastName = model.ContactLastName,
                 ContactPhone = model.ContactPhone,
-                State = model.State
+                State = model.State,
+                Dob = model.Dob,
+                GovernmentNumber = model.GovernmentNumber
             });
 
             if (!result.Success)

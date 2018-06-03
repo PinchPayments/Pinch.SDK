@@ -76,6 +76,10 @@ namespace Pinch.SDK
         {
             _httpClientFactory = httpClientFactory;
 
+            options.ApiVersion = !string.IsNullOrEmpty(options.ApiVersion)
+                ? options.ApiVersion
+                : Settings.LatestApiVersion;
+
             if (!string.IsNullOrEmpty(options.BaseUri))
             {
                 _baseUri = options.BaseUri;
@@ -84,7 +88,7 @@ namespace Pinch.SDK
             {
                 _baseUri = options.IsLive ? Settings.ApiBaseUri_Production : Settings.ApiBaseUri_Test;
             }
-
+            
             _authUri = !string.IsNullOrEmpty(options.AuthUri) ? options.AuthUri : Settings.AuthBaseUri_Production;
 
             _secretKey = secretKey;
@@ -119,6 +123,10 @@ namespace Pinch.SDK
             return _accessToken;
         }
 
+        /// <summary>
+        /// Returns either the given HttpClientFactory or a default implementation.
+        /// </summary>
+        /// <returns></returns>
         protected Func<HttpClient> HttpClientFactoryOrStaticInstance()
         {
             return _httpClientFactory ?? (() => _httpClient);
