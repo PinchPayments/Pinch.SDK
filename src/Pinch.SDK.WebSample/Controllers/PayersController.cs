@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pinch.SDK.Payers;
+using Pinch.SDK.Sources;
 using Pinch.SDK.WebSample.Helpers;
 using Pinch.SDK.WebSample.Models;
+using Pinch.SDK.WebSample.ViewModels.Payers;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -75,10 +77,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 EmailAddress = model.EmailAddress,
-                MobileNumber = model.MobileNumber,
-                AccountName = model.AccountName,
-                BSB = model.BSB,
-                AccountNumber = model.AccountNumber
+                MobileNumber = model.MobileNumber
             });
 
             if (!result.Success)
@@ -99,6 +98,49 @@ namespace Pinch.SDK.WebSample.Controllers
             await GetApi().Payer.Delete(id);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> NewSource(string payerId)
+        {
+            return View("NewSource", new SourceSaveVm()
+            {
+                PayerId = payerId
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewSource(SourceSaveVm model)
+        {
+            if (!string.IsNullOrEmpty(model.BankAccountBsb))
+            {
+                model.SourceType = "bank-account";
+            }
+            else if (!string.IsNullOrEmpty(model.CreditCardToken))
+            {
+                model.SourceType = "credit-card";
+            }
+
+            var result = await GetApi().Payer.SaveSource(model.PayerId, new SourceSaveOptions() 
+            {            
+                SourceType = model.SourceType,
+                BankAccountName = model.BankAccountName,
+                BankAccountBsb = model.BankAccountBsb,
+                BankAccountNumber = model.BankAccountNumber,
+                CreditCardToken = model.CreditCardToken
+            });
+
+            if (!result.Success)
+            {
+                result.Errors.ForEach(x =>
+                {
+                    ModelState.AddModelError(x.PropertyName, x.ErrorMessage);
+                });
+
+                return View(model);
+            }
+
+            return RedirectToAction("Details", new {id = model.PayerId});
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pinch.SDK.Auth;
 using Pinch.SDK.WebSample.Helpers;
+using Pinch.SDK.WebSample.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +15,8 @@ namespace Pinch.SDK.WebSample.Controllers
     public class BaseController : Controller
     {
         private readonly PinchSettings _settings;
+
+        protected string ImpersonatedMerchantId => HttpContext.Session.GetObjectFromJson<string>(SessionConstants.IMPERSONATED_MERCHANT_ID);
 
         public BaseController(IOptions<PinchSettings> options)
         {
@@ -33,6 +36,7 @@ namespace Pinch.SDK.WebSample.Controllers
                     ApplicationId = _settings.ApplicationId,
                     AccessToken = token.AccessToken,
                     RefreshToken = token.RefreshToken,
+                    ImpersonateMerchantId = ImpersonatedMerchantId
                 });
             }
 
@@ -40,7 +44,8 @@ namespace Pinch.SDK.WebSample.Controllers
             {
                 IsLive = false,
                 BaseUri = _settings.BaseUri,
-                AuthUri = _settings.AuthUri
+                AuthUri = _settings.AuthUri,
+                ImpersonateMerchantId = ImpersonatedMerchantId
             });
         }
     }

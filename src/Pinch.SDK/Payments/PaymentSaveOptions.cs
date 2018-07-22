@@ -24,7 +24,10 @@ namespace Pinch.SDK.Payments
         /// A description of the payment. This may be shown to the Payer to understand the payment.
         /// </summary>
         public string Description { get; set; }
-
+        /// <summary>
+        /// Optional. The ID of the payment Source you want to use. If omitted, the first valid source will be used. 
+        /// </summary>
+        public string SourceId { get; set; }
         /// <summary>
         /// This can only be used by trusted/internal clients. It allows you to select which merchant the payer will be added to.
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -10,126 +11,153 @@ namespace Pinch.SDK
 {
     public class BaseClient
     {
-        protected readonly HttpClient _client;
-        private readonly Func<bool, Task<string>> _getAccessToken;
-        private string _accessToken;
+        protected readonly PinchApiOptions Options;
+        private readonly Func<HttpClient> _httpClientFactory;
+        private readonly Func<bool, Task<string>> _getAccessToken;        
 
-        public BaseClient(string baseUri, Func<bool, Task<string>> getAccessToken)
+        public BaseClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
         {
-            _client = new HttpClient()
-            {
-                BaseAddress = new Uri(baseUri)
-            };
-            _getAccessToken = getAccessToken;            
+            _httpClientFactory = httpClientFactory;
+            _getAccessToken = getAccessToken;
+            Options = options;
         }
 
         protected async Task<QuickResponse<T>> GetHttp<T>(string url)
+        {            
+            return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url));
+        }
+
+        protected async Task<QuickFile> GetFile(string url)
+        {
+            return await SendHttpFile(() => new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url));
+        }
+
+        protected async Task<QuickResponse<T>> PostHttp<T>(string url, Dictionary<string, string> parameters)
+        {            
+            return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
+            {
+                Content = HttpClientHelpers.GetPostBody(parameters)
+            });            
+        }
+
+        protected async Task<QuickResponse<T>> PostHttp<T>(string url, object data)
+        {            
+            return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
+            {
+                Content = HttpClientHelpers.GetJsonBody(data)
+            });
+        }
+
+        protected async Task<QuickResponse> DeleteHttp(string url)
+        {
+            return await SendHttp(() => new HttpRequestMessage(HttpMethod.Delete, Options.BaseUri + url));
+        }
+
+        private async Task<QuickResponse> SendHttp(Func<HttpRequestMessage> requestFunc)
         {
             try
             {
-                await SetInitialToken();
+                var request = requestFunc();
+                await SetAuthHeader(request, false);
 
-                var response = await _client.GetAsync(url);
-
+                var response = await _httpClientFactory().SendAsync(request);
+                
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    await GetToken();
-                    response = await _client.GetAsync(url);
-                }
+                    request = requestFunc();
+                    await SetAuthHeader(request, true);
+                    response = await _httpClientFactory().SendAsync(request);
+                }                
 
-                return await QuickResponse<T>.FromMessage(response);
+                return await QuickResponse.FromMessage(response);
             }
             catch (Exception ex)
-            {
-                return new QuickResponse<T>()
+            {                
+                return new QuickResponse()
                 {
                     Errors = new List<ApiError>()
                     {
-                        new ApiError()
-                        {
-                            ErrorMessage = GetRecursiveErrorMessage(ex)
-                        }
+                        new ApiError() {ErrorMessage = GetRecursiveErrorMessage(ex)}
                     }
                 };
             }
         }
 
-        protected async Task<QuickFile> GetFile(string url)
+        private async Task<QuickResponse<T>> SendHttp<T>(Func<HttpRequestMessage> requestFunc)
         {
-            await SetInitialToken();
-
-            var response = await _client.GetAsync(url);
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            try
             {
-                await GetToken();
-                response = await _client.GetAsync(url);
+                var request = requestFunc();
+                await SetAuthHeader(request, false);
+
+                var response = await _httpClientFactory().SendAsync(request);
+                
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    request = requestFunc();
+                    await SetAuthHeader(request, true);
+                    response = await _httpClientFactory().SendAsync(request);
+                }                
+
+                return await QuickResponse<T>.FromMessage(response);
             }
-            
-            return await QuickFile.FromMessage(response);
+            catch (Exception ex)
+            {                
+                return new QuickResponse<T>()
+                {
+                    Errors = new List<ApiError>()
+                    {
+                        new ApiError() {ErrorMessage = GetRecursiveErrorMessage(ex)}
+                    }
+                };
+            }
         }
 
-        protected async Task<QuickResponse<T>> PostHttp<T>(string url, Dictionary<string, string> parameters)
+        private async Task<QuickFile> SendHttpFile(Func<HttpRequestMessage> requestFunc)
         {
-            await SetInitialToken();
-
-            var response = await _client.PostAsync(url, HttpClientHelpers.GetPostBody(parameters));
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            try
             {
-                await GetToken();
-                response = await _client.PostAsync(url, HttpClientHelpers.GetPostBody(parameters));
-            }
+                var request = requestFunc();
+                await SetAuthHeader(request, false);
 
-            return await QuickResponse<T>.FromMessage(response);
+                var response = await _httpClientFactory().SendAsync(request);
+                
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    request = requestFunc();
+                    await SetAuthHeader(request, true);
+                    response = await _httpClientFactory().SendAsync(request);
+                }                
+
+                return await QuickFile.FromMessage(response);
+            }
+            catch (Exception ex)
+            {                
+                return new QuickFile()
+                {
+                    Errors = new List<ApiError>()
+                    {
+                        new ApiError() {ErrorMessage = GetRecursiveErrorMessage(ex)}
+                    }
+                };
+            }
         }
 
-        protected async Task<QuickResponse<T>> PostHttp<T>(string url, object data)
+        private async Task SetAuthHeader(HttpRequestMessage message, bool renew)
         {
-            await SetInitialToken();
+            var token = await _getAccessToken(renew);
 
-            var response = await _client.PostAsync(url, HttpClientHelpers.GetJsonBody(data));
+            message.Headers.Authorization = JwtAuthHeader.GetHeader(token);
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (!string.IsNullOrEmpty(Options.ImpersonateMerchantId) && !message.Headers.Contains("Current-Merchant"))
             {
-                await GetToken();
-                response = await _client.PostAsync(url, HttpClientHelpers.GetJsonBody(data));
+                message.Headers.Add("Current-Merchant", Options.ImpersonateMerchantId);
             }
 
-            return await QuickResponse<T>.FromMessage(response);
-        }
-
-        protected async Task<QuickResponse> DeleteHttp(string url)
-        {
-            await SetInitialToken();
-
-            var response = await _client.DeleteAsync(url);
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (!string.IsNullOrEmpty(Options.ApiVersion))
             {
-                await GetToken();
-                response = await _client.DeleteAsync(url);
+                message.Headers.Add("Pinch-Version", Options.ApiVersion);
             }
-
-            return await QuickResponse.FromMessage(response);
-        }
-
-        private async Task SetInitialToken()
-        {
-            if (!string.IsNullOrEmpty(_accessToken))
-            {
-                _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(_accessToken);
-                return;
-            }
-
-            await GetToken(false);
-        }
-
-        private async Task GetToken(bool renew = true)
-        {
-            _accessToken = await _getAccessToken(renew);
-
-            _client.DefaultRequestHeaders.Authorization = JwtAuthHeader.GetHeader(_accessToken);
         }
 
         private string GetRecursiveErrorMessage(Exception ex, string delimeter = " --- ")

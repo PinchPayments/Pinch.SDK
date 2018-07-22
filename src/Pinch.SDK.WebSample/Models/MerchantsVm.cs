@@ -10,5 +10,6 @@ namespace Pinch.SDK.WebSample.Models
     {
         public Merchant MyMerchant { get; set; }
         public IEnumerable<ManagedMerchant> ManagedMerchants { get; set; }
+        public string ImpersonatedMerchantId { get; set; }
     }
 }

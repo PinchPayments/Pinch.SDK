@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,9 @@ namespace Pinch.SDK.Webhooks
 {
     public class WebhookClient: BaseClient
     {
-        private readonly PinchApiOptions _options;
-
-        public WebhookClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken)
-            : base(options.BaseUri, getAccessToken)
+        public WebhookClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
+            : base(options, getAccessToken, httpClientFactory)
         {
-            _options = options;
         }
 
         public bool VerifyWebhook(string webhookSecret, string requestBody, IDictionary<string, StringValues> headers)
@@ -48,7 +46,7 @@ namespace Pinch.SDK.Webhooks
             // Time must be within tolerance
             var seconds = long.Parse(time.Replace("t=", ""));
             var timeOffset = new DateTimeOffset(seconds * 10000000L + 621355968000000000L, TimeSpan.Zero);
-            if (Math.Abs((DateTimeOffset.UtcNow - timeOffset).TotalSeconds) > _options.WebhookVerificationClockSkewThreshold)
+            if (Math.Abs((DateTimeOffset.UtcNow - timeOffset).TotalSeconds) > Options.WebhookVerificationClockSkewThreshold)
             {                
                 return false;
             }            

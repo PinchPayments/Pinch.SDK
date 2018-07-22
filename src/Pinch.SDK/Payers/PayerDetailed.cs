@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pinch.SDK.Agreements;
+using Pinch.SDK.Payments;
+using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Payers
 {
@@ -31,22 +33,15 @@ namespace Pinch.SDK.Payers
         /// Mobile Number
         /// </summary>
         public string MobileNumber { get; set; }
-        /// <summary>
-        /// BSB
-        /// </summary>
-        public string BSB { get; set; }
-        /// <summary>
-        /// Account Number
-        /// </summary>
-        public string AccountNumber { get; set; }
-        /// <summary>
-        /// Account Name
-        /// </summary>
-        public string AccountName { get; set; }
 
         /// <summary>
         /// A list of Agreements for the current payer
         /// </summary>
         public IEnumerable<Agreement> Agreements { get; set; }
+
+        /// <summary>
+        /// A list of payment sources for the current payer
+        /// </summary>
+        public IEnumerable<Source> Sources { get; set; }
     }
 }

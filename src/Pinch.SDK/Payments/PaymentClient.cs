@@ -6,13 +6,22 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Payments API
+    /// </summary>
     public class PaymentClient : BaseClient
     {
-        public PaymentClient(string baseUri, Func<bool, Task<string>> getAccessToken)
-            : base(baseUri, getAccessToken)
+        public PaymentClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
+            : base(options, getAccessToken, httpClientFactory)
         {
         }
 
+        /// <summary>
+        /// Get all scheduled payments
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<PaymentExpanded>> GetScheduledAll(DateTime? startDate = null, DateTime? endDate = null)
         {
             return await GetScheduledAll(null, 1, 50, startDate, endDate);
@@ -33,6 +42,14 @@ namespace Pinch.SDK.Payments
             return list;
         }
 
+        /// <summary>
+        /// Get scheduled payments (paged)
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public async Task<Paged<PaymentExpanded>> GetScheduled(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
             var url = $"payments/scheduled?page={page}&pagesize={pageSize}";
@@ -52,7 +69,12 @@ namespace Pinch.SDK.Payments
             return response.Data;
         }
 
-
+        /// <summary>
+        /// Get all processed payments
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<PaymentExpanded>> GetProcessedAll(DateTime? startDate = null, DateTime? endDate = null)
         {
             return await GetProcessedAll(null, 1, 50, startDate, endDate);
@@ -73,6 +95,14 @@ namespace Pinch.SDK.Payments
             return list;
         }
 
+        /// <summary>
+        /// Get processed payments (paged)
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public async Task<Paged<PaymentExpanded>> GetProcessed(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
             var url = $"payments/processed?page={page}&pagesize={pageSize}";
@@ -92,6 +122,11 @@ namespace Pinch.SDK.Payments
             return response.Data;
         }
 
+        /// <summary>
+        /// Get a single payment with more details. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<PaymentDetailed> Get(string id)
         {
             var response = await GetHttp<PaymentDetailed>($"payments/{id}");
@@ -99,6 +134,11 @@ namespace Pinch.SDK.Payments
             return response.Data;
         }
         
+        /// <summary>
+        /// Get all payments for the given payer.
+        /// </summary>
+        /// <param name="payerId"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<PaymentExpanded>> GetForPayer(string payerId)
         {
             var response = await GetHttp<IEnumerable<PaymentExpanded>>($"payments/payer/{payerId}");
@@ -106,6 +146,11 @@ namespace Pinch.SDK.Payments
             return response.Data;
         }
 
+        /// <summary>
+        /// Create or update a scheduled payment. Updates not supported after the payment has been processed.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments", options);
@@ -117,6 +162,27 @@ namespace Pinch.SDK.Payments
             };
         }
 
+        /// <summary>
+        /// Execute a payment in realtime. Only supports realtime sources (credit cards).
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public async Task<ApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
+        {
+            var response = await PostHttp<PaymentDetailed>("payments/realtime", options);
+
+            return new ApiResponse<PaymentDetailed>()
+            {
+                Data = response.Data,
+                Errors = response.Errors
+            };
+        }
+
+        /// <summary>
+        /// Delete a payment. Only scheduled payments that have not been processed can be deleted.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ApiResponse> Delete(string id)
         {
             var response = await DeleteHttp($"payments/{id}");

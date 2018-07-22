@@ -15,6 +15,17 @@ namespace Pinch.SDK
         public string ApplicationId { get; set; }
 
         /// <summary>
+        /// Set this to specify which version of the API you have coded against. Omitting this in the SDK is fine as we'll
+        /// use the most recent version. Used for backwards compatibility.
+        /// </summary>
+        public string ApiVersion { get; set; }
+
+        /// <summary>
+        /// Set this Merchant ID to impersonate a different merchant.
+        /// </summary>
+        public string ImpersonateMerchantId { get; set; }
+
+        /// <summary>
         /// The maximum difference in seconds between the current time and the webhook timestamp.
         /// Used to verify authenticity of webhook requests and to avoid replay attacks.
         /// </summary>

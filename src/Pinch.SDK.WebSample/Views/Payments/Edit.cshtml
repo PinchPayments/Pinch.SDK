@@ -1,4 +1,4 @@
-@model Pinch.SDK.Payments.Payment
+@model Pinch.SDK.WebSample.ViewModels.Payments.EditPaymentVm
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,7 +8,7 @@
 
 <form asp-action="Edit">
     <div class="form-horizontal">
-        <h4>Payer</h4>
+        <h4>Payment</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
@@ -38,6 +38,13 @@
             <div class="col-md-10">
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SourceId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SourceId" class="form-control" />
+                <span asp-validation-for="SourceId" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">

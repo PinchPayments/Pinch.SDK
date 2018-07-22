@@ -17,12 +17,14 @@ namespace Pinch.SDK.Auth
         private readonly string _secretKey;
         private readonly string _baseUri;
         private readonly string _authUri;
+        private readonly Func<HttpClient> _httpClientFactory;
 
-        public AuthClient(string secretKey, string authUri, string baseUri)
+        public AuthClient(string secretKey, string authUri, string baseUri, Func<HttpClient> httpClientFactory)
         {
             _secretKey = secretKey;
             _baseUri = baseUri;
             _authUri = authUri;
+            _httpClientFactory = httpClientFactory;
         }
 
         public string GetConnectUrl(string applicationId, string redirectUri)
