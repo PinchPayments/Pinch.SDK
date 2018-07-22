@@ -34,7 +34,10 @@
     @foreach (var merchant in Model.ManagedMerchants)
     {
         <tr>
-            <td>@merchant.Id</td>
+            <td>
+                <p>@merchant.Id</p>
+                <p>@merchant.TestMerchantId</p>
+            </td>
             <td>@merchant.CompanyName</td>
             <td>@merchant.ContactEmail</td>
             <td>@merchant.AccountName</td>
@@ -44,7 +47,9 @@
             <td>@merchant.Suburb</td>
             <td>@merchant.Postcode</td>
             <td>
-                <p>@merchant.SecretKey</p>
+                
+                <p>@merchant.TestSecretKey</p>
+                <p>@merchant.LiveSecretKey</p>
                 <p>@merchant.TestPublishableKey</p>
                 <p>@merchant.LivePublishableKey</p>
             </td>

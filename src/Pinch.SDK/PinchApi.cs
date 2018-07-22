@@ -28,8 +28,6 @@ namespace Pinch.SDK
         private readonly PinchApiOptions _options;
         private readonly string _secretKey;
         private readonly string _clientId;
-        private readonly string _baseUri;
-        private readonly string _authUri;
         private readonly string _refreshToken;
         private readonly string _applicationId;
         private string _accessToken;
@@ -43,7 +41,7 @@ namespace Pinch.SDK
         private AgreementClient _agreement;
         private WebhookClient _webhook;
 
-        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _authUri, _baseUri, HttpClientFactoryOrStaticInstance()));
+        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, HttpClientFactoryOrStaticInstance()));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PayerClient Payer => _payer ?? (_payer = new PayerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
@@ -82,14 +80,14 @@ namespace Pinch.SDK
 
             if (!string.IsNullOrEmpty(options.BaseUri))
             {
-                _baseUri = options.BaseUri;
+                options.BaseUri = $"{options.BaseUri.TrimEnd('/')}/{(options.IsLive ? "live" : "test")}/";
             }
             else
             {
-                _baseUri = options.IsLive ? Settings.ApiBaseUri_Production : Settings.ApiBaseUri_Test;
+                options.BaseUri = options.IsLive ? Settings.ApiBaseUri_Production : Settings.ApiBaseUri_Test;
             }
             
-            _authUri = !string.IsNullOrEmpty(options.AuthUri) ? options.AuthUri : Settings.AuthBaseUri_Production;
+            options.AuthUri = !string.IsNullOrEmpty(options.AuthUri) ? options.AuthUri : Settings.AuthBaseUri_Production;
 
             _secretKey = secretKey;
             _clientId = merchantId;

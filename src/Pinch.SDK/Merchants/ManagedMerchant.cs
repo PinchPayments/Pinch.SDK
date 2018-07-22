@@ -30,7 +30,9 @@ namespace Pinch.SDK.Merchants
         public string Dob { get; set; }
         public string GovernmentNumber { get; set; }
 
-        public string SecretKey { get; set; }
+        public string TestMerchantId { get; set; }
+        public string TestSecretKey { get; set; }
+        public string LiveSecretKey { get; set; }
         public string TestPublishableKey { get; set; }
         public string LivePublishableKey { get; set; }
     }

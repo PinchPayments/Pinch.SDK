@@ -23,56 +23,48 @@ namespace Pinch.SDK
         }
 
         protected async Task<QuickResponse<T>> GetHttp<T>(string url)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url);
-
-            return await SendHttp<T>(request);
+        {            
+            return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url));
         }
 
         protected async Task<QuickFile> GetFile(string url)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url);
-
-            return await SendHttpFile(request);
+            return await SendHttpFile(() => new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url));
         }
 
         protected async Task<QuickResponse<T>> PostHttp<T>(string url, Dictionary<string, string> parameters)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
+        {            
+            return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
             {
                 Content = HttpClientHelpers.GetPostBody(parameters)
-            };
-
-            return await SendHttp<T>(request);            
+            });            
         }
 
         protected async Task<QuickResponse<T>> PostHttp<T>(string url, object data)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
+        {            
+            return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
             {
                 Content = HttpClientHelpers.GetJsonBody(data)
-            };
-
-            return await SendHttp<T>(request);
+            });
         }
 
         protected async Task<QuickResponse> DeleteHttp(string url)
         {
-            var request = new HttpRequestMessage(HttpMethod.Delete, Options.BaseUri + url);
-
-            return await SendHttp(request);
+            return await SendHttp(() => new HttpRequestMessage(HttpMethod.Delete, Options.BaseUri + url));
         }
 
-        private async Task<QuickResponse> SendHttp(HttpRequestMessage request)
+        private async Task<QuickResponse> SendHttp(Func<HttpRequestMessage> requestFunc)
         {
             try
-            {                                                
+            {
+                var request = requestFunc();
                 await SetAuthHeader(request, false);
 
                 var response = await _httpClientFactory().SendAsync(request);
                 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
+                    request = requestFunc();
                     await SetAuthHeader(request, true);
                     response = await _httpClientFactory().SendAsync(request);
                 }                
@@ -91,16 +83,18 @@ namespace Pinch.SDK
             }
         }
 
-        private async Task<QuickResponse<T>> SendHttp<T>(HttpRequestMessage request)
+        private async Task<QuickResponse<T>> SendHttp<T>(Func<HttpRequestMessage> requestFunc)
         {
             try
-            {                                                
+            {
+                var request = requestFunc();
                 await SetAuthHeader(request, false);
 
                 var response = await _httpClientFactory().SendAsync(request);
                 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
+                    request = requestFunc();
                     await SetAuthHeader(request, true);
                     response = await _httpClientFactory().SendAsync(request);
                 }                
@@ -119,16 +113,18 @@ namespace Pinch.SDK
             }
         }
 
-        private async Task<QuickFile> SendHttpFile(HttpRequestMessage request)
+        private async Task<QuickFile> SendHttpFile(Func<HttpRequestMessage> requestFunc)
         {
             try
-            {                                                
+            {
+                var request = requestFunc();
                 await SetAuthHeader(request, false);
 
                 var response = await _httpClientFactory().SendAsync(request);
                 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
+                    request = requestFunc();
                     await SetAuthHeader(request, true);
                     response = await _httpClientFactory().SendAsync(request);
                 }                
@@ -156,6 +152,11 @@ namespace Pinch.SDK
             if (!string.IsNullOrEmpty(Options.ImpersonateMerchantId) && !message.Headers.Contains("Current-Merchant"))
             {
                 message.Headers.Add("Current-Merchant", Options.ImpersonateMerchantId);
+            }
+
+            if (!string.IsNullOrEmpty(Options.ApiVersion))
+            {
+                message.Headers.Add("Pinch-Version", Options.ApiVersion);
             }
         }
 
