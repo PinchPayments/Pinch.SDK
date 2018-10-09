@@ -12,5 +12,6 @@ namespace Pinch.SDK.Payments
         public DateTime TransactionDate { get; set; }
         public string Status { get; set; }
         public Source Source { get; set; }
+        public Dishonour Dishonour { get; set; }
     }
 }
