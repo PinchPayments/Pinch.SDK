@@ -1,0 +1,32 @@
+﻿@model List<Pinch.SDK.Webhooks.Webhook>
+
+@{
+    ViewData["Title"] = "Webhooks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>
+    Webhooks
+    <a href="@Url.Action("New", "Webhooks")" class="btn btn-primary pull-right">New Webhook</a>
+</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Secret</th>
+            <th>Uri</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hook in Model)
+        {
+            <tr>
+                <td>@hook.Id</td>
+                <td>@hook.Secret</td>
+                <td>@hook.Uri</td>
+            </tr>
+        }
+    </tbody>
+</table>

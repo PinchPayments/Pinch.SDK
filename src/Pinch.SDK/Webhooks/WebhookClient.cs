@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
+using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Webhooks
 {
@@ -14,6 +15,20 @@ namespace Pinch.SDK.Webhooks
         public WebhookClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)
         {
+        }
+
+        public async Task<ApiResponse<Webhook>> Save(WebhookSaveOptions options)
+        {
+            var response = await PostHttp<Webhook>("webhooks", options);
+
+            return response.ToApiResponse();
+        }
+
+        public async Task<ApiResponse<List<Webhook>>> GetWebhooks()
+        {
+            var response = await GetHttp<List<Webhook>>($"webhooks");
+
+            return response.ToApiResponse();
         }
 
         public bool VerifyWebhook(string webhookSecret, string requestBody, IDictionary<string, StringValues> headers)
