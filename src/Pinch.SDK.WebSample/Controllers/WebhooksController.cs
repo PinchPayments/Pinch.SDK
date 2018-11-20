@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Pinch.SDK.Webhooks;
 using Pinch.SDK.WebSample.Helpers;
 using Pinch.SDK.WebSample.Models;
 
@@ -17,6 +18,42 @@ namespace Pinch.SDK.WebSample.Controllers
         public WebhooksController(IOptions<PinchSettings> settings, ApplicationDbContext context) : base(settings)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public IActionResult New()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> New(WebhookSaveOptions model)
+        {
+            var result = await GetApi().Webhook.Save(model);
+
+            if (!result.Success)
+            {
+                result.Errors.ForEach(x =>
+                {
+                    ModelState.AddModelError(x.PropertyName, x.ErrorMessage);
+                });
+
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = await GetApi().Webhook.GetWebhooks();
+
+            if (!model.Success)
+            {
+                throw new Exception(string.Join(" - ", model.Errors.Select(x => x.ErrorMessage)));
+            }
+
+            return View(model.Data);
         }
 
         public async Task<IActionResult> ReceiveWebhook()
