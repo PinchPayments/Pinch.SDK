@@ -6,7 +6,7 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Events
 {
-    public class EventClient : BaseClient
+    public class EventClient : BaseClient, IEventClient
     {
         public EventClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory) 
             : base(options, getAccessToken, httpClientFactory)
