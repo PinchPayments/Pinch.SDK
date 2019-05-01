@@ -82,5 +82,13 @@ namespace Pinch.SDK.Merchants
         /// The phone number (preferably mobile) of the person responsible for this merchant.
         /// </summary>
         public string ContactPhone { get; set; }
+        /// <summary>
+        /// The date of birth of the person responsible for this merchant.
+        /// </summary>
+        public string Dob { get; set; }
+        /// <summary>
+        /// The Government ID Number (Passport or Drivers License) of the person responsible for this merchant.
+        /// </summary>
+        public string GovernmentNumber { get; set; }
     }
 }

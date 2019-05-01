@@ -102,7 +102,9 @@ namespace Pinch.SDK.WebSample.Controllers
                 CompanyEmail = model.CompanyEmail,
                 CompanyPhone = model.CompanyPhone,
                 ContactFirstName = model.ContactFirstName,
-                ContactLastName = model.ContactLastName
+                ContactLastName = model.ContactLastName,
+                Dob = model.Dob,
+                GovernmentNumber = model.GovernmentNumber
             });
 
             if (!result.Success)
