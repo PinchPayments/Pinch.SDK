@@ -88,7 +88,7 @@ namespace Pinch.SDK.WebSample.Controllers
             {
                 AccountName = model.AccountName,
                 AccountNumber = model.AccountNumber,
-                BSB = model.BSB,
+                Bsb = model.Bsb,
                 CompanyName = model.CompanyName,
                 ContactEmail = model.ContactEmail,                
                 ContactPhone = model.ContactPhone,
@@ -98,7 +98,11 @@ namespace Pinch.SDK.WebSample.Controllers
                 State = model.State,
                 Abn = model.Abn,
                 BankStatementLabel = model.BankStatementLabel,
-                DebitMessage = model.DebitMessage,                
+                DebitMessage = model.DebitMessage,      
+                CompanyEmail = model.CompanyEmail,
+                CompanyPhone = model.CompanyPhone,
+                ContactFirstName = model.ContactFirstName,
+                ContactLastName = model.ContactLastName
             });
 
             if (!result.Success)
