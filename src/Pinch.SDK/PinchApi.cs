@@ -17,7 +17,7 @@ namespace Pinch.SDK
     /// <summary>
     /// The Pinch API. This class is all you need to call every method of our API.
     /// </summary>
-    public class PinchApi
+    public class PinchApi : IPinchApi
     {
         // HttpClient is designed to be reused and is thread safe. 
         // See: https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/
@@ -42,6 +42,7 @@ namespace Pinch.SDK
         private WebhookClient _webhook;
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, HttpClientFactoryOrStaticInstance()));
+        
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PayerClient Payer => _payer ?? (_payer = new PayerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
@@ -49,7 +50,16 @@ namespace Pinch.SDK
         public EventClient Event => _event ?? (_event = new EventClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public AgreementClient Agreement => _agreement ?? (_agreement = new AgreementClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public WebhookClient Webhook => _webhook ?? (_webhook = new WebhookClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
-
+        
+        IAuthClient IPinchApi.Auth => Auth;
+        IMerchantClient IPinchApi.Merchant => Merchant;
+        IPayerClient IPinchApi.Payer => Payer;
+        IPaymentClient IPinchApi.Payment => Payment;
+        ITransferClient IPinchApi.Transfer => Transfer;
+        IEventClient IPinchApi.Event => Event;
+        IAgreementClient IPinchApi.Agreement => Agreement;
+        IWebhookClient IPinchApi.Webhook => Webhook;
+        
         /// <summary>
         /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.
         /// </summary>

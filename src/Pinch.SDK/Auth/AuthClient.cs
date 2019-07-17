@@ -12,7 +12,7 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Auth
 {
-    public class AuthClient
+    public class AuthClient : IAuthClient
     {
         private readonly string _secretKey;
         private readonly string _baseUri;

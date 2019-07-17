@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pinch.SDK.Agreements
 {
-    public class AgreementClient : BaseClient
+    public class AgreementClient : BaseClient, IAgreementClient
     {
         public AgreementClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)

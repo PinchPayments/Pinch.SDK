@@ -10,7 +10,7 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Webhooks
 {
-    public class WebhookClient: BaseClient
+    public class WebhookClient: BaseClient, IWebhookClient
     {
         public WebhookClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)

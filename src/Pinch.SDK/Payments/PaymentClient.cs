@@ -9,7 +9,7 @@ namespace Pinch.SDK.Payments
     /// <summary>
     /// Payments API
     /// </summary>
-    public class PaymentClient : BaseClient
+    public class PaymentClient : BaseClient, IPaymentClient
     {
         public PaymentClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)

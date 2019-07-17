@@ -6,7 +6,7 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Merchants
 {
-    public class MerchantClient : BaseClient
+    public class MerchantClient : BaseClient, IMerchantClient
     {
         public MerchantClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory) 
             : base(options, getAccessToken, httpClientFactory)

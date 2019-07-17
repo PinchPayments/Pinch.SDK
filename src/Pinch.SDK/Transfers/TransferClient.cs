@@ -6,7 +6,15 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Transfers
 {
-    public class TransferClient : BaseClient
+    public interface ITransferClient
+    {
+        Task<TransferDetailed> Get(string id);
+        Task<List<Transfer>> GetTransfers();
+        Task<IEnumerable<TransferLineItem>> GetLineItemsAll(string id, List<TransferLineItem> list = null, int currentPage = 1, int pageSize = 50);
+        Task<Paged<TransferLineItem>> GetLineItems(string id, int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null);
+    }
+
+    public class TransferClient : BaseClient, ITransferClient
     {
         public TransferClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)

@@ -8,7 +8,7 @@ using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Payers
 {
-    public class PayerClient : BaseClient
+    public class PayerClient : BaseClient, IPayerClient
     {
         public PayerClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)
