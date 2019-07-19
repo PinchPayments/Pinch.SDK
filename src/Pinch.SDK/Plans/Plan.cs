@@ -13,5 +13,6 @@ namespace Pinch.SDK.Plans
         public IEnumerable<PlanFreePeriod> FreePeriods { get; set; } = new List<PlanFreePeriod>();
         public IEnumerable<PlanFixedPayment> FixedPayments { get; set; } = new List<PlanFixedPayment>();
         public PlanRecurringPayment RecurringPayment { get; set; }
+        public string Metadata { get; set; }
     }
 }
