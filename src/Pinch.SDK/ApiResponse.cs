@@ -22,6 +22,11 @@ namespace Pinch.SDK
         public T Data { get; set; }
     }
 
+    public class ApiResponse<T, TOptions> : ApiResponse<T>
+    {
+        public TOptions InlineErrors { get; set; }
+    }
+
     public class ApiError
     {
         public string ErrorCode { get; set; }

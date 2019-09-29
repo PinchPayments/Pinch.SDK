@@ -152,6 +152,71 @@ namespace Pinch.SDK.Helpers
         }
     }
 
+    public class QuickResponse<T, TOptions> : QuickResponse<T>
+    {
+        public TOptions InlineErrors { get; set; }
+
+        public new ApiResponse<T, TOptions> ToApiResponse()
+        {
+            return new ApiResponse<T, TOptions>()
+            {
+                InlineErrors = InlineErrors,
+                Errors = Errors,
+                Data = Data
+            };
+        }
+
+        public new static async Task<QuickResponse<T, TOptions>> FromMessage(HttpResponseMessage message)
+        {
+            var response = new QuickResponse<T, TOptions>();
+            response.Message = message;
+            response.ResponseBody = await message.Content.ReadAsStringAsync();
+
+            if (message.IsSuccessStatusCode)
+            {
+                response.Data = JsonConvert.DeserializeObject<T>(response.ResponseBody);
+            }
+            else
+            {
+                response.HandleFailedCall();
+            }
+
+            return response;
+        }
+
+        protected new void HandleFailedCall()
+        {
+            try
+            {
+                var tempResponse = JsonConvert.DeserializeObject<ApiResponse<T, TOptions>>(ResponseBody);
+
+                if (tempResponse != null)
+                {
+                    InlineErrors = tempResponse.InlineErrors;
+                    Errors = tempResponse.Errors;
+                    return;
+                }
+
+                Errors = JsonConvert.DeserializeObject<List<ApiError>>(ResponseBody) ?? new List<ApiError>();
+
+                if (!Errors.Any())
+                {
+                    Errors.Add(new ApiError()
+                    {
+                        ErrorMessage = !string.IsNullOrEmpty(ResponseBody) ? ResponseBody : Message.StatusCode.ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Errors.Add(new ApiError()
+                {
+                    ErrorMessage = !string.IsNullOrEmpty(ResponseBody) ? ResponseBody : Message.StatusCode.ToString()
+                });
+            }
+        }
+    }
+
     public class QuickFile : QuickResponse<Stream>
     {
         public new static async Task<QuickFile> FromMessage(HttpResponseMessage message)

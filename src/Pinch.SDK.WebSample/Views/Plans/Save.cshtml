@@ -1,0 +1,23 @@
+﻿@model  Pinch.SDK.WebSample.ViewModels.Plans.PlanSaveVm
+
+@{
+    ViewBag.Title = "Plan";
+}
+
+<h2>Plans</h2>
+
+<form asp-action="Save">
+    <div class="form-horizontal">
+        <h4>Plan</h4>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="JsonData" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="JsonData" class="form-control" rows="20"></textarea>
+                <span asp-validation-for="JsonData" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Plan Data</button>
+    </div>
+</form>
