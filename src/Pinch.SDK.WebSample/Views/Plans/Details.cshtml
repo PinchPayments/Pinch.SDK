@@ -1,0 +1,31 @@
+﻿@model Pinch.SDK.WebSample.ViewModels.Plans.PlanDetailsVm
+
+@{
+    ViewBag.Title = "Plan Details";
+}
+
+<h2>
+    Plan: @Model.Plan.Name
+</h2>
+
+<pre>@(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Plan, Newtonsoft.Json.Formatting.Indented))</pre>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Payment Date</th>
+        <th>Amount</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var payment in Model.CalculatedPayments)
+    {
+        <tr>
+            <td>@payment.PaymentDate.ToLongDateString()</td>
+            <td>@((payment.AmountInCents / 100).ToString("C"))</td>
+            <td>@payment.Description</td>
+        </tr>
+    }
+    </tbody>
+</table>

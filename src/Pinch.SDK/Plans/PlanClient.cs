@@ -97,5 +97,23 @@ namespace Pinch.SDK.Plans
 
             return response.ToApiResponse();
         }
+
+        public async Task<ApiResponse<List<CalculatedSubscriptionPayment>>> CalculatedPayments(string planId, DateTime? startDate, long? totalAmount)
+        {
+            var url = $"plans/{planId}/calculated-payments?1=1";
+
+            if (startDate.HasValue)
+            {
+                url += $"&startDate={startDate.Value.ToString("o")}";
+            }
+            if (totalAmount.HasValue)
+            {
+                url += $"&totalAmount={totalAmount}";
+            }
+
+            var response = await GetHttp<List<CalculatedSubscriptionPayment>>(url);
+
+            return response.ToApiResponse();
+        }
     }
 }

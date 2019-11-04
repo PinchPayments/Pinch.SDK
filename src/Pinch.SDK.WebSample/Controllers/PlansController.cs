@@ -54,5 +54,20 @@ namespace Pinch.SDK.WebSample.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            var plan = await GetApi().Plan.Get(id);
+            var payments = await GetApi().Plan.CalculatedPayments(id, DateTime.UtcNow, 100000);
+
+            var model = new PlanDetailsVm()
+            {
+                Plan = plan.Data,
+                CalculatedPayments = payments.Data
+            };
+
+            return View(model);
+        }
     }
 }
