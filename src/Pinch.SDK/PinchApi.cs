@@ -9,6 +9,8 @@ using Pinch.SDK.Events;
 using Pinch.SDK.Merchants;
 using Pinch.SDK.Payers;
 using Pinch.SDK.Payments;
+using Pinch.SDK.Plans;
+using Pinch.SDK.Subscriptions;
 using Pinch.SDK.Transfers;
 using Pinch.SDK.Webhooks;
 
@@ -40,6 +42,8 @@ namespace Pinch.SDK
         private EventClient _event;
         private AgreementClient _agreement;
         private WebhookClient _webhook;
+        private PlanClient _plan;
+        private SubscriptionClient _subscription;
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, HttpClientFactoryOrStaticInstance()));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
@@ -49,6 +53,8 @@ namespace Pinch.SDK
         public EventClient Event => _event ?? (_event = new EventClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public AgreementClient Agreement => _agreement ?? (_agreement = new AgreementClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public WebhookClient Webhook => _webhook ?? (_webhook = new WebhookClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public PlanClient Plan => _plan ?? (_plan = new PlanClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public SubscriptionClient Subscriptions => _subscription ?? (_subscription = new SubscriptionClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
 
         /// <summary>
         /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Pinch.SDK.Plans.Plan>
+
+@{
+    ViewBag.Title = "Plans";
+}
+
+<h2>
+    Plans
+    <a href="@Url.Action("Save", "Plans")" class="btn btn-primary pull-right">New Plan</a>
+</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Transaction Date</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var plan in Model)
+    {
+        <tr>
+            <td><a href="@Url.Action("Details", "Plans", new { id = plan.Id })">@plan.Id</a></td>
+            <td>@plan.Name</td>
+            <td>@plan.SubscriberCount</td>
+            <td>
+                <span>@(plan.FreePeriods.Count()) free trials. </span>
+                <span>@plan.FixedPayments.Count() fixed payments. </span>
+                <span>@(plan.RecurringPayment != null ? "1" : "0") recurring payments.</span>
+            </td>
+            <td class="text-right">
+                <a href="@Url.Action("Edit", "Plans", new { id=plan.Id })" class="btn btn-link">Edit</a>
+                <a href="@Url.Action("Delete", "Plans", new { id=plan.Id })" class="btn btn-link">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

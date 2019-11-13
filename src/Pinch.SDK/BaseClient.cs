@@ -46,6 +46,14 @@ namespace Pinch.SDK
             {
                 Content = HttpClientHelpers.GetJsonBody(data)
             });
+        }        
+        
+        protected async Task<QuickResponse<T, TOptions>> PostHttp<T, TOptions>(string url, object data)
+        {            
+            return await SendHttp<T, TOptions>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
+            {
+                Content = HttpClientHelpers.GetJsonBody(data)
+            });
         }
 
         protected async Task<QuickResponse> DeleteHttp(string url)
@@ -104,6 +112,36 @@ namespace Pinch.SDK
             catch (Exception ex)
             {                
                 return new QuickResponse<T>()
+                {
+                    Errors = new List<ApiError>()
+                    {
+                        new ApiError() {ErrorMessage = GetRecursiveErrorMessage(ex)}
+                    }
+                };
+            }
+        }
+
+        private async Task<QuickResponse<T, TOptions>> SendHttp<T, TOptions>(Func<HttpRequestMessage> requestFunc)
+        {
+            try
+            {
+                var request = requestFunc();
+                await SetAuthHeader(request, false);
+
+                var response = await _httpClientFactory().SendAsync(request);
+                
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    request = requestFunc();
+                    await SetAuthHeader(request, true);
+                    response = await _httpClientFactory().SendAsync(request);
+                }                
+
+                return await QuickResponse<T, TOptions>.FromMessage(response);
+            }
+            catch (Exception ex)
+            {                
+                return new QuickResponse<T, TOptions>()
                 {
                     Errors = new List<ApiError>()
                     {

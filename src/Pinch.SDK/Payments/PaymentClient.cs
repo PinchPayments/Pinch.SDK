@@ -123,6 +123,47 @@ namespace Pinch.SDK.Payments
         }
 
         /// <summary>
+        /// Get all payments for subscription
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<PaymentExpanded>> GetForSubscriptionAll(string subscriptionId)
+        {
+            return await GetForSubscriptionAll(subscriptionId, null, 1, 50);
+        }
+
+        private async Task<IEnumerable<PaymentExpanded>> GetForSubscriptionAll(string subscriptionId, List<PaymentExpanded> list, int currentPage, int pageSize)
+        {
+            list = list ?? new List<PaymentExpanded>();
+
+            var data = await GetForSubscription(subscriptionId, currentPage, pageSize);
+            list.AddRange(data.Data);
+
+            if (data.totalPages > currentPage)
+            {
+                await GetForSubscriptionAll(subscriptionId, list, currentPage + 1, pageSize);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Get payments for subscription (paged)
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID</param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public async Task<Paged<PaymentExpanded>> GetForSubscription(string subscriptionId, int page = 1, int pageSize = 50)
+        {
+            var url = $"payments/subscription/{subscriptionId}?page={page}&pagesize={pageSize}";
+
+            var response = await GetHttp<Paged<PaymentExpanded>>(url);
+
+            return response.Data;
+        }
+
+        /// <summary>
         /// Get a single payment with more details. 
         /// </summary>
         /// <param name="id"></param>

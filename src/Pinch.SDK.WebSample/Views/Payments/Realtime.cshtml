@@ -116,15 +116,14 @@
 
 @section scripts
 {
-    <script src="https://localhost:44339/capture/capture.bundle.js"></script>
+    <script src="https://web.getpinch.com.au/capture/capture.bundle.js"></script>
     <script>
         var form = document.getElementById("cc-form");
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
             var capture = Pinch.Capture({
-                publishableKey: "@Model.PublishableKey",
-                apiUrl: "https://localhost:44307/"
+                publishableKey: "@Model.PublishableKey"                
             });
 
             capture.createToken({
