@@ -1,11 +1,17 @@
 {
-  "name": "aspnet-example",
+  "name": "pinch-sdk-websample",
   "version": "0.0.0",
   "devDependencies": {
-    "gulp": "3.8.11",
-    "gulp-concat": "2.5.2",
-    "gulp-cssmin": "0.1.7",
-    "gulp-uglify": "1.2.0",
-    "rimraf": "2.2.8"
-  }
+  },
+  "dependencies": {
+    "bootstrap": "3.3.5",
+    "jquery": "2.1.4",
+    "jquery-validation": "1.19.1",
+    "jquery-validation-unobtrusive": "3.2.11"
+  },
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
