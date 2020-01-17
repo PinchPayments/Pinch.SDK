@@ -1,0 +1,57 @@
+@model Pinch.SDK.WebSample.ViewModels.Subscriptions.SubscriptionCreateVm
+
+@{
+    ViewData["Title"] = "Create Subscription";
+}
+
+<h2>Create Subscription</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Subscription</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="PayerId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PayerId" class="form-control" />
+                <span asp-validation-for="PayerId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PlanId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PlanId" class="form-control" />
+                <span asp-validation-for="PlanId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TotalAmount" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TotalAmount" class="form-control" />
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+        </div>        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create Subscription" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

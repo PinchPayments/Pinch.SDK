@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Pinch.SDK.Subscriptions.Subscription>
+
+@{
+    ViewBag.Title = "Subscriptions";
+}
+
+<h2>
+    Subscriptions
+    <a href="@Url.Action("Create", "Subscriptions")" class="btn btn-primary pull-right">New Subscription</a>
+</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Payer</th>
+            <th>Plan Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var sub in Model)
+    {
+        <tr>
+            <td><a href="@Url.Action("Details", "Subscriptions", new { id = sub.Id })">@sub.Id</a></td>
+            <td>@sub.Payer.FirstName @sub.Payer.LastName</td>
+            <td>@sub.PlanName</td>
+            <td>
+                <span>@(sub.FreePeriods.Count()) free trials. </span>
+                <span>@sub.FixedPayments.Count() fixed payments. </span>
+                <span>@(sub.RecurringPayment != null ? "1" : "0") recurring payments.</span>
+            </td>
+            <td>@sub.StartDate</td>
+            <td>@sub.TotalAmount?.ToString("C")</td>
+            <td>@sub.Status</td>
+            <td class="text-right">
+                <a href="@Url.Action("Cancel", "Subscriptions", new { id=sub.Id })" class="btn btn-link">Cancel Subscription</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
