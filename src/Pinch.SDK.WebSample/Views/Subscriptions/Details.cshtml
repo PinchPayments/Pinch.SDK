@@ -1,0 +1,31 @@
+﻿@model Pinch.SDK.WebSample.ViewModels.Subscriptions.SubscriptionDetailsVm
+
+@{
+    ViewBag.Title = "Subscription Details";
+}
+
+<h2>
+    Subscription: @Model.Subscription.Id
+</h2>
+
+<pre>@(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Subscription, Newtonsoft.Json.Formatting.Indented))</pre>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Payment Date</th>
+        <th>Amount</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var payment in Model.Payments)
+    {
+        <tr>
+            <td>@payment.TransactionDate.ToLongDateString()</td>
+            <td>@((payment.Amount / 100).ToString("C"))</td>
+            <td>@payment.Description</td>
+        </tr>
+    }
+    </tbody>
+</table>
