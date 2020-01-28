@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Pinch.SDK.Payments
 {
@@ -29,8 +30,8 @@ namespace Pinch.SDK.Payments
         /// </summary>
         public string SourceId { get; set; }
         /// <summary>
-        /// This can only be used by trusted/internal clients. It allows you to select which merchant the payer will be added to.
+        /// A list of source types to surcharge (Pass on the fees to the customer). eg. ['bank-account', 'credit-card']
         /// </summary>
-        public string MerchantId { get; set; }
+        public List<string> Surcharge { get; set; } = new List<string>();
     }
 }
