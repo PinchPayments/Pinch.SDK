@@ -25,6 +25,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         public long ApplicationFee { get; set; }
         /// <summary>
+        /// The total of all fees for this transaction
+        /// </summary>
+        public long TotalFee { get; set; }
+        /// <summary>
         /// Whether this transaction passed the fees onto the customer
         /// </summary>
         public bool IsSurcharged { get; set; }
@@ -47,7 +51,7 @@ namespace Pinch.SDK.Payments
         /// <summary>
         /// The actual date the payment was settled. Only available once settled.
         /// </summary>
-        public DateTime ActualTransferDate { get; set; }
+        public DateTime? ActualTransferDate { get; set; }
 
         /// <summary>
         /// The Payer for this payment

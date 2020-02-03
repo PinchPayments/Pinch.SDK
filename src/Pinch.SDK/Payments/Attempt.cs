@@ -19,7 +19,7 @@ namespace Pinch.SDK.Payments
         /// <summary>
         /// The actual date the payment was settled. Only available once settled.
         /// </summary>
-        public DateTime ActualTransferDate { get; set; }
+        public DateTime? ActualTransferDate { get; set; }
         /// <summary>
         /// The date and time of the transaction. In UTC.
         /// </summary>
