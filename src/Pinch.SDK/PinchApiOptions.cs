@@ -30,5 +30,10 @@ namespace Pinch.SDK
         /// Used to verify authenticity of webhook requests and to avoid replay attacks.
         /// </summary>
         public int WebhookVerificationClockSkewThreshold { get; set; } = 300; // 5 minutes
+
+        /// <summary>
+        /// List of additional scopes to request
+        /// </summary>
+        public List<string> AdditionalScopes { get; set; }
     }
 }

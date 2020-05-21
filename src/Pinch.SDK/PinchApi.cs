@@ -45,7 +45,7 @@ namespace Pinch.SDK
         private PlanClient _plan;
         private SubscriptionClient _subscription;
 
-        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, HttpClientFactoryOrStaticInstance()));
+        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, _options.AdditionalScopes, HttpClientFactoryOrStaticInstance()));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PayerClient Payer => _payer ?? (_payer = new PayerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
