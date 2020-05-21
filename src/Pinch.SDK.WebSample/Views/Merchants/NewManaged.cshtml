@@ -20,10 +20,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Abn" class="col-md-2 control-label"></label>
+            <label class="col-md-2 control-label">Company Registration Number</label>
             <div class="col-md-10">
                 <input asp-for="Abn" class="form-control" />
                 <span asp-validation-for="Abn" class="text-danger"></span>
+            </div>
+        </div>        
+        <div class="form-group">
+            <label class="col-md-2 control-label">Country (Only AU, US, UK; at the moment)</label>
+            <div class="col-md-10">
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">

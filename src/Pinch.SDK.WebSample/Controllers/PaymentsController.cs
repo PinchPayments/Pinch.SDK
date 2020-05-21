@@ -46,6 +46,7 @@ namespace Pinch.SDK.WebSample.Controllers
             var model = new CreateRealtimePaymentVm();
 
             model.PublishableKey = _settings.PublishableKey;
+            model.BaseApiUrl = _settings.BaseUri.TrimEnd('/') + "/";
 
             return View(model);
         }
@@ -59,7 +60,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 Email = model.PayerEmail,
                 CreditCardToken = model.CreditCardToken,
                 Amount = Convert.ToInt32(model.Amount * 100),                
-                Description = model.Description                
+                Description = model.Description
             });
 
             if (!result.Success)
@@ -70,6 +71,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 });
 
                 model.PublishableKey = _settings.PublishableKey;
+                model.BaseApiUrl = _settings.BaseUri.TrimEnd('/') + "/";
                 return View(model);
             }
 
