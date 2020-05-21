@@ -21,6 +21,7 @@ namespace Pinch.SDK.Merchants
         public string Suburb { get; set; }
         public string State { get; set; }
         public string Postcode { get; set; }
+        public string Country { get; set; }
 
         // Primary Contact Information
         public string ContactFirstName { get; set; }

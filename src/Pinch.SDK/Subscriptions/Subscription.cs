@@ -20,5 +20,6 @@ namespace Pinch.SDK.Subscriptions
         public SubscriptionRecurringPayment RecurringPayment { get; set; }
         public string Metadata { get; set; }
         public long? TotalAmount { get; set; }
+        public List<string> Surcharge { get; set; } = new List<string>();
     }
 }

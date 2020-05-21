@@ -19,6 +19,7 @@ namespace Pinch.SDK.Merchants
         public string Suburb { get; set; }
         public string State { get; set; }
         public string Postcode { get; set; }
+        public string Country { get; set; }
 
         // Primary Contact Information
         public string ContactFirstName { get; set; }
@@ -27,6 +28,10 @@ namespace Pinch.SDK.Merchants
         public string ContactPhone { get; set; }
         public string Dob { get; set; }
         public string GovernmentNumber { get; set; }
+
+        // Compliance Info
+        public string IpAddress { get; set; }
+        public string UserAgent { get; set; }
 
         // Deprecated fields (Delete once version is no longer used).
         public string Email => CompanyEmail; // Paul only (2018-05-24).
