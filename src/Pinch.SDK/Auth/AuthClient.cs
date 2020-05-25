@@ -63,19 +63,18 @@ namespace Pinch.SDK.Auth
             };
             client.DefaultRequestHeaders.Authorization = BasicAuthHeader.GetHeader(clientId, secretKey);
 
-            var parameters = new Dictionary<string, string>()
-            {
-                {"grant_type", "client_credentials"},
-                {"scope", "api1"}
-            };
+            var scopes = new List<string> { "api1" };
 
             if (_additionalScopes != null && _additionalScopes.Count > 0)
             {
-                _additionalScopes.ForEach(a =>
-                {
-                    parameters.Add("scope", a);
-                });
+                scopes.AddRange(_additionalScopes);
             }
+
+            var parameters = new Dictionary<string, string>()
+            {
+                {"grant_type", "client_credentials"},
+                {"scope", string.Join(" ", scopes)}
+            };
 
             var clientResponse = await client.PostAsync("connect/token", HttpClientHelpers.GetPostBody(parameters));
             var response = await QuickResponse<GetAccessTokenFromSecretKeyResponse>.FromMessage(clientResponse);            

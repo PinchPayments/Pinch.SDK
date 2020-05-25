@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Pinch.SDK.Payments
 {
@@ -36,17 +37,21 @@ namespace Pinch.SDK.Payments
         /// The payment amount in cents. eg. $10.00 = 1000
         /// </summary>
         public int Amount { get; set; }
+
+        /// <summary>
+        /// Optional. The application fee amount in cents. This fee is added to the transaction fee and settled to the Primary Merchant.
+        /// </summary>
+        public int? ApplicationFee { get; set; }
+
+        /// <summary>
+        /// A list of source types to surcharge (Pass on the fees to the customer). eg. ['bank-account', 'credit-card']
+        /// </summary>
+        public List<string> Surcharge { get; set; } = new List<string>();
+
         /// <summary>
         /// A description of the payment. This may be shown to the Payer to understand the payment.
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// This can only be used by trusted/internal clients. It allows you to select which merchant the payer will be added to.
-        /// </summary>
-        public string MerchantId { get; set; }
-
-
 
         // Existing Source (optional. omitting will use latest source)
         /// <summary>

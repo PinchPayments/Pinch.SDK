@@ -57,7 +57,10 @@ namespace Pinch.SDK.WebSample.Controllers
                 ContactPhone = model.ContactPhone,
                 State = model.State,
                 Dob = model.Dob,
-                GovernmentNumber = model.GovernmentNumber
+                GovernmentNumber = model.GovernmentNumber,
+                Country = model.Country,
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                UserAgent = Request.Headers["User-Agent"].ToString()
             });
 
             if (!result.Success)

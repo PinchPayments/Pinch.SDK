@@ -30,7 +30,7 @@ namespace Pinch.SDK.WebSample.Controllers
             if (token != null)
             {
                 return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions(){
-                    IsLive = false,
+                    IsLive = _settings.IsLive,
                     BaseUri = _settings.BaseUri,
                     AuthUri = _settings.AuthUri,
                     ApplicationId = _settings.ApplicationId,
@@ -42,7 +42,7 @@ namespace Pinch.SDK.WebSample.Controllers
 
             return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions()
             {
-                IsLive = false,
+                IsLive = _settings.IsLive,
                 BaseUri = _settings.BaseUri,
                 AuthUri = _settings.AuthUri,
                 ImpersonateMerchantId = ImpersonatedMerchantId
