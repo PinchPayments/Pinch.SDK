@@ -13,14 +13,14 @@ namespace Pinch.SDK.Fees
 
         public async Task<ApiResponse<FeeSchedule>> GetCurrentFeeSchedule(string merchantId)
         {
-            var response = await GetHttp<FeeSchedule>($"merchant-admin/active-fee-schedule/{merchantId}");
+            var response = await GetHttp<FeeSchedule>($"fees-admin/active-fee-schedule/{merchantId}");
 
             return response.ToApiResponse();
         }
 
         public async Task<ApiResponse<FeeSchedule>> Create(FeeScheduleSaveOptions options)
         {
-            var response = await PostHttp<FeeSchedule>("merchant-admin/fee-schedules", options);
+            var response = await PostHttp<FeeSchedule>("fees-admin/fee-schedules", options);
 
             return response.ToApiResponse();
         }
