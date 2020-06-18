@@ -45,8 +45,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 IsLive = _settings.IsLive,
                 BaseUri = _settings.BaseUri,
                 AuthUri = _settings.AuthUri,
-                ImpersonateMerchantId = ImpersonatedMerchantId,
-                AdditionalScopes = new List<string> {  "fees_admin"}
+                ImpersonateMerchantId = ImpersonatedMerchantId
             });
         }
     }
