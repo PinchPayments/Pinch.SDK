@@ -1,0 +1,148 @@
+﻿@using Newtonsoft.Json
+@model Pinch.SDK.WebSample.ViewModels.Fees.CalculateFeesVm
+
+@{
+    ViewBag.Title = "Fees Calculator";
+}
+
+<h2>Calculate Fees</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Settings</h4>
+        <hr />
+        <form id="calculate-form" asp-action="Calculate">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label asp-for="Amount" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Currency" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Currency" class="form-control" />
+                        <span asp-validation-for="Currency" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Surcharge" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Surcharge" />
+                        <span asp-validation-for="Surcharge" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label asp-for="Token" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Token" class="form-control" />
+                        <span asp-validation-for="Token" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span>- or -</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SourceId" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="SourceId" class="form-control" />
+                        <span asp-validation-for="SourceId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span>- or -</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Credit Card</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input id="cardNumber" class="form-control" placeholder="Card Number" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <input id="expiryMonth" class="form-control" placeholder="Expiry Month" />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="expiryYear" class="form-control" placeholder="Expiry Year" />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="cvc" class="form-control" placeholder="CVC" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input id="cardHolderName" class="form-control" placeholder="Card Holder Name" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button class="btn btn-primary">Calculate</button>
+                    </div>
+                </div>
+                <div class="form-group" id="errors">
+                    <p></p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h4>Result</h4>
+        <hr />
+        <pre>@JsonConvert.SerializeObject(Model.FeesCalculation, Formatting.Indented)</pre>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="https://web.getpinch.com.au/capture/capture.bundle.js"></script>
+    <script>
+        var form = document.getElementById("calculate-form");
+        form.addEventListener('submit',
+            function(e) {
+                e.preventDefault();
+
+                if (!document.getElementById("cardNumber").value) {
+                    form.submit();
+                    return;
+                }
+
+                var capture = Pinch.Capture({
+                    publishableKey: "@Model.PublishableKey",
+                    apiUrl: "@Model.BaseApiUrl"
+                });
+
+                capture.createToken({
+                    cardNumber: document.getElementById("cardNumber").value,
+                    expiryMonth: document.getElementById("expiryMonth").value,
+                    expiryYear: document.getElementById("expiryYear").value,
+                    cvc: document.getElementById("cvc").value,
+                    cardHolderName: document.getElementById("cardHolderName").value
+                }).then(function(result) {
+                    console.log("Client received token: " + result.token);
+                    document.getElementById("Token").value = result.token;
+                    form.submit();
+                }).catch(function(err) {
+                    document.querySelector("#errors p").innerText = JSON.stringify(err);
+                    console.log("Client error: " + err);
+                });
+            });
+    </script>
+}
