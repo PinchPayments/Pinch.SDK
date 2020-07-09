@@ -17,13 +17,16 @@ namespace Pinch.SDK.Auth
         private readonly string _secretKey;
         private readonly string _baseUri;
         private readonly string _authUri;
+        private readonly List<string> _additionalScopes;
         private readonly Func<HttpClient> _httpClientFactory;
 
-        public AuthClient(string secretKey, string authUri, string baseUri, Func<HttpClient> httpClientFactory)
+        public AuthClient(string secretKey, string authUri, string baseUri, List<string> additionalScopes, Func<HttpClient> httpClientFactory)
         {
             _secretKey = secretKey;
             _baseUri = baseUri;
             _authUri = authUri;
+            _additionalScopes = additionalScopes;
+
             _httpClientFactory = httpClientFactory;
         }
 
@@ -60,11 +63,18 @@ namespace Pinch.SDK.Auth
             };
             client.DefaultRequestHeaders.Authorization = BasicAuthHeader.GetHeader(clientId, secretKey);
 
+            var scopes = new List<string> { "api1" };
+
+            if (_additionalScopes != null && _additionalScopes.Count > 0)
+            {
+                scopes.AddRange(_additionalScopes);
+            }
+
             var parameters = new Dictionary<string, string>()
             {
                 {"grant_type", "client_credentials"},
-                {"scope", "api1"}
-            };            
+                {"scope", string.Join(" ", scopes)}
+            };
 
             var clientResponse = await client.PostAsync("connect/token", HttpClientHelpers.GetPostBody(parameters));
             var response = await QuickResponse<GetAccessTokenFromSecretKeyResponse>.FromMessage(clientResponse);            

@@ -13,7 +13,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/bjcull/Pinch.SDK/master/assets/img/circle_logo_64x64.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/bjcull/Pinch.SDK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bjcull/Pinch.SDK</RepositoryUrl>
-    <Version>0.15.0-surcharge4</Version>
+    <Version>0.16.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

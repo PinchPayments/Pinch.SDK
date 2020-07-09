@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pinch.SDK.Payers;
+using Pinch.SDK.Subscriptions;
 
 namespace Pinch.SDK.Payments
 {
@@ -67,6 +68,7 @@ namespace Pinch.SDK.Payments
         /// A list of the Attempts made for this payment.
         /// </summary>
         public IEnumerable<Attempt> Attempts { get; set; }
+        public SubscriptionPayment Subscription { get; set; }
 
         public PaymentDetailed()
         {

@@ -89,7 +89,7 @@ namespace Pinch.SDK.Payments
 
             if (data.totalPages > currentPage)
             {
-                await GetProcessedAll(list, currentPage + 1, pageSize);
+                await GetProcessedAll(list, currentPage + 1, pageSize, startDate, endDate);
             }
 
             return list;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Pinch.SDK.Agreements;
 using Pinch.SDK.Auth;
 using Pinch.SDK.Events;
+using Pinch.SDK.Fees;
 using Pinch.SDK.Merchants;
 using Pinch.SDK.Payers;
 using Pinch.SDK.Payments;
@@ -44,8 +45,9 @@ namespace Pinch.SDK
         private WebhookClient _webhook;
         private PlanClient _plan;
         private SubscriptionClient _subscription;
+        private FeeScheduleClient _feeSchedules;
 
-        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, HttpClientFactoryOrStaticInstance()));
+        public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, _options.AdditionalScopes, HttpClientFactoryOrStaticInstance()));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PayerClient Payer => _payer ?? (_payer = new PayerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PaymentClient Payment => _payment ?? (_payment = new PaymentClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
@@ -55,6 +57,7 @@ namespace Pinch.SDK
         public WebhookClient Webhook => _webhook ?? (_webhook = new WebhookClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public PlanClient Plan => _plan ?? (_plan = new PlanClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public SubscriptionClient Subscriptions => _subscription ?? (_subscription = new SubscriptionClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public FeeScheduleClient FeeSchedules => _feeSchedules ?? (_feeSchedules = new FeeScheduleClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
 
         /// <summary>
         /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.
