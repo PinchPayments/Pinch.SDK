@@ -11,6 +11,7 @@ namespace Pinch.SDK.WebSample.ViewModels.Fees
         public string PublishableKey { get; set; }
         public string BaseApiUrl { get; set; }
 
+        public string SourceType { get; set; }
         public string Token { get; set; }
         public string SourceId { get; set; }
         public long Amount { get; set; }

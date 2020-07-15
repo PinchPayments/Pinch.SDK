@@ -41,6 +41,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 Amount = model.Amount * 100,
                 ApplicationFee = 0,
                 Currency = model.Currency,
+                SourceType = model.SourceType,
                 SourceId = model.SourceId,
                 Token = model.Token,
                 Surcharge = model.Surcharge ? new List<string> {"credit-card", "bank-account"} : null
