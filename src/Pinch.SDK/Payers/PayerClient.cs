@@ -99,6 +99,19 @@ namespace Pinch.SDK.Payers
         }
 
         /// <summary>
+        /// Delete a Payment Source attached to a Payer
+        /// </summary>
+        /// <param name="payerId">Payer ID the source is attached to</param>
+        /// <param name="sourceId">Source ID to delete</param>
+        /// <returns></returns>
+        public async Task<ApiResponse> DeleteSource(string payerId, string sourceId)
+        {
+            var response = await DeleteHttp($"payers/{payerId}/sources/{sourceId}");
+
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
         /// Delete a payer
         /// </summary>
         /// <param name="id">The Payer ID to delete</param>

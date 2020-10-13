@@ -142,5 +142,13 @@ namespace Pinch.SDK.WebSample.Controllers
 
             return RedirectToAction("Details", new {id = model.PayerId});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSource(string payerId, string sourceId)
+        {
+            await GetApi().Payer.DeleteSource(payerId, sourceId);
+
+            return RedirectToAction("Index");
+        }
     }
 }
