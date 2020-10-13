@@ -75,6 +75,14 @@
                         <span>@source.DisplayCardNumber - @source.ExpiryDate?.ToString("MM/yy")</span>
                     }
                 </td>
+                <td>
+                    @using (Html.BeginForm("DeleteSource", "Payers"))
+                    {
+                        <input type="hidden" name="PayerId" value="@Model.Payer.Id" />
+                        <input type="hidden" name="SourceId" value="@source.Id" />
+                        <button type="submit" class="btn btn-link">Delete Source</button>
+                    }
+                </td>
             </tr>
         }
         @if (!Model.Payments.Any())
