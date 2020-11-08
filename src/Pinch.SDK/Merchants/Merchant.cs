@@ -21,6 +21,9 @@ namespace Pinch.SDK.Merchants
         public string BankStatementLabel { get; set; }
         public string DebitMessage { get; set; }
         public DateTime CreatedDateUtc { get; set; }
+        public string CompanyWebsiteUrl { get; set; }
+        public string NatureOfBusiness { get; set; }
+
 
         // Primary Contact Information
         public string ContactFirstName { get; set; }

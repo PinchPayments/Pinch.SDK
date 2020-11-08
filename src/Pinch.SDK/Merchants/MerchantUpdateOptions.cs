@@ -90,5 +90,13 @@ namespace Pinch.SDK.Merchants
         /// The Government ID Number (Passport or Drivers License) of the person responsible for this merchant.
         /// </summary>
         public string GovernmentNumber { get; set; }
+        /// <summary>
+        /// The primary website of the business. Can be a social media profile such as Facebook or LinkedIn
+        /// </summary>
+        public string CompanyWebsiteUrl { get; set; }
+        /// <summary>
+        /// A description of the business, how/why it takes payment, and an example of the service or goods provided
+        /// </summary>
+        public string NatureOfBusiness { get; set; }
     }
 }
