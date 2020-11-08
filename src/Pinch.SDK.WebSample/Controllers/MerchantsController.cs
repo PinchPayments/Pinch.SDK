@@ -107,7 +107,9 @@ namespace Pinch.SDK.WebSample.Controllers
                 ContactFirstName = model.ContactFirstName,
                 ContactLastName = model.ContactLastName,
                 Dob = model.Dob,
-                GovernmentNumber = model.GovernmentNumber
+                GovernmentNumber = model.GovernmentNumber,
+                CompanyWebsiteUrl = model.CompanyWebsiteUrl,
+                NatureOfBusiness = model.NatureOfBusiness
             });
 
             if (!result.Success)
