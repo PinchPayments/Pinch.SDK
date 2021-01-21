@@ -67,7 +67,7 @@ namespace Pinch.SDK.WebSample.Controllers
             {
                 result.Errors.ForEach(x =>
                 {
-                    ModelState.AddModelError(x.PropertyName, x.ErrorMessage);
+                    ModelState.AddModelError(x.PropertyName ?? "", x.ErrorMessage);
                 });
 
                 return View(model);
