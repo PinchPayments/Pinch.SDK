@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Agreements;
 using Pinch.SDK.Auth;
+using Pinch.SDK.Customers;
 using Pinch.SDK.Events;
 using Pinch.SDK.Fees;
 using Pinch.SDK.Merchants;
@@ -47,6 +48,7 @@ namespace Pinch.SDK
         private SubscriptionClient _subscription;
         private FeeScheduleClient _feeSchedules;
         private FeesClient _fees;
+        private CustomerClient _customer;
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, _options.AdditionalScopes, HttpClientFactoryOrStaticInstance()));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
@@ -60,6 +62,7 @@ namespace Pinch.SDK
         public SubscriptionClient Subscriptions => _subscription ?? (_subscription = new SubscriptionClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public FeeScheduleClient FeeSchedules => _feeSchedules ?? (_feeSchedules = new FeeScheduleClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public FeesClient Fees => _fees ?? (_fees = new FeesClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public CustomerClient Customers => _customer ?? (_customer = new CustomerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
 
         /// <summary>
         /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.
