@@ -6,8 +6,15 @@ using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// An Attempt is an instance of trying to execute the transaction. A Payment entity may contain multiple attempts to succeed, but will only ever have at most, one successful attempt.
+    /// </summary>
     public class Attempt
     {
+        /// <summary>
+        /// The ID for this unique payment attempt
+        /// </summary>
+        public string Id { get; set; }
         /// <summary>
         /// The transaction amount in cents
         /// </summary>
