@@ -88,9 +88,9 @@ namespace Pinch.SDK.Subscriptions
         /// </summary>
         /// <param name="options">Subscription information. All fields will be used.</param>
         /// <returns></returns>
-        public async Task<ApiResponse<Plan>> Create(SubscriptionCreateOptions options)
+        public async Task<ApiResponse<Subscription>> Create(SubscriptionCreateOptions options)
         {
-            var response = await PostHttp<Plan>("subscriptions", options);
+            var response = await PostHttp<Subscription>("subscriptions", options);
 
             return response.ToApiResponse();
         }
