@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinch.SDK.WebSample", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinch.SDK", "src\Pinch.SDK\Pinch.SDK.csproj", "{9F5524CF-52D6-4B39-80AF-52F2D591D790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinch.SDK.Tests", "Pinch.SDK.Tests\Pinch.SDK.Tests.csproj", "{42A80BAE-D014-488A-8F8E-B2D6FFBA082D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,10 +25,6 @@ Global
 		{9F5524CF-52D6-4B39-80AF-52F2D591D790}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F5524CF-52D6-4B39-80AF-52F2D591D790}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F5524CF-52D6-4B39-80AF-52F2D591D790}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42A80BAE-D014-488A-8F8E-B2D6FFBA082D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42A80BAE-D014-488A-8F8E-B2D6FFBA082D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42A80BAE-D014-488A-8F8E-B2D6FFBA082D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42A80BAE-D014-488A-8F8E-B2D6FFBA082D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,7 +32,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7509CEE7-D9B1-41C2-9E66-CD008DF23DBF} = {74D307F2-34AB-489C-BDC7-B770BFCD3CA7}
 		{9F5524CF-52D6-4B39-80AF-52F2D591D790} = {74D307F2-34AB-489C-BDC7-B770BFCD3CA7}
-		{42A80BAE-D014-488A-8F8E-B2D6FFBA082D} = {74D307F2-34AB-489C-BDC7-B770BFCD3CA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59A433FF-800E-4303-8DFB-8E5FA0739583}
