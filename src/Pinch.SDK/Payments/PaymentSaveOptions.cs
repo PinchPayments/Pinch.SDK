@@ -33,5 +33,11 @@ namespace Pinch.SDK.Payments
         /// A list of source types to surcharge (Pass on the fees to the customer). eg. ['bank-account', 'credit-card']
         /// </summary>
         public List<string> Surcharge { get; set; } = new List<string>();
+
+        /// <summary>
+        /// Optional. Pinch will echo back the nonce value in the response, this is for replay protection.
+        /// If the same Nonce is detected the in progress payment object will be returned.
+        /// </summary>
+        public string Nonce { get; set; }
     }
 }

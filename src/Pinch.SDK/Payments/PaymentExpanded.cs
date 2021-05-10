@@ -59,5 +59,14 @@ namespace Pinch.SDK.Payments
         /// The Payer for this payment
         /// </summary>
         public Payer Payer { get; set; }
+
+        /// <summary>
+        /// The Nonce that was sent with the initial request
+        /// </summary>
+        public string Nonce { get; set; }
+        /// <summary>
+        /// Whether this response is a Nonce replay. 
+        /// </summary>
+        public bool IsNonceReplay { get; set; }
     }
 }
