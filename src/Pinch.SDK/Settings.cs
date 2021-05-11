@@ -25,6 +25,6 @@ namespace Pinch.SDK
         /// <summary>
         /// The current latest API version. This is included as a header in all API calls.
         /// </summary>
-        public const string LatestApiVersion = "2020.1";
+        public const string LatestApiVersion = "2019.1";
     }
 }
