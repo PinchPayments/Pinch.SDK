@@ -31,7 +31,7 @@ namespace Pinch.SDK.Events
         /// <param name="startDate">Start date for date range filtering</param>
         /// <param name="endDate">End date for date range filtering</param>
         /// <returns></returns>
-        public async Task<IEnumerable<Event>> GetByEventTypeAll(string eventType, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IEnumerable<Event>> GetEventsByTypeAll(string eventType, DateTime? startDate = null, DateTime? endDate = null)
         {
             return await GetEventsAll(null, 1, 50, startDate, endDate, eventType);
         }
