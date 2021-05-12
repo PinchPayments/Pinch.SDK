@@ -27,7 +27,7 @@ namespace Pinch.SDK.Events
         /// <summary>
         /// Get all Events of a single type.
         /// </summary>
-        /// <param name="eventType">If you wish to filter by a single Event type, eg `payment-created`. See https://docs.getpinch.com.au/reference#list-all-events for the list of all available event types. </param>
+        /// <param name="eventType">A single Event type, eg `payment-created`. See https://docs.getpinch.com.au/reference#list-all-events for the list of all available event types. </param>
         /// <param name="startDate">Start date for date range filtering</param>
         /// <param name="endDate">End date for date range filtering</param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace Pinch.SDK.Events
         /// <param name="pageSize">Default: 50</param>
         /// <param name="startDate">Start date for date range filtering</param>
         /// <param name="endDate">End date for date range filtering</param>
-        /// <param name="eventType">If you wish to filter by a single Event type, eg `payment-created`. See https://docs.getpinch.com.au/reference#list-all-events for the list of all available event types. </param>
+        /// <param name="eventType">A single Event type, eg `payment-created`. See https://docs.getpinch.com.au/reference#list-all-events for the list of all available event types. </param>
         /// <returns></returns>
         public async Task<Paged<Event>> GetEvents(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null, string eventType = "")
         {
