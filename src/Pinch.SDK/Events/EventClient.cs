@@ -33,7 +33,7 @@ namespace Pinch.SDK.Events
         /// <returns></returns>
         public async Task<IEnumerable<Event>> GetByEventType(string eventType, DateTime? startDate = null, DateTime? endDate = null)
         {
-            return await GetEventsAll(null, 1, 50, startDate, endDate);
+            return await GetEventsAll(null, 1, 50, startDate, endDate, eventType);
         }
 
         /// <summary>
