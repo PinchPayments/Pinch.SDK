@@ -74,6 +74,16 @@ namespace Pinch.SDK.Payments
         public IEnumerable<Attempt> Attempts { get; set; }
         public SubscriptionPayment Subscription { get; set; }
 
+        /// <summary>
+        /// The Nonce that was sent with the initial request
+        /// </summary>
+        public string Nonce { get; set; }
+
+        /// <summary>
+        /// Whether this response is a Nonce replay. 
+        /// </summary>
+        public bool IsNonceReplay { get; set; }
+
         public PaymentDetailed()
         {
             Attempts = new List<Attempt>();

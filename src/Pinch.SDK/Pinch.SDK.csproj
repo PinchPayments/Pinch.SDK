@@ -10,10 +10,10 @@
     <AssemblyName>Pinch.SDK</AssemblyName>
     <PackageId>Pinch.SDK</PackageId>
     <PackageTags>payments;pinch;sdk;direct debit</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/bjcull/Pinch.SDK/master/assets/img/circle_logo_64x64.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/bjcull/Pinch.SDK</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/bjcull/Pinch.SDK</RepositoryUrl>
-    <Version>0.17.11</Version>
+    <PackageIconUrl>https://raw.githubusercontent.com/PinchPayments/Pinch.SDK/master/assets/img/circle_logo_64x64.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/PinchPayments/Pinch.SDK</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/PinchPayments/Pinch.SDK</RepositoryUrl>
+    <Version>0.18.1-refunds1</Version>
   </PropertyGroup>
 
   <ItemGroup>
