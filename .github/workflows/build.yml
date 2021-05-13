@@ -1,8 +1,7 @@
 on:
-push:
-  branches:
-    - master
-
+  push:
+    branches:
+      - master
 
 env:
   # Stop wasting time caching packages
