@@ -22,9 +22,9 @@ namespace Pinch.SDK.Refunds
         /// </summary>
         /// <param name="options">Refund information.</param>
         /// <returns></returns>
-        public async Task<ApiResponse<Refund, RefundSaveOptions>> Save(RefundSaveOptions options)
+        public async Task<ApiResponse<Refund>> Save(RefundSaveOptions options)
         {
-            var response = await PostHttp<Refund, RefundSaveOptions>("refunds", options);
+            var response = await PostHttp<Refund>("refunds", options);
             return response.ToApiResponse();
         }
 
@@ -33,9 +33,9 @@ namespace Pinch.SDK.Refunds
         /// </summary>
         /// <param name="options">Refund nonce.</param>
         /// <returns></returns>
-        public async Task<ApiResponse<Refund, RefundCheckNonceOptions>> CheckNonce(RefundCheckNonceOptions options)
+        public async Task<ApiResponse<Refund>> CheckNonce(RefundCheckNonceOptions options)
         {
-            var response = await PostHttp<Refund, RefundCheckNonceOptions>("refunds/nonce", options);
+            var response = await PostHttp<Refund>("refunds/nonce", options);
             return response.ToApiResponse();
         }
     }
