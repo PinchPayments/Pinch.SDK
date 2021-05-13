@@ -233,5 +233,16 @@ namespace Pinch.SDK.Payments
                 Errors = response.Errors
             };
         }
+
+        /// <summary>
+        /// Check a payment nonce
+        /// </summary>
+        /// <param name="options">Payment nonce.</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<PaymentDetailed, PaymentCheckNonceOptions>> CheckNonce(PaymentCheckNonceOptions options)
+        {
+            var response = await PostHttp<PaymentDetailed, PaymentCheckNonceOptions>("payments/nonce", options);
+            return response.ToApiResponse();
+        }
     }
 }
