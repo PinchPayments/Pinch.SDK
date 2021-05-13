@@ -25,7 +25,17 @@ namespace Pinch.SDK.Refunds
         public async Task<ApiResponse<Refund, RefundSaveOptions>> Save(RefundSaveOptions options)
         {
             var response = await PostHttp<Refund, RefundSaveOptions>("refunds", options);
+            return response.ToApiResponse();
+        }
 
+        /// <summary>
+        /// Check a refund nonce
+        /// </summary>
+        /// <param name="options">Refund nonce.</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<Refund, RefundCheckNonceOptions>> CheckNonce(RefundCheckNonceOptions options)
+        {
+            var response = await PostHttp<Refund, RefundCheckNonceOptions>("refunds/nonce", options);
             return response.ToApiResponse();
         }
     }
