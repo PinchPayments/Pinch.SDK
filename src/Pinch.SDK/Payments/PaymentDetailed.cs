@@ -78,6 +78,7 @@ namespace Pinch.SDK.Payments
         /// The Nonce that was sent with the initial request
         /// </summary>
         public string Nonce { get; set; }
+
         /// <summary>
         /// Whether this response is a Nonce replay. 
         /// </summary>
