@@ -36,7 +36,7 @@ namespace Pinch.SDK.Payments
 
             if (data.totalPages > currentPage)
             {
-                await GetScheduledAll(list, currentPage + 1, pageSize);
+                await GetScheduledAll(list, currentPage + 1, pageSize, startDate, endDate);
             }
 
             return list;
