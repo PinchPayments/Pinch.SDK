@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - Refunds-and-nonce
 
 env:
   # Stop wasting time caching packages
