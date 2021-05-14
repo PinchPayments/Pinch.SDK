@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Pinch.SDK.Helpers
 {
@@ -69,6 +70,9 @@ namespace Pinch.SDK.Helpers
 
         public List<ApiError> Errors { get; set; }
 
+        public bool IsNonceReplay { get; set; }
+        public string Nonce { get; set; }
+
         public QuickResponse()
         {
             Errors = new List<ApiError>();
@@ -91,6 +95,7 @@ namespace Pinch.SDK.Helpers
             if (!message.IsSuccessStatusCode)
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;
@@ -116,6 +121,21 @@ namespace Pinch.SDK.Helpers
                 {
                     ErrorMessage = !string.IsNullOrEmpty(ResponseBody) ? ResponseBody : Message.StatusCode.ToString()
                 });
+            }
+        }
+        
+        protected void HandleNonceResponse()
+        {
+            try
+            {
+                var result = JsonConvert.DeserializeObject<NonceResponse>(ResponseBody);
+
+                Nonce = result.Nonce;
+                IsNonceReplay = result.IsNonceReplay;
+            }
+            catch (Exception ex)
+            {
+                // ignored
             }
         }
     }
@@ -146,9 +166,27 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;
+        }
+
+        protected void HandleNonceResponse()
+        {
+            try
+            {
+
+                var result = JsonConvert.DeserializeObject<NonceResponse<T>>(ResponseBody);
+
+                Nonce = result.Nonce;
+                IsNonceReplay = result.IsNonceReplay;
+                Data = result.Data;
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
         }
     }
 
@@ -179,6 +217,7 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;
@@ -232,6 +271,7 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;

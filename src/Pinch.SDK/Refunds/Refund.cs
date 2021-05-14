@@ -20,6 +20,6 @@ namespace Pinch.SDK.Refunds
         public string TransferId { get; set; }
         public AttemptFee RefundedFees { get; set; }
         public string Nonce { get; set; }
-        public bool IsNonceReplay { get; set; }
+        public string PaymentId { get; set; }
     }
 }

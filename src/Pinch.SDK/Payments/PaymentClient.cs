@@ -239,9 +239,9 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options">Payment nonce.</param>
         /// <returns></returns>
-        public async Task<ApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
+        public async Task<ApiResponse<NonceResponse<PaymentDetailed>>> CheckNonce(PaymentCheckNonceOptions options)
         {
-            var response = await PostHttp<PaymentDetailed>("payments/nonce", options);
+            var response = await PostHttp<NonceResponse<PaymentDetailed>>("payments/nonce", options);
             return response.ToApiResponse();
         }
     }
