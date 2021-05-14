@@ -101,7 +101,7 @@ namespace Pinch.SDK.Helpers
             return response;
         }
 
-        private protected void HandleFailedCall()
+        protected void HandleFailedCall()
         {
             try
             {
@@ -124,13 +124,14 @@ namespace Pinch.SDK.Helpers
             }
         }
         
-        private protected void HandleNonceResponse()
+        protected void HandleNonceResponse()
         {
             try
             {
-                dynamic d = JObject.Parse(ResponseBody);
-                Nonce = d.nonce;
-                IsNonceReplay = (bool) d.isNonceReplay;
+                var result = JsonConvert.DeserializeObject<NonceResponse>(ResponseBody);
+
+                Nonce = result.Nonce;
+                IsNonceReplay = result.IsNonceReplay;
             }
             catch (Exception ex)
             {
@@ -170,6 +171,23 @@ namespace Pinch.SDK.Helpers
 
             return response;
         }
+
+        protected void HandleNonceResponse()
+        {
+            try
+            {
+
+                var result = JsonConvert.DeserializeObject<NonceResponse<T>>(ResponseBody);
+
+                Nonce = result.Nonce;
+                IsNonceReplay = result.IsNonceReplay;
+                Data = result.Data;
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
+        }
     }
 
     public class QuickResponse<T, TOptions> : QuickResponse<T>
@@ -199,6 +217,7 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;
