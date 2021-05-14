@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Pinch.SDK.Helpers
 {
@@ -69,6 +70,9 @@ namespace Pinch.SDK.Helpers
 
         public List<ApiError> Errors { get; set; }
 
+        public bool IsNonceReplay { get; set; }
+        public string Nonce { get; set; }
+
         public QuickResponse()
         {
             Errors = new List<ApiError>();
@@ -91,12 +95,13 @@ namespace Pinch.SDK.Helpers
             if (!message.IsSuccessStatusCode)
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;
         }
 
-        protected void HandleFailedCall()
+        private protected void HandleFailedCall()
         {
             try
             {
@@ -116,6 +121,20 @@ namespace Pinch.SDK.Helpers
                 {
                     ErrorMessage = !string.IsNullOrEmpty(ResponseBody) ? ResponseBody : Message.StatusCode.ToString()
                 });
+            }
+        }
+        
+        private protected void HandleNonceResponse()
+        {
+            try
+            {
+                dynamic d = JObject.Parse(ResponseBody);
+                Nonce = d.nonce;
+                IsNonceReplay = (bool) d.isNonceReplay;
+            }
+            catch (Exception ex)
+            {
+                // ignored
             }
         }
     }
@@ -146,6 +165,7 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;
@@ -232,6 +252,7 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
+                response.HandleNonceResponse();
             }
 
             return response;
