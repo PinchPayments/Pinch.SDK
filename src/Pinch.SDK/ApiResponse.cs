@@ -6,6 +6,12 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK
 {
+    public class NonceApiResponse<T> : ApiResponse<T>
+    {
+        public bool IsNonceReplay { get; set; }
+        public string Nonce { get; set; }
+    }
+
     public class ApiResponse
     {
         public bool Success => !Errors.Any();
