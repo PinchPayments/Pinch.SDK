@@ -11,5 +11,6 @@ namespace Pinch.SDK.Plans
         public long AmountInCents { get; set; }
         public string Description { get; set; }
         public DateTime PaymentDate { get; set; }
+        public int? RecurringPaymentIndex { get; set; }
     }
 }

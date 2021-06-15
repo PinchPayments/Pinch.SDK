@@ -14,5 +14,6 @@ namespace Pinch.SDK.WebSample.ViewModels.Realtime
         public string PayerName { get; set; }
         public string PayerEmail { get; set; }
         public string BaseApiUrl { get; set; }
+        public string Nonce { get; set; }
     }
 }

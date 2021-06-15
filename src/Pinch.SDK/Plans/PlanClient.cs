@@ -98,7 +98,7 @@ namespace Pinch.SDK.Plans
             return response.ToApiResponse();
         }
 
-        public async Task<ApiResponse<List<CalculatedSubscriptionPayment>>> CalculatedPayments(string planId, DateTime? startDate, long? totalAmount)
+        public async Task<ApiResponse<List<CalculatedSubscriptionPayment>>> CalculatedPayments(string planId, DateTime? startDate = null, long? totalAmount = null, int? skip = null, int? limit = null)
         {
             var url = $"plans/{planId}/calculated-payments?1=1";
 
@@ -109,6 +109,14 @@ namespace Pinch.SDK.Plans
             if (totalAmount.HasValue)
             {
                 url += $"&totalAmount={totalAmount}";
+            }
+            if (skip.HasValue)
+            {
+                url += $"&skip={skip}";
+            }
+            if (limit.HasValue)
+            {
+                url += $"&limit={limit}";
             }
 
             var response = await GetHttp<List<CalculatedSubscriptionPayment>>(url);

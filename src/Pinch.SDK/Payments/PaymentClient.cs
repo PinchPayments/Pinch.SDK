@@ -36,7 +36,7 @@ namespace Pinch.SDK.Payments
 
             if (data.totalPages > currentPage)
             {
-                await GetScheduledAll(list, currentPage + 1, pageSize);
+                await GetScheduledAll(list, currentPage + 1, pageSize, startDate, endDate);
             }
 
             return list;
@@ -232,6 +232,17 @@ namespace Pinch.SDK.Payments
             {
                 Errors = response.Errors
             };
+        }
+
+        /// <summary>
+        /// Check a payment nonce
+        /// </summary>
+        /// <param name="options">Payment nonce.</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<NonceResponse<PaymentDetailed>>> CheckNonce(PaymentCheckNonceOptions options)
+        {
+            var response = await PostHttp<NonceResponse<PaymentDetailed>>("payments/nonce", options);
+            return response.ToApiResponse();
         }
     }
 }
