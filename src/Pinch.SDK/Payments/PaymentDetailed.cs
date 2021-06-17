@@ -79,11 +79,6 @@ namespace Pinch.SDK.Payments
         /// </summary>
         public string Nonce { get; set; }
 
-        /// <summary>
-        /// Whether this response is a Nonce replay. 
-        /// </summary>
-        public bool IsNonceReplay { get; set; }
-
         public PaymentDetailed()
         {
             Attempts = new List<Attempt>();

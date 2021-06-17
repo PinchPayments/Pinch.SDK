@@ -128,7 +128,7 @@ namespace Pinch.SDK.Helpers
         {
             try
             {
-                var result = JsonConvert.DeserializeObject<NonceResponse>(ResponseBody);
+                var result = JsonConvert.DeserializeObject<NonceResponseDto>(ResponseBody);
 
                 Nonce = result.Nonce;
                 IsNonceReplay = result.IsNonceReplay;
@@ -152,6 +152,18 @@ namespace Pinch.SDK.Helpers
                 Data = Data
             };
         }
+
+        public NonceApiResponse<T> ToNonceResponse()
+        {
+            return new NonceApiResponse<T>()
+            {
+                Errors = Errors,
+                Data = Data,
+                IsNonceReplay = IsNonceReplay,
+                Nonce = Nonce
+            };
+        }
+
 
         public new static async Task<QuickResponse<T>> FromMessage(HttpResponseMessage message)
         {
@@ -177,7 +189,7 @@ namespace Pinch.SDK.Helpers
             try
             {
 
-                var result = JsonConvert.DeserializeObject<NonceResponse<T>>(ResponseBody);
+                var result = JsonConvert.DeserializeObject<NonceResponseDto<T>>(ResponseBody);
 
                 Nonce = result.Nonce;
                 IsNonceReplay = result.IsNonceReplay;

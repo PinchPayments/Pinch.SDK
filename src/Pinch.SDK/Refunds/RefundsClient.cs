@@ -86,10 +86,10 @@ namespace Pinch.SDK.Refunds
         /// </summary>
         /// <param name="options">Refund nonce.</param>
         /// <returns></returns>
-        public async Task<ApiResponse<NonceResponse<Refund>>> CheckNonce(RefundCheckNonceOptions options)
+        public async Task<NonceApiResponse<Refund>> CheckNonce(RefundCheckNonceOptions options)
         {
-            var response = await PostHttp<NonceResponse<Refund>>("refunds/nonce", options);
-            return response.ToApiResponse();
+            var response = await PostHttp<Refund>("refunds/nonce", options);
+            return response.ToNonceResponse();
         }
         
         /// <summary>

@@ -192,15 +192,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
+        public async Task<NonceApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments", options);
-
-            return new ApiResponse<PaymentDetailed>()
-            {
-                Data = response.Data,
-                Errors = response.Errors
-            };
+            return response.ToNonceResponse();
         }
 
         /// <summary>
@@ -208,15 +203,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
+        public async Task<NonceApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments/realtime", options);
-
-            return new ApiResponse<PaymentDetailed>()
-            {
-                Data = response.Data,
-                Errors = response.Errors
-            };
+            return response.ToNonceResponse();
         }
 
         /// <summary>
@@ -239,10 +229,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options">Payment nonce.</param>
         /// <returns></returns>
-        public async Task<ApiResponse<NonceResponse<PaymentDetailed>>> CheckNonce(PaymentCheckNonceOptions options)
+        public async Task<NonceApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
         {
-            var response = await PostHttp<NonceResponse<PaymentDetailed>>("payments/nonce", options);
-            return response.ToApiResponse();
+            var response = await PostHttp<PaymentDetailed>("payments/nonce", options);
+            return response.ToNonceResponse();
         }
     }
 }
