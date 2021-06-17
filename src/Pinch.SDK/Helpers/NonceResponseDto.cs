@@ -1,12 +1,12 @@
 ﻿namespace Pinch.SDK.Helpers
 {
-    public class NonceResponse
+    public class NonceResponseDto
     {
         public bool IsNonceReplay { get; set; }
         public string Nonce { get; set; }
     }
 
-    public class NonceResponse<T> : NonceResponse
+    public class NonceResponseDto<T> : NonceResponseDto
     {
         public T Data { get; set; }
     }
