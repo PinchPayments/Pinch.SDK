@@ -1,3 +1,5 @@
+![Pinch .NET](https://user-images.githubusercontent.com/241857/124199780-118b3a80-db17-11eb-8fa4-5c0cb97f9de4.png)
+
 # Pinch SDK for .NET
 The Pinch SDK for .NET helps developers build web, desktop, Silverlight, Windows Phone and Windows Store applications that integrate with Pinch.
 
