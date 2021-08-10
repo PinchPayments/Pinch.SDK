@@ -49,5 +49,10 @@ namespace Pinch.SDK.Customers
         /// A list of connected MerchantIDs
         /// </summary>
         public List<string> ConnectedMerchants { get; set; }
+
+        /// <summary>
+        /// Customer Portal Invite Token
+        /// </summary>
+        public Guid? InviteToken { get; set; }
     }
 }
