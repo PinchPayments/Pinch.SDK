@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Agreements;
 using Pinch.SDK.Auth;
+using Pinch.SDK.Customers;
 using Pinch.SDK.Events;
 using Pinch.SDK.Fees;
 using Pinch.SDK.Merchants;
@@ -48,6 +49,7 @@ namespace Pinch.SDK
         private SubscriptionClient _subscription;
         private FeeScheduleClient _feeSchedules;
         private FeesClient _fees;
+        private CustomerClient _customer;
         private RefundsClient _refunds;
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, _options.AdditionalScopes, HttpClientFactoryOrStaticInstance()));
@@ -62,6 +64,7 @@ namespace Pinch.SDK
         public SubscriptionClient Subscriptions => _subscription ?? (_subscription = new SubscriptionClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public FeeScheduleClient FeeSchedules => _feeSchedules ?? (_feeSchedules = new FeeScheduleClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public FeesClient Fees => _fees ?? (_fees = new FeesClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public CustomerClient Customers => _customer ?? (_customer = new CustomerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public RefundsClient Refunds => _refunds ?? (_refunds = new RefundsClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
 
         /// <summary>
