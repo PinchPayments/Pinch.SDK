@@ -67,6 +67,13 @@ namespace Pinch.SDK.Payments
         public string CreditCardToken { get; set; }
 
         /// <summary>
+        /// Used for in-house data entry and phone orders; It excludes the card-entering device from being linked to the cards being entered.
+        /// This is necessary to avoid our fraud monitoring from marking the device as using too many unique cards.
+        /// You must contact support to gain permission to use this flag. Transactions will fail otherwise.
+        /// </summary>
+        public bool IsTrustedDevice { get; set; }
+
+        /// <summary>
         /// Optional. Pinch will echo back the nonce value in the response, this is for replay protection.
         /// If the same Nonce is detected the in progress payment object will be returned.
         /// </summary>
