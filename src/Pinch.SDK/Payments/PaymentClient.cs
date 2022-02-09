@@ -36,7 +36,7 @@ namespace Pinch.SDK.Payments
 
             if (data.totalPages > currentPage)
             {
-                await GetScheduledAll(list, currentPage + 1, pageSize);
+                await GetScheduledAll(list, currentPage + 1, pageSize, startDate, endDate);
             }
 
             return list;
@@ -192,15 +192,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
+        public async Task<NonceApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments", options);
-
-            return new ApiResponse<PaymentDetailed>()
-            {
-                Data = response.Data,
-                Errors = response.Errors
-            };
+            return response.ToNonceResponse();
         }
 
         /// <summary>
@@ -208,15 +203,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
+        public async Task<NonceApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments/realtime", options);
-
-            return new ApiResponse<PaymentDetailed>()
-            {
-                Data = response.Data,
-                Errors = response.Errors
-            };
+            return response.ToNonceResponse();
         }
 
         /// <summary>
@@ -232,6 +222,17 @@ namespace Pinch.SDK.Payments
             {
                 Errors = response.Errors
             };
+        }
+
+        /// <summary>
+        /// Check a payment nonce
+        /// </summary>
+        /// <param name="options">Payment nonce.</param>
+        /// <returns></returns>
+        public async Task<NonceApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
+        {
+            var response = await PostHttp<PaymentDetailed>("payments/nonce", options);
+            return response.ToNonceResponse();
         }
     }
 }

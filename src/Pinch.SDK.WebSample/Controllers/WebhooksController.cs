@@ -63,7 +63,13 @@ namespace Pinch.SDK.WebSample.Controllers
                 var body = await sr.ReadToEndAsync();
                 var headers = Request.Headers.ToDictionary(x => x.Key, x => x.Value);
 
-                var isValid = GetApi().Webhook.VerifyWebhook("whsec_MucZPgWo3vkNorvRzNTaQQsHkOMyqiYy", body, headers);
+                var headerDic = new Dictionary<string, string[]>();
+                foreach (var h in headers)
+                {
+                    headerDic.Add(h.Key, h.Value.ToArray());
+                }
+
+                var isValid = GetApi().Webhook.VerifyWebhook("whsec_MucZPgWo3vkNorvRzNTaQQsHkOMyqiYy", body, headerDic);
 
                 var delivery = new WebhookDelivery()
                 {

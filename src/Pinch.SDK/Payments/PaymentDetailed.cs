@@ -14,6 +14,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         public string Id { get; set; }
         /// <summary>
+        /// The Current Attempt ID. Changes with each change to the payment. Use to correlate with payments that dishonoured and have been retried.
+        /// </summary>
+        public string AttemptId { get; set; }
+        /// <summary>
         /// The transaction amount in cents
         /// </summary>
         public int Amount { get; set; }
@@ -69,6 +73,11 @@ namespace Pinch.SDK.Payments
         /// </summary>
         public IEnumerable<Attempt> Attempts { get; set; }
         public SubscriptionPayment Subscription { get; set; }
+
+        /// <summary>
+        /// The Nonce that was sent with the initial request
+        /// </summary>
+        public string Nonce { get; set; }
 
         public PaymentDetailed()
         {

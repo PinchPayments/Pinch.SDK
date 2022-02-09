@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Primitives;
 using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Webhooks
@@ -31,7 +30,7 @@ namespace Pinch.SDK.Webhooks
             return response.ToApiResponse();
         }
 
-        public bool VerifyWebhook(string webhookSecret, string requestBody, IDictionary<string, StringValues> headers)
+        public bool VerifyWebhook(string webhookSecret, string requestBody, IDictionary<string, string[]> headers)
         {
             var header = headers
                 .Where(x => x.Key.ToLower() == "pinch-signature")
