@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pinch.SDK.Merchants
 {
-    public class Contact
+    public class ContactSaveOptions
     {
         public string Id { get; set; }
         public bool IsPrimaryContact { get; set; }
@@ -23,7 +23,7 @@ namespace Pinch.SDK.Merchants
         public string Country { get; set; }
 
         public string Dob { get; set; }
-        public bool GovernmentNumberSupplied { get; set; }
+        public string GovernmentNumber { get; set; }
         public string ContactType { get; set; }
         public decimal? Ownership { get; set; }
         public string JobTitle { get; set; }

@@ -7,6 +7,7 @@ namespace Pinch.SDK.Merchants
     {
         public string Id { get; set; }
         public string TestMerchantId { get; set; }
+        public bool TestOnlyMerchant { get; set; }
 
         // Merchant Information
         public string CompanyName { get; set; }
@@ -25,6 +26,7 @@ namespace Pinch.SDK.Merchants
         public string Country { get; set; }
         public string BankStatementLabel { get; set; }
         public DateTime CreatedDateUtc { get; set; }
+        public string LogoUrl { get; set; }
 
         // Compliance Information
         public string NatureOfBusiness { get; set; }
@@ -33,6 +35,6 @@ namespace Pinch.SDK.Merchants
         //Compliance Status
         public Compliance Compliance { get; set; }
 
-        public IEnumerable<Contact> Contacts { get; set; } = new List<Contact>();
+        public IList<Contact> Contacts { get; set; } = new List<Contact>();
     }
 }

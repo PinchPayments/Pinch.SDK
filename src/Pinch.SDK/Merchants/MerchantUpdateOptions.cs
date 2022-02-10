@@ -16,6 +16,10 @@ namespace Pinch.SDK.Merchants
         /// </summary>
         public string CompanyName { get; set; }
         /// <summary>
+        /// The name of your legal entity
+        /// </summary>
+        public string LegalEntityName { get; set; }
+        /// <summary>
         /// Company Email. Meant to be the generic/support company email address.
         /// </summary>
         public string CompanyEmail { get; set; }
@@ -24,21 +28,25 @@ namespace Pinch.SDK.Merchants
         /// </summary>
         public string CompanyPhone { get; set; }
         /// <summary>
+        /// The primary website of the business. Can be a social media profile such as Facebook or LinkedIn
+        /// </summary>
+        public string CompanyWebsiteUrl { get; set; }
+        /// <summary>
+        /// Company Registration Number (known as ABN in Australia)
+        /// </summary>
+        public string CompanyRegistrationNumber { get; set; }
+        /// <summary>
         /// Bank Account Name
         /// </summary>
-        public string AccountName { get; set; }
+        public string BankAccountName { get; set; }
         /// <summary>
         /// Bank Account BSB (also known as Routing Number)
         /// </summary>
-        public string Bsb { get; set; }
+        public string BankAccountRoutingNumber { get; set; }
         /// <summary>
         /// Bank Account Number
         /// </summary>
-        public string AccountNumber { get; set; }        
-        /// <summary>
-        /// Company ABN (also known as Business Number)
-        /// </summary>
-        public string Abn { get; set; }
+        public string BankAccountNumber { get; set; }        
         /// <summary>
         /// Company Address - Street
         /// </summary>
@@ -60,43 +68,21 @@ namespace Pinch.SDK.Merchants
         /// </summary>
         public string BankStatementLabel { get; set; }
         /// <summary>
-        /// This message will be shown to Payers who are signing up to direct debit or are querying what your business is.
-        /// Explain in roughly 1 paragraph who you are and what service you provide.
-        /// </summary>
-        public string DebitMessage { get; set; }
-
-        // Primary Contact Information
-        /// <summary>
-        /// The first name of the person responsible for this merchant.
-        /// </summary>
-        public string ContactFirstName { get; set; }
-        /// <summary>
-        /// The last name of the person responsible for this merchant.
-        /// </summary>
-        public string ContactLastName { get; set; }
-        /// <summary>
-        /// The email address of the person responsible for this merchant.
-        /// </summary>
-        public string ContactEmail { get; set; }
-        /// <summary>
-        /// The phone number (preferably mobile) of the person responsible for this merchant.
-        /// </summary>
-        public string ContactPhone { get; set; }
-        /// <summary>
-        /// The date of birth of the person responsible for this merchant.
-        /// </summary>
-        public string Dob { get; set; }
-        /// <summary>
-        /// The Government ID Number (Passport or Drivers License) of the person responsible for this merchant.
-        /// </summary>
-        public string GovernmentNumber { get; set; }
-        /// <summary>
-        /// The primary website of the business. Can be a social media profile such as Facebook or LinkedIn
-        /// </summary>
-        public string CompanyWebsiteUrl { get; set; }
-        /// <summary>
         /// A description of the business, how/why it takes payment, and an example of the service or goods provided
         /// </summary>
         public string NatureOfBusiness { get; set; }
+        /// <summary>
+        /// Can be 'company' or 'individual'.
+        /// </summary>
+        public string OrganisationType { get; set; }
+        /// <summary>
+        /// You can optionally supply notes for our compliance team to read. Useful for back and forth dialog.
+        /// </summary>
+        public string Notes { get; set; }
+
+        /// <summary>
+        /// A list of the relevant business owners or executives for this account (used for compliance and administration)
+        /// </summary>
+        public List<ContactSaveOptions> Contacts { get; set; } = new List<ContactSaveOptions>();
     }
 }
