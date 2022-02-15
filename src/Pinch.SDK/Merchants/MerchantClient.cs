@@ -72,6 +72,18 @@ namespace Pinch.SDK.Merchants
 
             return response.ToApiResponse();
         }
+
+        /// <summary>
+        /// Create a new verification session for the specified user.
+        /// </summary>
+        /// <param name="contactId">The contactID in `con_XXXXXXXX` format.</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<VerificationSession>> CreateVerificationSession(string contactId)
+        {
+            var response = await PostHttp<VerificationSession>("merchants/verification-session", new { contactId });
+
+            return response.ToApiResponse();
+        }
     }
 
 }
