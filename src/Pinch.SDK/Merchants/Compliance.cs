@@ -18,5 +18,11 @@ namespace Pinch.SDK.Merchants
         public bool LiveEnabled { get; set; }
         public bool TransactionsEnabled { get; set; }
         public bool SettlementsEnabled { get; set; }
+
+        public string DocumentVerificationStatus { get; set; }
+        public string BankAccountVerificationStatus { get; set; }
+        public IList<ContactCompliance> ContactCompliances { get; set; } = new List<ContactCompliance>();
+
+        public IList<Document> Documents { get; set; } = new List<Document>();
     }
 }
