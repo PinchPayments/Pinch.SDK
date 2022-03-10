@@ -84,6 +84,18 @@ namespace Pinch.SDK.Merchants
 
             return response.ToApiResponse();
         }
+
+        /// <summary>
+        /// Upload documents for the merchant
+        /// </summary>
+        /// <param name="options">options.</param>
+        /// <returns></returns>
+        public async Task<ApiResponse> UploadDocument(DocumentUploadOptions options)
+        {
+            var response = await PostHttp<DocumentUploadResponse>("merchants/documents", new { });
+
+            return response.ToApiResponse();
+        }
     }
 
 }
