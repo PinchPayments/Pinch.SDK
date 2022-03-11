@@ -92,10 +92,15 @@ namespace Pinch.SDK.Merchants
         /// <returns></returns>
         public async Task<ApiResponse> UploadDocument(DocumentUploadOptions options)
         {
-            var response = await PostHttp<DocumentUploadResponse>("merchants/documents", new { });
+            var response = await PostHttp<Document>("merchants/documents", options.File, options.Filename, new Dictionary<string, string>()
+            {
+                { "ContactId", options.ContactId },
+                { "DocumentType", options.DocumentType }
+            });
 
             return response.ToApiResponse();
         }
     }
 
 }
+

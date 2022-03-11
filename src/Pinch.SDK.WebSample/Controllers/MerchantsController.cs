@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pinch.SDK.Merchants;
@@ -114,6 +115,49 @@ namespace Pinch.SDK.WebSample.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Documents()
+        {
+            var merchant = await GetApi().Merchant.GetMerchant();
+
+            var model = new MerchantDocumentsVm()
+            {
+                Merchant = merchant,
+                Documents = merchant.Compliance.Documents.ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Documents([FromForm] MerchantDocumentsVm model)
+        {
+            var result = await GetApi().Merchant.UploadDocument(new DocumentUploadOptions()
+            {
+                DocumentType = model.DocumentType,
+                ContactId = model.ContactId,
+                File = model.File?.OpenReadStream(),
+                Filename = model.File?.FileName
+            });
+
+            if (!result.Success)
+            {
+                var merchant = await GetApi().Merchant.GetMerchant();
+
+                model.Merchant = merchant;
+                model.Documents = merchant.Compliance.Documents.ToList();
+
+                foreach (var err in result.Errors)
+                {
+                    ModelState.AddModelError(err.PropertyName ?? "", err.ErrorMessage);
+                }
+
+                return View(model);
+            }
+
+            return RedirectToAction("Documents");
         }
 
         public IActionResult Impersonate(string merchantId)

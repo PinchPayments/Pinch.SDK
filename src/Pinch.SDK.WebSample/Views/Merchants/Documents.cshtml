@@ -1,0 +1,68 @@
+﻿@using Newtonsoft.Json
+@model MerchantDocumentsVm
+
+<h2>
+    Merchant Documents
+</h2>
+
+<h3>@Model.Merchant.CompanyName</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Document Type</th>
+            <th>Filename</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model.Documents)
+        {
+            <tr>
+                <td>@doc.Id</td>
+                <td>@doc.DocumentType</td>
+                <td>@doc.Filename</td>
+            </tr>
+        }
+        @if (!Model.Documents.Any())
+        {
+            <tr>
+                <td colspan="3">You have no merchant documents</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form asp-action="Documents" method="post" enctype="multipart/form-data">
+    <div class="form-horizontal">
+        <h4>Upload Document</h4>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="DocumentType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DocumentType" class="form-control" />
+                <span asp-validation-for="DocumentType" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactId" class="form-control" />
+                <span asp-validation-for="ContactId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="File" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="File" class="form-control" />
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
