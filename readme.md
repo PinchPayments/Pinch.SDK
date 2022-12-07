@@ -29,7 +29,4 @@ You can find the documentation for this project [here](https://docs.getpinch.com
 * Sample applications and documentation are provided to get you started quickly.
 
 ## Supported Platforms
-* .NET 3.5 (Client Profile and Full Profile)
-* .NET 4.0 (Client Profile and Full Profile)
-* .NET 4.5
-* .NET Standard 2
+* .NET Standard 2.0
