@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -46,8 +47,16 @@ namespace Pinch.SDK
             {
                 Content = HttpClientHelpers.GetJsonBody(data)
             });
-        }        
-        
+        }
+
+        protected async Task<QuickResponse<T>> PostHttp<T>(string url, Stream fileStream, string filename, Dictionary<string, string> otherData)
+        {
+            return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
+            {
+                Content = HttpClientHelpers.GetMultipartFormBody(fileStream, filename, otherData)
+            });
+        }
+
         protected async Task<QuickResponse<T, TOptions>> PostHttp<T, TOptions>(string url, object data)
         {            
             return await SendHttp<T, TOptions>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)

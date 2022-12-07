@@ -13,7 +13,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/PinchPayments/Pinch.SDK/master/assets/img/circle_logo_64x64.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/PinchPayments/Pinch.SDK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/PinchPayments/Pinch.SDK</RepositoryUrl>
-    <Version>0.18.6</Version>
+    <Version>0.19.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,10 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
   <Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">

@@ -3,7 +3,8 @@
 
 <h2>
     My Merchant
-    <a href="@Url.Action("Edit", "Merchants")" class="btn btn-primary pull-right">Edit Merchant</a>
+    <a href="@Url.Action("Documents", "Merchants")" class="btn btn-primary pull-right">Add Documents</a>
+    <a href="@Url.Action("Edit", "Merchants")" class="btn btn-primary pull-right" style="margin-right:10px;">Edit Merchant</a>
 </h2>
 
 <p>
@@ -39,19 +40,18 @@
                 <p>@merchant.TestMerchantId</p>
             </td>
             <td>@merchant.CompanyName</td>
-            <td>@merchant.ContactEmail</td>
-            <td>@merchant.AccountName</td>
-            <td>@merchant.Bsb</td>
-            <td>@merchant.AccountNumber</td>
+            <td>@merchant.CompanyEmail</td>
+            <td>@merchant.BankAccountName</td>
+            <td>@merchant.BankAccountRoutingNumber</td>
+            <td>@merchant.BankAccountNumber</td>
             <td>@merchant.StreetAddress</td>
             <td>@merchant.Suburb</td>
             <td>@merchant.Postcode</td>
             <td>
-                
-                <p>@merchant.TestSecretKey</p>
+                @*<p>@merchant.TestSecretKey</p>
                 <p>@merchant.LiveSecretKey</p>
                 <p>@merchant.TestPublishableKey</p>
-                <p>@merchant.LivePublishableKey</p>
+                <p>@merchant.LivePublishableKey</p>*@
             </td>
         </tr>
     }

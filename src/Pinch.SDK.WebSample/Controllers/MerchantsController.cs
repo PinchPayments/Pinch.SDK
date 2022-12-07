@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pinch.SDK.Merchants;
@@ -33,35 +34,27 @@ namespace Pinch.SDK.WebSample.Controllers
         [HttpGet]
         public async Task<IActionResult> NewManaged()
         {
-            return View(new ManagedMerchant());
+            return View(new ManagedMerchantCreateOptions()
+            {
+                Contacts = new List<ContactSaveOptions>()
+                {
+                    new ContactSaveOptions() {
+                        IsPrimaryContact = true
+                    }
+                }
+            });
         }
 
         [HttpPost]
-        public async Task<IActionResult> NewManaged(ManagedMerchant model)
+        public async Task<IActionResult> NewManaged(ManagedMerchantCreateOptions model)
         {
-            var result = await GetApi().Merchant.CreateManagedMerchant(new ManagedMerchantCreateOptions()
-            {
-                AccountName = model.AccountName,
-                AccountNumber = model.AccountNumber,
-                Bsb = model.Bsb,
-                CompanyName = model.CompanyName,
-                ContactEmail = model.ContactEmail,
-                Postcode = model.Postcode,
-                StreetAddress = model.StreetAddress,
-                Suburb = model.Suburb,
-                Abn = model.Abn,
-                CompanyEmail = model.CompanyEmail,
-                CompanyPhone = model.CompanyPhone,
-                ContactFirstName = model.ContactFirstName,
-                ContactLastName = model.ContactLastName,
-                ContactPhone = model.ContactPhone,
-                State = model.State,
-                Dob = model.Dob,
-                GovernmentNumber = model.GovernmentNumber,
-                Country = model.Country,
-                IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                UserAgent = Request.Headers["User-Agent"].ToString()
-            });
+            model.IpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            model.UserAgent = Request.Headers["User-Agent"].ToString();
+            model.OrganisationType = "company";
+            model.Contacts[0].IsPrimaryContact = true;
+            model.Contacts[0].ContactType = "owner";
+
+            var result = await GetApi().Merchant.CreateManagedMerchant(model);
 
             if (!result.Success)
             {
@@ -81,36 +74,38 @@ namespace Pinch.SDK.WebSample.Controllers
         {
             var merchant = await GetApi().Merchant.GetMerchant();
 
-            return View(merchant);
+            var model = new MerchantUpdateOptions()
+            {
+                BankAccountName = merchant.BankAccountName,
+                BankAccountNumber = merchant.BankAccountNumber,
+                BankAccountRoutingNumber = merchant.BankAccountRoutingNumber,
+                CompanyName = merchant.CompanyName,
+                Postcode = merchant.Postcode,
+                StreetAddress = merchant.StreetAddress,
+                Suburb = merchant.Suburb,
+                State = merchant.State,
+                CompanyRegistrationNumber = merchant.CompanyRegistrationNumber,
+                BankStatementLabel = merchant.BankStatementLabel,
+                CompanyEmail = merchant.CompanyEmail,
+                CompanyPhone = merchant.CompanyPhone,
+                CompanyWebsiteUrl = merchant.CompanyWebsiteUrl,
+                NatureOfBusiness = merchant.NatureOfBusiness,
+                Contacts = merchant.Contacts.Select(x => new ContactSaveOptions()
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Email = x.Email,
+                    ContactType = x.ContactType
+                }).ToList()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Merchant model)
+        public async Task<IActionResult> Edit(MerchantUpdateOptions model)
         {
-            var result = await GetApi().Merchant.UpdateMerchant(new MerchantUpdateOptions()
-            {
-                AccountName = model.AccountName,
-                AccountNumber = model.AccountNumber,
-                Bsb = model.Bsb,
-                CompanyName = model.CompanyName,
-                ContactEmail = model.ContactEmail,                
-                ContactPhone = model.ContactPhone,
-                Postcode = model.Postcode,
-                StreetAddress = model.StreetAddress,
-                Suburb = model.Suburb,
-                State = model.State,
-                Abn = model.Abn,
-                BankStatementLabel = model.BankStatementLabel,
-                DebitMessage = model.DebitMessage,      
-                CompanyEmail = model.CompanyEmail,
-                CompanyPhone = model.CompanyPhone,
-                ContactFirstName = model.ContactFirstName,
-                ContactLastName = model.ContactLastName,
-                Dob = model.Dob,
-                GovernmentNumber = model.GovernmentNumber,
-                CompanyWebsiteUrl = model.CompanyWebsiteUrl,
-                NatureOfBusiness = model.NatureOfBusiness
-            });
+            var result = await GetApi().Merchant.UpdateMerchant(model);
 
             if (!result.Success)
             {
@@ -120,6 +115,49 @@ namespace Pinch.SDK.WebSample.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Documents()
+        {
+            var merchant = await GetApi().Merchant.GetMerchant();
+
+            var model = new MerchantDocumentsVm()
+            {
+                Merchant = merchant,
+                Documents = merchant.Compliance.Documents.ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Documents([FromForm] MerchantDocumentsVm model)
+        {
+            var result = await GetApi().Merchant.UploadDocument(new DocumentUploadOptions()
+            {
+                DocumentType = model.DocumentType,
+                ContactId = model.ContactId,
+                File = model.File?.OpenReadStream(),
+                Filename = model.File?.FileName
+            });
+
+            if (!result.Success)
+            {
+                var merchant = await GetApi().Merchant.GetMerchant();
+
+                model.Merchant = merchant;
+                model.Documents = merchant.Compliance.Documents.ToList();
+
+                foreach (var err in result.Errors)
+                {
+                    ModelState.AddModelError(err.PropertyName ?? "", err.ErrorMessage);
+                }
+
+                return View(model);
+            }
+
+            return RedirectToAction("Documents");
         }
 
         public IActionResult Impersonate(string merchantId)

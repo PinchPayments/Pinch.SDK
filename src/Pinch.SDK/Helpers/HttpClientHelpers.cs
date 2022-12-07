@@ -22,6 +22,32 @@ namespace Pinch.SDK.Helpers
         {
             return new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
         }
+
+        public static HttpContent GetMultipartFormBody(Stream fileData, string filename, Dictionary<string, string> otherbody)
+        {
+            var content = new MultipartFormDataContent();
+
+            // Create form data fields
+            foreach (var field in otherbody)
+            {
+                if (field.Value == null) // just null, let empty through
+                {
+                    continue;
+                }
+
+                var stringContent = new StringContent(field.Value);
+                stringContent.Headers.Add("Content-Disposition", $"form-data; name=\"{field.Key}\"");
+                content.Add(stringContent);
+            }
+
+            // Create file data
+            var fileContent = new StreamContent(fileData);
+            fileContent.Headers.Add("Content-Type", "application/octet-stream");
+            fileContent.Headers.Add("Content-Disposition", $"form-data; name=\"file\"; filename=\"{filename}\"");
+            content.Add(fileContent);
+
+            return content;
+        }
     }
 
     public static class HttpClientExtensions
