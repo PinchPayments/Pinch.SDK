@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 using Pinch.SDK.WebSample.Models;
 using Pinch.SDK.WebSample.Services;
 using Pinch.SDK.WebSample.ViewModels.Account;
@@ -41,10 +36,15 @@ namespace Pinch.SDK.WebSample.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
+            var model = new LoginViewModel()
+            {
+                AuthenticationSchemes = await _signInManager.GetExternalAuthenticationSchemesAsync()
+            };
+
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return View(model);
         }
 
         //
@@ -76,12 +76,14 @@ namespace Pinch.SDK.WebSample.Controllers
                 }
                 else
                 {
+                    model.AuthenticationSchemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
                 }
             }
 
             // If we got this far, something failed, redisplay form
+            model.AuthenticationSchemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
             return View(model);
         }
 

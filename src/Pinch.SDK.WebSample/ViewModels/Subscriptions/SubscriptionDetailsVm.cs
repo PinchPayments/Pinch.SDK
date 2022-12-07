@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Pinch.SDK.Payments;
-using Pinch.SDK.Plans;
+﻿using Pinch.SDK.Payments;
 using Pinch.SDK.Subscriptions;
 
 namespace Pinch.SDK.WebSample.ViewModels.Subscriptions

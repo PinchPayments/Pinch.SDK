@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Pinch.SDK.Fees;
+﻿using Pinch.SDK.Fees;
 
 namespace Pinch.SDK.WebSample.ViewModels.Fees
 {

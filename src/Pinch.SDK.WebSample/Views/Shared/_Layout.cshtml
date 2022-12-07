@@ -1,80 +1,64 @@
 ﻿<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Pinch.SDK.WebSample</title>
-
-        <environment names="Development">
-            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-            <link rel="stylesheet" href="~/css/site.css" />
-        </environment>
-        <environment names="Staging,Production">
-            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        </environment>
-    </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Pinch.SDK.WebSample</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Pinch.SDK.WebSample.styles.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column h-100">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">Pinch.SDK.WebSample</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    @await Html.PartialAsync("_LoginPartial")
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Pinch.SDK.WebSample</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
                 </div>
             </div>
-        </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li is-active-route asp-controller="Home" asp-action="Index"><a asp-controller="Home" asp-action="Index">Overview</a></li>
-                    <li is-active-route asp-controller="Payers"><a asp-controller="Payers" asp-action="Index">Payers</a></li>
-                    <li is-active-route asp-controller="Payments" asp-action="Scheduled"><a asp-controller="Payments" asp-action="Scheduled">Scheduled Payments</a></li>
-                    <li is-active-route asp-controller="Payments" asp-action="Processed"><a asp-controller="Payments" asp-action="Processed">Processed Payments</a></li>
-                    <li is-active-route asp-controller="Payments" asp-action="Realtime"><a asp-controller="Payments" asp-action="Realtime">Realtime Payments</a></li>
-                    <li is-active-route asp-controller="Fees" asp-action="Calculate"><a asp-controller="Fees" asp-action="Calculate">Fees Calculator</a></li>
-                    <li is-active-route asp-controller="Plans" asp-action="Index"><a asp-controller="Plans" asp-action="Index">Plans</a></li>
-                    <li is-active-route asp-controller="Subscriptions" asp-action="Index"><a asp-controller="Subscriptions" asp-action="Index">Subscriptions</a></li>
-                    <li is-active-route asp-controller="Transfers"><a asp-controller="Transfers" asp-action="Index">Transfers</a></li>
-                    <li is-active-route asp-controller="Events"><a asp-controller="Events" asp-action="Index">Events</a></li>
-                    <li is-active-route asp-controller="Merchants"><a asp-controller="Merchants" asp-action="Index">Merchants</a></li>
-                    <li is-active-route asp-controller="Home" asp-action="Connect"><a asp-controller="Home" asp-action="Connect">Connect</a></li>
-                </ul>
+        </nav>
+    </header>
+    <main class="flex-shrink-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li asp-controller="Home" asp-action="Index"><a is-active-route class="nav-link" asp-controller="Home" asp-action="Index">Overview</a></li>
+                        <li asp-controller="Payers"><a is-active-route class="nav-link" asp-controller="Payers" asp-action="Index">Payers</a></li>
+                        <li asp-controller="Payments" asp-action="Scheduled"><a is-active-route class="nav-link" asp-controller="Payments" asp-action="Scheduled">Scheduled Payments</a></li>
+                        <li asp-controller="Payments" asp-action="Processed"><a is-active-route class="nav-link" asp-controller="Payments" asp-action="Processed">Processed Payments</a></li>
+                        <li asp-controller="Payments" asp-action="Realtime"><a is-active-route class="nav-link" asp-controller="Payments" asp-action="Realtime">Realtime Payments</a></li>
+                        <li asp-controller="Fees" asp-action="Calculate"><a is-active-route class="nav-link" asp-controller="Fees" asp-action="Calculate">Fees Calculator</a></li>
+                        <li asp-controller="Plans" asp-action="Index"><a is-active-route class="nav-link" asp-controller="Plans" asp-action="Index">Plans</a></li>
+                        <li asp-controller="Subscriptions" asp-action="Index"><a is-active-route class="nav-link" asp-controller="Subscriptions" asp-action="Index">Subscriptions</a></li>
+                        <li asp-controller="Transfers"><a is-active-route class="nav-link" asp-controller="Transfers" asp-action="Index">Transfers</a></li>
+                        <li asp-controller="Events"><a is-active-route class="nav-link" asp-controller="Events" asp-action="Index">Events</a></li>
+                        <li asp-controller="Merchants"><a is-active-route class="nav-link" asp-controller="Merchants" asp-action="Index">Merchants</a></li>
+                        <li asp-controller="Home" asp-action="Connect"><a is-active-route class="nav-link" asp-controller="Home" asp-action="Connect">Connect</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    @RenderBody()
+                </div>
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                @RenderBody()
-            </div>
+            
         </div>
-        <hr/>
-    </div>
+    </main>
 
-        <environment names="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
-
-        @RenderSection("scripts", required: false)
-    </body>
+    <footer class="border-top text-muted footer mt-auto py-3">
+        <div class="container">
+            &copy; 2022 - Pinch.SDK.WebSample
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 </html>

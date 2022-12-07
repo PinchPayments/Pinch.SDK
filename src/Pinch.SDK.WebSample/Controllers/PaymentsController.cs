@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Pinch.SDK.Payers;
 using Pinch.SDK.Payments;
 using Pinch.SDK.WebSample.Helpers;
-using Pinch.SDK.WebSample.ViewModels.Payers;
 using Pinch.SDK.WebSample.ViewModels.Payments;
 using Pinch.SDK.WebSample.ViewModels.Realtime;
 

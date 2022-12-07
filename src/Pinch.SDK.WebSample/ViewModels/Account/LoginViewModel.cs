@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Pinch.SDK.WebSample.ViewModels.Account
 {
@@ -18,5 +15,7 @@ namespace Pinch.SDK.WebSample.ViewModels.Account
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public IEnumerable<AuthenticationScheme> AuthenticationSchemes { get; set; } = new List<AuthenticationScheme>();
     }
 }

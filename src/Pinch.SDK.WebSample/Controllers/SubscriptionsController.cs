@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Pinch.SDK.Plans;
 using Pinch.SDK.Subscriptions;
 using Pinch.SDK.WebSample.Helpers;
-using Pinch.SDK.WebSample.ViewModels.Plans;
 using Pinch.SDK.WebSample.ViewModels.Subscriptions;
 
 namespace Pinch.SDK.WebSample.Controllers
