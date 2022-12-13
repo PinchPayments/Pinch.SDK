@@ -100,7 +100,26 @@ namespace Pinch.SDK.Merchants
 
             return response.ToApiResponse();
         }
-    }
 
+        /// <summary>
+        /// Gets all compliance for the current merchant
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ApiResponse<MerchantCompliance>> GetCompliance()
+        {
+            var response = await GetHttp<MerchantCompliance>("merchants/compliance");
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
+        /// Updates compliance for the current merchant
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ApiResponse<MerchantCompliance>> UpdateCompliance(UpdateMerchantComplianceOptions options)
+        {
+            var response = await PostHttp<MerchantCompliance>("merchants/compliance", options);
+            return response.ToApiResponse();
+        }
+    }
 }
 
