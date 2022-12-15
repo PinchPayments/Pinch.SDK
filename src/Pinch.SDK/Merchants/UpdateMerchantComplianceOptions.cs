@@ -7,6 +7,12 @@ namespace Pinch.SDK.Merchants
 {
     public class UpdateMerchantComplianceOptions
     {
-        public Dictionary<string, string> PrePaymentRiskResponses { get; set; }
+        public List<MerchantCompliancePrePaymentRiskOptions> PrePaymentRiskResponses { get; set; }
+    }
+    
+    public class MerchantCompliancePrePaymentRiskOptions
+    {
+        public string Code { get; set; }
+        public string Answer { get; set; }
     }
 }
