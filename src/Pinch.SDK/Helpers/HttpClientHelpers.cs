@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -59,10 +60,10 @@ namespace Pinch.SDK.Helpers
             return qr.ToApiResponse();
         }
 
-        public static async Task<ApiResponse> GetFile(this HttpClient client, string url)
+        public static async Task<ApiResponse<FileDto>> GetFile(this HttpClient client, string url)
         {
             var response = await client.GetAsync(url);
-            var qr = await QuickFile.FromMessage(response);
+            var qr = await QuickFileResponse.FromMessage(response);
             return qr.ToApiResponse();
         }
 
@@ -294,17 +295,32 @@ namespace Pinch.SDK.Helpers
         }
     }
 
-    public class QuickFile : QuickResponse<Stream>
+    public class QuickFileResponse : QuickResponse<FileDto>
     {
-        public new static async Task<QuickFile> FromMessage(HttpResponseMessage message)
+        public new static async Task<QuickFileResponse> FromMessage(HttpResponseMessage message)
         {
-            var response = new QuickFile();
-            response.Message = message;
-            response.ResponseBody = await message.Content.ReadAsStringAsync();
+            var response = new QuickFileResponse
+            {
+                Message = message
+            };
 
             if (message.IsSuccessStatusCode)
             {
-                response.Data = await message.Content.ReadAsStreamAsync();
+                response.Data = new FileDto()
+                {
+                    Stream = await message.Content.ReadAsStreamAsync()
+                };
+
+                var header = message.Content.Headers.GetValues("content-disposition")?.ToList();
+                if (header != null && header.Any())
+                {
+                    response.Data.Filename = new ContentDisposition(header.First()).FileName;
+                }
+                var contentTypeHeader = message.Content.Headers.GetValues("content-type")?.ToList();
+                if (contentTypeHeader != null && contentTypeHeader.Any())
+                {
+                    response.Data.ContentType = contentTypeHeader.First();
+                }
             }
             else
             {
