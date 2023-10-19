@@ -6,7 +6,7 @@ namespace Pinch.SDK.Statements
     public class MerchantInvoice
     {
         /// <summary>
-        /// The Daily Statement ID
+        /// The Merchant Invoice Id
         /// </summary>
         public string Id { get; set; }
         
