@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Agreements
 {
@@ -46,10 +47,9 @@ namespace Pinch.SDK.Agreements
         /// </summary>
         /// <param name="agreementId">Agreement ID</param>
         /// <returns></returns>
-        public async Task<ApiResponse<Stream>> GetDdr(string agreementId)
+        public async Task<ApiResponse<FileDto>> GetDdr(string agreementId)
         {
             var response = await GetFile($"agreements/ddr/{agreementId}");
-
             return response.ToApiResponse();
         }
 

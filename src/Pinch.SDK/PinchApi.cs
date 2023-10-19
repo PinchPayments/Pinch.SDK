@@ -13,6 +13,7 @@ using Pinch.SDK.Payers;
 using Pinch.SDK.Payments;
 using Pinch.SDK.Plans;
 using Pinch.SDK.Refunds;
+using Pinch.SDK.Statements;
 using Pinch.SDK.Subscriptions;
 using Pinch.SDK.Transfers;
 using Pinch.SDK.Webhooks;
@@ -51,6 +52,7 @@ namespace Pinch.SDK
         private FeesClient _fees;
         private CustomerClient _customer;
         private RefundsClient _refunds;
+        private StatementsClient _statements;
 
         public AuthClient Auth => _auth ?? (_auth = new AuthClient(_secretKey, _options.AuthUri, _options.BaseUri, _options.AdditionalScopes, HttpClientFactoryOrStaticInstance()));
         public MerchantClient Merchant => _merchant ?? (_merchant = new MerchantClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
@@ -66,6 +68,7 @@ namespace Pinch.SDK
         public FeesClient Fees => _fees ?? (_fees = new FeesClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public CustomerClient Customers => _customer ?? (_customer = new CustomerClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
         public RefundsClient Refunds => _refunds ?? (_refunds = new RefundsClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
+        public StatementsClient Statements => _statements ?? (_statements = new StatementsClient(_options, GetAccessToken, HttpClientFactoryOrStaticInstance()));
 
         /// <summary>
         /// Supply your Merchant ID and Secret Key. These can be found in the API Keys menu item in the Pinch Portal.

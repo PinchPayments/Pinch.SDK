@@ -28,7 +28,7 @@ namespace Pinch.SDK
             return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url));
         }
 
-        protected async Task<QuickFile> GetFile(string url)
+        protected async Task<QuickFileResponse> GetFile(string url)
         {
             return await SendHttpFile(() => new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url));
         }
@@ -160,7 +160,7 @@ namespace Pinch.SDK
             }
         }
 
-        private async Task<QuickFile> SendHttpFile(Func<HttpRequestMessage> requestFunc)
+        private async Task<QuickFileResponse> SendHttpFile(Func<HttpRequestMessage> requestFunc)
         {
             try
             {
@@ -176,11 +176,11 @@ namespace Pinch.SDK
                     response = await _httpClientFactory().SendAsync(request);
                 }                
 
-                return await QuickFile.FromMessage(response);
+                return await QuickFileResponse.FromMessage(response);
             }
             catch (Exception ex)
             {                
-                return new QuickFile()
+                return new QuickFileResponse()
                 {
                     Errors = new List<ApiError>()
                     {
