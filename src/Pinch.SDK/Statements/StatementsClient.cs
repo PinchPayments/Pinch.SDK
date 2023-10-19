@@ -56,10 +56,10 @@ namespace Pinch.SDK.Statements
         /// Gets the daily statement PDF for the merchant
         /// </summary>
         /// <param name="dailyStatementId"></param>
-        public async Task<QuickFileResponse> GetDailyStatementPdf(string dailyStatementId)
+        public async Task<ApiResponse<FileDto>> GetDailyStatementPdf(string dailyStatementId)
         {
             var response = await GetFile($"statements/daily/{dailyStatementId}");
-            return response;
+            return response.ToApiResponse();
         }
 
         /// <summary>
@@ -103,10 +103,10 @@ namespace Pinch.SDK.Statements
         /// Gets the merchant invoice PDF
         /// </summary>
         /// <param name="merchantInvoiceId"></param>
-        public async Task<QuickFileResponse> GetMerchantInvoicePdf(string merchantInvoiceId)
+        public async Task<ApiResponse<FileDto>> GetMerchantInvoicePdf(string merchantInvoiceId)
         {
             var response = await GetFile($"statements/merchant-invoice/{merchantInvoiceId}");
-            return response;
+            return response.ToApiResponse();
         }
     }
 }
