@@ -69,7 +69,7 @@ namespace Pinch.SDK.Statements
         /// <param name="pageSize"></param>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
-        public async Task<Paged<MerchantInvoice>> GetMonthlyInvoices(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<Paged<MerchantInvoice>> GetMerchantInvoices(int page = 1, int pageSize = 50, DateTime? startDate = null, DateTime? endDate = null)
         {
             var url = $"statements/merchant-invoice?page={page}&pagesize={pageSize}";
 
