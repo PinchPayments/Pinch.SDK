@@ -5,7 +5,7 @@
     <Description>The easiest way to integrate your .net application with Pinch Payments. Create payers, add payments, receive webhooks, fetch payments, get paid. Really all the good stuff. It's for Australian businesses if you didn't already know. I'll assume you did if you got this far, if not, Welcome! but you should probably check out getpinch.com.au to get up to speed.</Description>
     <AssemblyTitle>Pinch Payments</AssemblyTitle>
     <Authors>Pinch Payments</Authors>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Pinch.SDK</AssemblyName>
     <PackageId>Pinch.SDK</PackageId>
@@ -13,17 +13,12 @@
     <PackageIconUrl>https://raw.githubusercontent.com/PinchPayments/Pinch.SDK/master/assets/img/circle_logo_64x64.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/PinchPayments/Pinch.SDK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/PinchPayments/Pinch.SDK</RepositoryUrl>
-    <Version>0.21.0</Version>
+    <Version>0.22.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="IdentityModel" Version="2.0.2" />    
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
   <ItemGroup>

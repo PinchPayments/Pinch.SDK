@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Pinch.SDK.Converters;
 
 namespace Pinch.SDK.Helpers
 {
@@ -98,7 +99,9 @@ namespace Pinch.SDK.Helpers
         public List<ApiError> Errors { get; set; }
 
         public bool IsNonceReplay { get; set; }
-        public string Nonce { get; set; }
+
+        [JsonConverter(typeof(SingleOrArrayConverter<string>))]
+        public List<string> Nonce { get; set; }
 
         public QuickResponse()
         {
