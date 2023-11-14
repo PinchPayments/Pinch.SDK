@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Pinch.SDK.Converters;
 using Pinch.SDK.Payers;
 using Pinch.SDK.Subscriptions;
 
@@ -77,7 +79,8 @@ namespace Pinch.SDK.Payments
         /// <summary>
         /// The Nonce that was sent with the initial request
         /// </summary>
-        public string Nonce { get; set; }
+        [JsonConverter(typeof(SingleOrArrayConverter<string>))]
+        public List<string> Nonce { get; set; }
 
         public PaymentDetailed()
         {
