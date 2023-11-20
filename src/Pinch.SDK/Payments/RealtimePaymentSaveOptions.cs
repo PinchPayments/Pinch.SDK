@@ -77,6 +77,6 @@ namespace Pinch.SDK.Payments
         /// Optional. Pinch will echo back the nonce value in the response, this is for replay protection.
         /// If the same Nonce is detected the in progress payment object will be returned.
         /// </summary>
-        public string Nonce { get; set; }
+        public List<string> Nonce { get; set; }
     }
 }
