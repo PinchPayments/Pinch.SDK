@@ -61,7 +61,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 CreditCardToken = model.CreditCardToken,
                 Amount = Convert.ToInt32(model.Amount * 100),                
                 Description = model.Description,
-                Nonce = model.Nonce
+                Nonce = new List<string> { model.Nonce }
             });
 
             if (!result.Success)
