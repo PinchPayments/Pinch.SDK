@@ -14,7 +14,12 @@
     <PackageProjectUrl>https://github.com/PinchPayments/Pinch.SDK</PackageProjectUrl>
     <RepositoryUrl>https://github.com/PinchPayments/Pinch.SDK</RepositoryUrl>
     <Version>$(PackageVersion)</Version>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\readme.md" Pack="true" PackagePath="\" Link="readme.md" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />

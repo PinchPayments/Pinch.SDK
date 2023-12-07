@@ -47,6 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "v${{ steps.get_version.outputs.VERSION }}" \
+              ./src/Pinch.SDK/bin/Release/Pinch.SDK.${{ steps.get_version.outputs.VERSION }}.nupkg
               --repo="$GITHUB_REPOSITORY" \
               --title="v${{ steps.get_version.outputs.VERSION }}" \
               --generate-notes
