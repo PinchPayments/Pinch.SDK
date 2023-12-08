@@ -29,24 +29,23 @@ namespace Pinch.SDK.WebSample.Controllers
 
             if (token != null)
             {
-                return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions(){
-                    IsLive = _settings.IsLive,
-                    BaseUri = _settings.BaseUri,
-                    AuthUri = _settings.AuthUri,
-                    ApplicationId = _settings.ApplicationId,
-                    AccessToken = token.AccessToken,
-                    RefreshToken = token.RefreshToken,
-                    ImpersonateMerchantId = ImpersonatedMerchantId
-                });
+                return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions(
+                    isLive: _settings.IsLive,
+                    baseUri: _settings.BaseUri,
+                    authUri: _settings.AuthUri,
+                    applicationId: _settings.ApplicationId,
+                    accessToken: token.AccessToken,
+                    refreshToken: token.RefreshToken,
+                    impersonateMerchantId: ImpersonatedMerchantId
+                ));
             }
 
-            return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions()
-            {
-                IsLive = _settings.IsLive,
-                BaseUri = _settings.BaseUri,
-                AuthUri = _settings.AuthUri,
-                ImpersonateMerchantId = ImpersonatedMerchantId
-            });
+            return new PinchApi(_settings.MerchantId, _settings.SecretKey, new PinchApiOptions(
+                isLive: _settings.IsLive,
+                baseUri: _settings.BaseUri,
+                authUri: _settings.AuthUri,
+                impersonateMerchantId: ImpersonatedMerchantId
+            ));
         }
     }
 }
