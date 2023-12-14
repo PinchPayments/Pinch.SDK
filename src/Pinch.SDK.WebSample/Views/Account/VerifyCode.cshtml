@@ -6,7 +6,12 @@
 <h2>@ViewData["Title"].</h2>
 
 <form asp-controller="Account" asp-action="VerifyCode" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+    @if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+    {
+        <div class="text-danger">
+            @Html.ValidationSummary(false, "")
+        </div>
+    }
     <input asp-for="Provider" type="hidden" />
     <input asp-for="RememberMe" type="hidden" />
     <h4>@ViewData["Status"]</h4>
