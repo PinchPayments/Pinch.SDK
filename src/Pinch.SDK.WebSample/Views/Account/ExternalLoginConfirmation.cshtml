@@ -9,7 +9,12 @@
 <form asp-controller="Account" asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
     <h4>Association Form</h4>
     <hr />
-    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+    @if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+    {
+        <div class="text-danger">
+            @Html.ValidationSummary(false, "")
+        </div>
+    }
 
     <p class="text-info">
         You've successfully authenticated with <strong>@ViewData["LoginProvider"]</strong>.
