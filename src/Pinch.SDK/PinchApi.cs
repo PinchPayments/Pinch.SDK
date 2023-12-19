@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Agreements;
@@ -77,9 +75,7 @@ namespace Pinch.SDK
         /// <param name="secretKey">Your Secret Key</param>
         /// <param name="isLive">Set to false to use the sandbox test system. Set to true to perform live production transactions.</param>
         public PinchApi(string merchantId, string secretKey, bool isLive)
-        :this(merchantId, secretKey, new PinchApiOptions() {
-            IsLive = isLive
-        })
+        :this(merchantId, secretKey, new PinchApiOptions(isLive: isLive))
         {
         }
 
@@ -93,22 +89,6 @@ namespace Pinch.SDK
         public PinchApi(string merchantId, string secretKey, PinchApiOptions options, Func<HttpClient> httpClientFactory = null)
         {
             _httpClientFactory = httpClientFactory;
-
-            options.ApiVersion = !string.IsNullOrEmpty(options.ApiVersion)
-                ? options.ApiVersion
-                : Settings.LatestApiVersion;
-
-            if (!string.IsNullOrEmpty(options.BaseUri))
-            {
-                options.BaseUri = $"{options.BaseUri.TrimEnd('/')}/{(options.IsLive ? "live" : "test")}/";
-            }
-            else
-            {
-                options.BaseUri = options.IsLive ? Settings.ApiBaseUri_Production : Settings.ApiBaseUri_Test;
-            }
-            
-            options.AuthUri = !string.IsNullOrEmpty(options.AuthUri) ? options.AuthUri : Settings.AuthBaseUri_Production;
-
             _secretKey = secretKey;
             _clientId = merchantId;
             _accessToken = options.AccessToken;
