@@ -2,24 +2,21 @@
 
   <PropertyGroup>
     <Summary>The official Pinch Payments SDK</Summary>
-    <Description>The easiest way to integrate your .net application with Pinch Payments. Create payers, add payments, receive webhooks, fetch payments, get paid. Really all the good stuff. It's for Australian businesses if you didn't already know. I'll assume you did if you got this far, if not, Welcome! but you should probably check out getpinch.com.au to get up to speed.</Description>
+    <Description>Pinch.SDK is a .NET Standard library for integrating with the Pinch Payments API. Create payers, add payments, receive webhooks, fetch payments, get paid. For more info check out: https://www.getpinch.com.au/features/payments-api-for-developers/</Description>
     <AssemblyTitle>Pinch Payments</AssemblyTitle>
     <Authors>Pinch Payments</Authors>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Pinch.SDK</AssemblyName>
     <PackageId>Pinch.SDK</PackageId>
-    <PackageTags>payments;pinch;sdk;direct debit</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/PinchPayments/Pinch.SDK/master/assets/img/circle_logo_64x64.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/PinchPayments/Pinch.SDK</PackageProjectUrl>
+    <PackageTags>payments;pinch;sdk;direct debit;credit card</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/PinchPayments/Pinch.SDK/master/assets/img/circle_logo_128x128.png</PackageIconUrl>
+    <PackageIcon>circle_logo_128x128.png</PackageIcon>
+    <PackageProjectUrl>https://docs.getpinch.com.au/docs/sdk</PackageProjectUrl>
     <RepositoryUrl>https://github.com/PinchPayments/Pinch.SDK</RepositoryUrl>
     <Version>$(PackageVersion)</Version>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\readme.md" Pack="true" PackagePath="\" Link="readme.md" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -29,6 +26,11 @@
 
   <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\assets\img\circle_logo_128x128.png" Pack="true" PackagePath="\"/>
+    <None Include="..\..\readme.md" Pack="true" PackagePath="\" Link="readme.md" />
   </ItemGroup>
 
 </Project>
