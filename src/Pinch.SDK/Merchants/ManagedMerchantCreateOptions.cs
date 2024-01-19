@@ -95,5 +95,10 @@ namespace Pinch.SDK.Merchants
         /// The User Agent string of the user creating this new merchant. Ensure this is the end-user and not your server's User Agent string.
         /// </summary>
         public string UserAgent { get; set; }
+
+        /// <summary>
+        /// Optional list of Identifiers for the Merchant in external providers.
+        /// </summary>
+        public List<ManagedMerchantIdentifierOptions> MerchantIdentifiers { get; set; } = new List<ManagedMerchantIdentifierOptions>();
     }
 }
