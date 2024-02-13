@@ -84,5 +84,10 @@ namespace Pinch.SDK.Merchants
         /// A list of the relevant business owners or executives for this account (used for compliance and administration)
         /// </summary>
         public List<ContactSaveOptions> Contacts { get; set; } = new List<ContactSaveOptions>();
+
+        /// <summary>
+        /// Optional list of Identifiers for the Merchant in external providers.
+        /// </summary>
+        public List<ManagedMerchantIdentifierOptions> MerchantIdentifiers { get; set; } = new List<ManagedMerchantIdentifierOptions>();
     }
 }
