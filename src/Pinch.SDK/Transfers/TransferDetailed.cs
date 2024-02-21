@@ -11,6 +11,7 @@ namespace Pinch.SDK.Transfers
         public string Id { get; set; }
         public DateTime TransferDate { get; set; }
         public long Amount { get; set; }
+        public string Currency { get; set; }
         public long TotalFees { get; set; }
         public long IncludedTax { get; set; }
         public decimal TaxRate { get; set; }
