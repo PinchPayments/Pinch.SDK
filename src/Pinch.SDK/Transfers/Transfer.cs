@@ -17,5 +17,6 @@ namespace Pinch.SDK.Transfers
         public string Status { get; set; }
         public string Type { get; set; }
         public decimal TaxRate { get; set; }
+        public bool IsGrossBilled { get; set; }
     }
 }

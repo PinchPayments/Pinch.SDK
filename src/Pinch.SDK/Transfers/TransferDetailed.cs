@@ -21,6 +21,7 @@ namespace Pinch.SDK.Transfers
         public string Reference { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
+        public bool IsGrossBilled { get; set; }
 
         public IEnumerable<TransferSummaryItem> Summary { get; set; } = new List<TransferSummaryItem>();
     }
