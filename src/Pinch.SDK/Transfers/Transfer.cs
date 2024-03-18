@@ -7,6 +7,7 @@ namespace Pinch.SDK.Transfers
     public class Transfer
     {
         public string Id { get; set; }
+        public string StatementReference { get; set; }
         public DateTime TransferDate { get; set; }
         public long Amount { get; set; }
         public string Currency { get; set; }
