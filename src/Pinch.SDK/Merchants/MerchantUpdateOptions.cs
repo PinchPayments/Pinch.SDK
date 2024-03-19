@@ -78,7 +78,12 @@ namespace Pinch.SDK.Merchants
         /// <summary>
         /// You can optionally supply notes for our compliance team to read. Useful for back and forth dialog.
         /// </summary>
-        public string Notes { get; set; }
+        public string Notes { get; set; }        
+        
+        /// <summary>
+        /// The Merchants TimeZone. Ensure this is in tz format, eg 'Australia/Sydney'
+        /// </summary>
+        public string TimeZone { get; set; }
 
         /// <summary>
         /// A list of the relevant business owners or executives for this account (used for compliance and administration)
