@@ -78,7 +78,12 @@ namespace Pinch.SDK.Merchants
         /// <summary>
         /// You can optionally supply notes for our compliance team to read. Useful for back and forth dialog.
         /// </summary>
-        public string Notes { get; set; }
+        public string Notes { get; set; }        
+        
+        /// <summary>
+        /// Reporting Identifier to display on Daily Statements and Monthly Invoices
+        /// </summary>
+        public string ReportingIdentifier { get; set; }
 
         /// <summary>
         /// A list of the relevant business owners or executives for this account (used for compliance and administration)
