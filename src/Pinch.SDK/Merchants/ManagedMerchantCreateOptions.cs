@@ -97,6 +97,11 @@ namespace Pinch.SDK.Merchants
         public string UserAgent { get; set; }
 
         /// <summary>
+        /// The Merchants TimeZone. Ensure this is in tz format, eg 'Australia/Sydney'
+        /// </summary>
+        public string TimeZone { get; set; }
+
+        /// <summary>
         /// Optional list of Identifiers for the Merchant in external providers.
         /// </summary>
         public List<ManagedMerchantIdentifierOptions> MerchantIdentifiers { get; set; } = new List<ManagedMerchantIdentifierOptions>();
