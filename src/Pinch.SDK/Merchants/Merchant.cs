@@ -27,6 +27,7 @@ namespace Pinch.SDK.Merchants
         public string BankStatementLabel { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public string LogoUrl { get; set; }
+        public string TimeZone { get; set; }
 
         // Compliance Information
         public string NatureOfBusiness { get; set; }
