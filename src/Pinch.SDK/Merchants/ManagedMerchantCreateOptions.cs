@@ -105,5 +105,10 @@ namespace Pinch.SDK.Merchants
         /// Optional list of Identifiers for the Merchant in external providers.
         /// </summary>
         public List<ManagedMerchantIdentifierOptions> MerchantIdentifiers { get; set; } = new List<ManagedMerchantIdentifierOptions>();
+
+        /// <summary>
+        /// Reporting Identifier to display on Daily Statements and Monthly Invoices
+        /// </summary>
+        public string ReportingIdentifier { get; set; }
     }
 }
