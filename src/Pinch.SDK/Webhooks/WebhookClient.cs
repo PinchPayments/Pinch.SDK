@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Webhooks
 {
@@ -26,6 +25,18 @@ namespace Pinch.SDK.Webhooks
         public async Task<ApiResponse<List<Webhook>>> GetWebhooks()
         {
             var response = await GetHttp<List<Webhook>>($"webhooks");
+
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
+        /// Calls the "Delete WebHook" endpoint https://docs.getpinch.com.au/reference/delete-webhook
+        /// </summary>
+        /// <param name="id">The ID of the webhook to delete</param>
+        /// <returns></returns>
+        public async Task<ApiResponse> DeleteWebhook(string id)
+        {
+            var response = await DeleteHttp($"webhooks/{id}");
 
             return response.ToApiResponse();
         }
