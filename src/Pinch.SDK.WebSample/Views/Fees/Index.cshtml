@@ -10,6 +10,20 @@
         <h4>Fee Schedule Effective Date: @Model.EffectiveDateUtc.ToLongDateString()</h4>
 
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Zones</strong>
+                </div>
+                <div class="col-md-3">
+                    <strong>Fee Scheme</strong>
+                </div>
+                <div class="col-md-3">
+                    <strong>Percentage Fee</strong>
+                </div>
+                <div class="col-md-3">
+                    <strong>Fixed Fee</strong>
+                </div>
+            </div>
             @foreach(var feeLine in Model.FeeScheduleLines)
             {
                 <div class="row">
