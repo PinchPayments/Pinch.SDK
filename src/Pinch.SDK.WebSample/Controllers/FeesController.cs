@@ -20,6 +20,14 @@ namespace Pinch.SDK.WebSample.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var feesResponse = await GetApi().Fees.GetActiveFees();
+
+            return View(feesResponse.Data);
+        }
+
+        [HttpGet]
         public IActionResult Calculate()
         {
             var model = new CalculateFeesVm();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -11,6 +12,22 @@ namespace Pinch.SDK.Fees
         {
         }
 
+        /// <summary>
+        /// Get the current active Fee Scheduled for a merchant
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ApiResponse<MerchantFeeSchedule>> GetActiveFees()
+        {
+            var response = await GetHttp<MerchantFeeSchedule>("fees");
+
+            return response.ToApiResponse();
+        }
+
+        /// <summary>
+        /// Calculate potential fees for a given set of transaciton options
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<FeesCalculation>> Calculate(FeesCalculateOptions options)
         {
             var response = await PostHttp<FeesCalculation>("fees/calculate", options);
