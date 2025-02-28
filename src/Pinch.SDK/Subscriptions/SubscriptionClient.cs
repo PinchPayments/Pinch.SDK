@@ -106,5 +106,17 @@ namespace Pinch.SDK.Subscriptions
 
             return response.ToApiResponse();
         }
+
+        /// <summary>
+        /// Complete a subscription
+        /// </summary>
+        /// <param name="id">The Subscription ID to mark as completed</param>
+        /// <returns></returns>
+        public async Task<ApiResponse> Complete(string id)
+        {
+            var response = await PostHttp<Subscription>($"subscriptions/{id}/complete", null);
+
+            return response.ToApiResponse();
+        }
     }
 }
