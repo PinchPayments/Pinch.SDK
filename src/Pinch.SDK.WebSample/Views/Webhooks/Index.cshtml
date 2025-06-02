@@ -17,6 +17,8 @@
             <th>ID</th>
             <th>Secret</th>
             <th>Uri</th>
+            <th>WebhookFormat</th>
+            <th>EventTypes</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +28,8 @@
                 <td>@hook.Id</td>
                 <td>@hook.Secret</td>
                 <td>@hook.Uri</td>
+                <td>@hook.WebhookFormat</td>
+                <td>@string.Join(", ", hook.EventTypes)</td>
             </tr>
         }
     </tbody>

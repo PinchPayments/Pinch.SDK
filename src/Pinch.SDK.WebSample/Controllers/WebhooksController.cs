@@ -1,13 +1,14 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Pinch.SDK.Webhooks;
+using Pinch.SDK.WebSample.Helpers;
+using Pinch.SDK.WebSample.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Pinch.SDK.Webhooks;
-using Pinch.SDK.WebSample.Helpers;
-using Pinch.SDK.WebSample.Models;
 
 namespace Pinch.SDK.WebSample.Controllers
 {
@@ -27,9 +28,20 @@ namespace Pinch.SDK.WebSample.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> New(WebhookSaveOptions model)
+        public async Task<IActionResult> New(WebhookVm model)
         {
-            var result = await GetApi().Webhook.Save(model);
+            var options = new WebhookSaveOptions()
+            {
+                Uri = model.Uri,
+                WebhookFormat = model.WebhookFormat
+                    ?.ToLower(),
+                EventTypes = model.EventTypes
+                    ?.ToLower()
+                    ?.Split(";, ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                    ?.ToList()  
+            };
+
+            var result = await GetApi().Webhook.Save(options);
 
             if (!result.Success)
             {
