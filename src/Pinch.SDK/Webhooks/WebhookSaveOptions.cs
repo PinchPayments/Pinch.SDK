@@ -9,6 +9,11 @@ namespace Pinch.SDK.Webhooks
     public class WebhookSaveOptions
     {
         /// <summary>
+        /// Webhook Id in wbk_XXXXXXXXXXXXXX format (for updating existing webhook, leave null to create new)
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// This is the uri that the webhooks will be sent to.
         /// </summary>
         public string Uri { get; set; }
