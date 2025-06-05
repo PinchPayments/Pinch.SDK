@@ -44,6 +44,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 isLive: _settings.IsLive,
                 baseUri: _settings.BaseUri,
                 authUri: _settings.AuthUri,
+                applicationId: _settings.ApplicationId,
                 impersonateMerchantId: ImpersonatedMerchantId
             ));
         }
