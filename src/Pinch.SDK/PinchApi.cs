@@ -113,7 +113,7 @@ namespace Pinch.SDK
                 }
                 else
                 {
-                    var result = await Auth.GetAccessTokenFromSecretKey(_secretKey, _clientId);
+                    var result = await Auth.GetAccessTokenFromSecretKey(_secretKey, string.IsNullOrWhiteSpace(_applicationId) ? _clientId : _applicationId);
                     _accessToken = result.AccessToken;
                 }
             }
