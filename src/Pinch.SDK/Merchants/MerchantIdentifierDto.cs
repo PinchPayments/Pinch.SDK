@@ -1,8 +1,8 @@
 ﻿namespace Pinch.SDK.Merchants
 {
-    public class MerchantIdentifier
+    public class MerchantIdentifierDto
     {
-        public string Identifier { get; set; }
+        public string MerchantIdentifier { get; set; }
         public string IdentityProvider { get; set; }
     }
 }

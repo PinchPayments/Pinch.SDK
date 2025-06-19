@@ -38,6 +38,6 @@ namespace Pinch.SDK.Merchants
         public Compliance Compliance { get; set; }
 
         public IList<Contact> Contacts { get; set; } = new List<Contact>();
-        public IList<MerchantIdentifier> MerchantIdentifiers { get; set; } = new List<MerchantIdentifier>();
+        public IList<MerchantIdentifierDto> MerchantIdentifiers { get; set; } = new List<MerchantIdentifierDto>();
     }
 }
