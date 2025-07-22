@@ -44,23 +44,23 @@ namespace Pinch.SDK.Merchants
         /// <summary>
         /// Company Legal Address - Street
         /// </summary>
-        public string LegalStreetAddress { get; set; }
+        public string StreetAddress { get; set; }
         /// <summary>
         /// Company Legal Address - Suburb
         /// </summary>
-        public string LegalSuburb { get; set; }
+        public string Suburb { get; set; }
         /// <summary>
         /// Company Legal Address - State
         /// </summary>
-        public string LegalState { get; set; }
+        public string State { get; set; }
         /// <summary>
         /// Company Legal Address - Postcode (also known as Zip Code)
         /// </summary>
-        public string LegalPostcode { get; set; }
+        public string Postcode { get; set; }
         /// <summary>
         /// The two digit country code for the country where this merchant is legally established.
         /// </summary>
-        public string LegalCountry { get; set; }
+        public string Country { get; set; }
         /// <summary>
         /// Company Trading Address - Street
         /// </summary>
