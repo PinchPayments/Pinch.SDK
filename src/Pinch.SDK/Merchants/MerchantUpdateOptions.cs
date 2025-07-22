@@ -48,21 +48,41 @@ namespace Pinch.SDK.Merchants
         /// </summary>
         public string BankAccountNumber { get; set; }        
         /// <summary>
-        /// Company Address - Street
+        /// Company Legal Address - Street
         /// </summary>
-        public string StreetAddress { get; set; }
+        public string LegalStreetAddress { get; set; }
         /// <summary>
-        /// Company Address - Suburb
+        /// Company Legal Address - Suburb
         /// </summary>
-        public string Suburb { get; set; }
+        public string LegalSuburb { get; set; }
         /// <summary>
-        /// Company Address - State
+        /// Company Legal Address - State
         /// </summary>
-        public string State { get; set; }
+        public string LegalState { get; set; }
         /// <summary>
-        /// Company Address - Postcode (also known as Zip Code)
+        /// Company Legal Address - Postcode (also known as Zip Code)
         /// </summary>
-        public string Postcode { get; set; }
+        public string LegalPostcode { get; set; }
+        /// <summary>
+        /// Company Trading Address - Street
+        /// </summary>
+        public string TradingStreetAddress { get; set; }
+        /// <summary>
+        /// Company Trading Address - Suburb
+        /// </summary>
+        public string TradingSuburb { get; set; }
+        /// <summary>
+        /// Company Trading Address - State
+        /// </summary>
+        public string TradingState { get; set; }
+        /// <summary>
+        /// Company Trading Address - Postcode (also known as Zip Code)
+        /// </summary>
+        public string TradingPostcode { get; set; }
+        /// <summary>
+        /// The two digit country code for the country where this merchant is trading from.
+        /// </summary>
+        public string TradingCountry { get; set; }
         /// <summary>
         /// This text will appear on the payer's bank statement for each transaction. You usually only have 16 characters, so be brief and identifiable.
         /// </summary>
