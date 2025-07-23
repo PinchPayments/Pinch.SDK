@@ -21,11 +21,21 @@ namespace Pinch.SDK.Merchants
         public string BankAccountRoutingNumber { get; set; }
         public string BankAccountNumber { get; set; }
         public string BankAccountName { get; set; }
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string StreetAddress { get; set; }
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Suburb { get; set; }
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string State { get; set; }
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Postcode { get; set; }
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Country { get; set; }
+        public string LegalStreetAddress { get; set; }
+        public string LegalSuburb { get; set; }
+        public string LegalState { get; set; }
+        public string LegalPostcode { get; set; }
+        public string LegalCountry { get; set; }
         public string TradingStreetAddress { get; set; }
         public string TradingSuburb { get; set; }
         public string TradingState { get; set; }

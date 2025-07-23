@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Pinch.SDK.Merchants
 {
@@ -44,23 +45,48 @@ namespace Pinch.SDK.Merchants
         /// <summary>
         /// Company Legal Address - Street
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string StreetAddress { get; set; }
         /// <summary>
         /// Company Legal Address - Suburb
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Suburb { get; set; }
         /// <summary>
         /// Company Legal Address - State
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string State { get; set; }
         /// <summary>
         /// Company Legal Address - Postcode (also known as Zip Code)
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Postcode { get; set; }
         /// <summary>
         /// The two digit country code for the country where this merchant is legally established.
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Country { get; set; }
+        /// <summary>
+        /// Company Legal Address - Street
+        /// </summary>
+        public string LegalStreetAddress { get; set; }
+        /// <summary>
+        /// Company Legal Address - Suburb
+        /// </summary>
+        public string LegalSuburb { get; set; }
+        /// <summary>
+        /// Company Legal Address - State
+        /// </summary>
+        public string LegalState { get; set; }
+        /// <summary>
+        /// Company Legal Address - Postcode (also known as Zip Code)
+        /// </summary>
+        public string LegalPostcode { get; set; }
+        /// <summary>
+        /// The two digit country code for the country where this merchant is legally established.
+        /// </summary>
+        public string LegalCountry { get; set; }
         /// <summary>
         /// Company Trading Address - Street
         /// </summary>

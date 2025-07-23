@@ -46,23 +46,43 @@ namespace Pinch.SDK.Merchants
         /// <summary>
         /// Bank Account Number
         /// </summary>
-        public string BankAccountNumber { get; set; }        
+        public string BankAccountNumber { get; set; }
         /// <summary>
         /// Company Legal Address - Street
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string StreetAddress { get; set; }
         /// <summary>
         /// Company Legal Address - Suburb
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Suburb { get; set; }
         /// <summary>
         /// Company Legal Address - State
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string State { get; set; }
         /// <summary>
         /// Company Legal Address - Postcode (also known as Zip Code)
         /// </summary>
+        [Obsolete("No longer used. Please use Legal Address.")]
         public string Postcode { get; set; }
+        /// <summary>
+        /// Company Legal Address - Street
+        /// </summary>
+        public string LegalStreetAddress { get; set; }
+        /// <summary>
+        /// Company Legal Address - Suburb
+        /// </summary>
+        public string LegalSuburb { get; set; }
+        /// <summary>
+        /// Company Legal Address - State
+        /// </summary>
+        public string LegalState { get; set; }
+        /// <summary>
+        /// Company Legal Address - Postcode (also known as Zip Code)
+        /// </summary>
+        public string LegalPostcode { get; set; }
         /// <summary>
         /// Company Trading Address - Street
         /// </summary>
@@ -98,12 +118,12 @@ namespace Pinch.SDK.Merchants
         /// <summary>
         /// You can optionally supply notes for our compliance team to read. Useful for back and forth dialog.
         /// </summary>
-        public string Notes { get; set; }                
+        public string Notes { get; set; }
         /// <summary>
         /// Reporting Identifier to display on Daily Statements and Monthly Invoices
         /// </summary>
         public string ReportingIdentifier { get; set; }
-            
+
         /// <summary>
         /// The Merchants TimeZone. Ensure this is in tz format, eg 'Australia/Sydney'
         /// </summary>
