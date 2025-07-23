@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,21 +22,76 @@ namespace Pinch.SDK.Merchants
         public string BankAccountRoutingNumber { get; set; }
         public string BankAccountNumber { get; set; }
         public string BankAccountName { get; set; }
+
+        private string _legalStreetAddress;
+        [JsonIgnore]
         [Obsolete("No longer used. Please use Legal Address.")]
-        public string StreetAddress { get; set; }
+        public string StreetAddress
+        {
+            get { return _legalStreetAddress; }
+            set { _legalStreetAddress = value; }
+        }
+        public string LegalStreetAddress
+        {
+            get { return _legalStreetAddress; }
+            set { _legalStreetAddress = value; }
+        }
+
+        private string _legalSuburb;
+        [JsonIgnore]
         [Obsolete("No longer used. Please use Legal Address.")]
-        public string Suburb { get; set; }
+        public string Suburb
+        {
+            get { return _legalSuburb; }
+            set { _legalSuburb = value; }
+        }
+        public string LegalSuburb
+        {
+            get { return _legalSuburb; }
+            set { _legalSuburb = value; }
+        }
+
+        private string _legalState;
+        [JsonIgnore]
         [Obsolete("No longer used. Please use Legal Address.")]
-        public string State { get; set; }
+        public string State
+        {
+            get { return _legalState; }
+            set { _legalState = value; }
+        }
+        public string LegalState
+        {
+            get { return _legalState; }
+            set { _legalState = value; }
+        }
+
+        private string _legalPostcode;
+        [JsonIgnore]
         [Obsolete("No longer used. Please use Legal Address.")]
-        public string Postcode { get; set; }
+        public string Postcode
+        {
+            get { return _legalPostcode; }
+            set { _legalPostcode = value; }
+        }
+        public string LegalPostcode
+        {
+            get { return _legalPostcode; }
+            set { _legalPostcode = value; }
+        }
+
+        private string _legalCountry;
+        [JsonIgnore]
         [Obsolete("No longer used. Please use Legal Address.")]
-        public string Country { get; set; }
-        public string LegalStreetAddress { get; set; }
-        public string LegalSuburb { get; set; }
-        public string LegalState { get; set; }
-        public string LegalPostcode { get; set; }
-        public string LegalCountry { get; set; }
+        public string Country
+        {
+            get { return _legalCountry; }
+            set { _legalCountry = value; }
+        }
+        public string LegalCountry
+        {
+            get { return _legalCountry; }
+            set { _legalCountry = value; }
+        }
         public string TradingStreetAddress { get; set; }
         public string TradingSuburb { get; set; }
         public string TradingState { get; set; }
