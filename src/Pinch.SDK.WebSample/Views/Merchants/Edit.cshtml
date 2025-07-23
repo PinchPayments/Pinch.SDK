@@ -198,6 +198,13 @@
                     <span asp-validation-for="Contacts[i].GovernmentNumber" class="text-danger"></span>
                 </div>
             </div>
+            <div class="form-group">
+                <label asp-for="Contacts[i].IsPrimaryContact" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Contacts[i].IsPrimaryContact" class="form-control" />
+                    <span asp-validation-for="Contacts[i].IsPrimaryContact" class="text-danger"></span>
+                </div>
+            </div>
         }
 
         <div class="form-group">
