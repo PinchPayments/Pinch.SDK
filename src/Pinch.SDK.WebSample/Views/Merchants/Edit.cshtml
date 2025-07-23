@@ -46,71 +46,106 @@
                 <input asp-for="BankAccountNumber" class="form-control" />
                 <span asp-validation-for="BankAccountNumber" class="text-danger"></span>
             </div>
-        </div>         
+        </div>
         <div class="form-group">
             <label asp-for="BankAccountRoutingNumber" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="BankAccountRoutingNumber" class="form-control" />
                 <span asp-validation-for="BankAccountRoutingNumber" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
         <div class="form-group">
-            <label asp-for="StreetAddress" class="col-md-2 control-label"></label>
+            <label asp-for="LegalStreetAddress" class="col-md-2 control-label">LegalStreetAddress</label>
             <div class="col-md-10">
-                <input asp-for="StreetAddress" class="form-control" />
-                <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                <input asp-for="LegalStreetAddress" class="form-control" />
+                <span asp-validation-for="LegalStreetAddress" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
         <div class="form-group">
-            <label asp-for="Suburb" class="col-md-2 control-label"></label>
+            <label asp-for="LegalSuburb" class="col-md-2 control-label">LegalSuburb</label>
             <div class="col-md-10">
-                <input asp-for="Suburb" class="form-control" />
-                <span asp-validation-for="Suburb" class="text-danger"></span>
+                <input asp-for="LegalSuburb" class="form-control" />
+                <span asp-validation-for="LegalSuburb" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
         <div class="form-group">
-            <label asp-for="State" class="col-md-2 control-label"></label>
+            <label asp-for="LegalState" class="col-md-2 control-label">LegalState</label>
             <div class="col-md-10">
-                <input asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
+                <input asp-for="LegalState" class="form-control" />
+                <span asp-validation-for="LegalState" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
         <div class="form-group">
-            <label asp-for="Postcode" class="col-md-2 control-label"></label>
+            <label asp-for="LegalPostcode" class="col-md-2 control-label">LegalPostcode</label>
             <div class="col-md-10">
-                <input asp-for="Postcode" class="form-control" />
-                <span asp-validation-for="Postcode" class="text-danger"></span>
+                <input asp-for="LegalPostcode" class="form-control" />
+                <span asp-validation-for="LegalPostcode" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
+        <div class="form-group">
+            <label asp-for="TradingStreetAddress" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TradingStreetAddress" class="form-control" />
+                <span asp-validation-for="TradingStreetAddress" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TradingSuburb" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TradingSuburb" class="form-control" />
+                <span asp-validation-for="TradingSuburb" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TradingState" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TradingState" class="form-control" />
+                <span asp-validation-for="TradingState" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TradingPostcode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TradingPostcode" class="form-control" />
+                <span asp-validation-for="TradingPostcode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Trading Country (Only AU, US, UK; at the moment)</label>
+            <div class="col-md-10">
+                <input asp-for="TradingCountry" class="form-control" />
+                <span asp-validation-for="TradingCountry" class="text-danger"></span>
+            </div>
+        </div>
         <div class="form-group">
             <label asp-for="BankStatementLabel" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="BankStatementLabel" class="form-control" />
                 <span asp-validation-for="BankStatementLabel" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
         <div class="form-group">
             <label asp-for="CompanyRegistrationNumber" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="CompanyRegistrationNumber" class="form-control" />
                 <span asp-validation-for="CompanyRegistrationNumber" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
         <div class="form-group">
             <label asp-for="CompanyWebsiteUrl" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="CompanyWebsiteUrl" class="form-control" />
                 <span asp-validation-for="CompanyWebsiteUrl" class="text-danger"></span>
             </div>
-        </div>         
+        </div>
         <div class="form-group">
             <label asp-for="NatureOfBusiness" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="NatureOfBusiness" class="form-control" />
                 <span asp-validation-for="NatureOfBusiness" class="text-danger"></span>
             </div>
-        </div>  
-        
+        </div>
+
         <h4>Contacts</h4>
         @for (int i = 0; i < Model.Contacts.Count(); i++)
         {
@@ -119,10 +154,10 @@
             <div class="form-group">
                 <label class="col-md-2 control-label">First Name</label>
                 <div class="col-md-10">
-                    <input asp-for="Contacts[i].FirstName" class="form-control"/>
+                    <input asp-for="Contacts[i].FirstName" class="form-control" />
                     <span asp-validation-for="Contacts[i].FirstName" class="text-danger"></span>
                 </div>
-            </div>         
+            </div>
             <div class="form-group">
                 <label asp-for="Contacts[i].LastName" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
@@ -148,19 +183,26 @@
                     <input asp-for="Contacts[i].Phone" class="form-control" />
                     <span asp-validation-for="Contacts[i].Phone" class="text-danger"></span>
                 </div>
-            </div>   
+            </div>
             <div class="form-group">
                 <label asp-for="Contacts[i].Dob" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input asp-for="Contacts[i].Dob" class="form-control" />
                     <span asp-validation-for="Contacts[i].Dob" class="text-danger"></span>
                 </div>
-            </div>   
+            </div>
             <div class="form-group">
                 <label asp-for="Contacts[i].GovernmentNumber" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input asp-for="Contacts[i].GovernmentNumber" class="form-control" />
                     <span asp-validation-for="Contacts[i].GovernmentNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contacts[i].IsPrimaryContact" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Contacts[i].IsPrimaryContact" class="form-control" />
+                    <span asp-validation-for="Contacts[i].IsPrimaryContact" class="text-danger"></span>
                 </div>
             </div>
         }
@@ -178,5 +220,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

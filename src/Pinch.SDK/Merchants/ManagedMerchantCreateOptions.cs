@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Pinch.SDK.Merchants
 {
@@ -44,26 +43,129 @@ namespace Pinch.SDK.Merchants
         /// Bank Account Number
         /// </summary>
         public string BankAccountNumber { get; set; }
+
+        private string _legalStreetAddress;
         /// <summary>
-        /// Company Address - Street
+        /// Company Legal Address - Street
         /// </summary>
-        public string StreetAddress { get; set; }
+        [JsonIgnore]
+        [Obsolete("No longer used. Please use Legal Address.")]
+        public string StreetAddress
+        {
+            get { return _legalStreetAddress; }
+            set { _legalStreetAddress = value; }
+        }
         /// <summary>
-        /// Company Address - Suburb
+        /// Company Legal Address - Street
         /// </summary>
-        public string Suburb { get; set; }
+        public string LegalStreetAddress
+        {
+            get { return _legalStreetAddress; }
+            set { _legalStreetAddress = value; }
+        }
+
+        private string _legalSuburb;
         /// <summary>
-        /// Company Address - State
+        /// Company Legal Address - Suburb
         /// </summary>
-        public string State { get; set; }
+        [JsonIgnore]
+        [Obsolete("No longer used. Please use Legal Address.")]
+        public string Suburb
+        {
+            get { return _legalSuburb; }
+            set { _legalSuburb = value; }
+        }
         /// <summary>
-        /// Company Address - Postcode (also known as Zip Code)
+        /// Company Legal Address - Suburb
         /// </summary>
-        public string Postcode { get; set; }
+        public string LegalSuburb
+        {
+            get { return _legalSuburb; }
+            set { _legalSuburb = value; }
+        }
+
+        private string _legalState;
         /// <summary>
+        /// Company Legal Address - State
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("No longer used. Please use Legal Address.")]
+        public string State
+        {
+            get { return _legalState; }
+            set { _legalState = value; }
+        }
+        /// <summary>
+        /// Company Legal Address - State
+        /// </summary>
+        public string LegalState
+        {
+            get { return _legalState; }
+            set { _legalState = value; }
+        }
+
+        private string _legalPostcode;
+        /// <summary>
+        /// Company Legal Address - Postcode
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("No longer used. Please use Legal Address.")]
+        public string Postcode
+        {
+            get { return _legalPostcode; }
+            set { _legalPostcode = value; }
+        }
+        /// <summary>
+        /// Company Legal Address - Postcode
+        /// </summary>
+        public string LegalPostcode
+        {
+            get { return _legalPostcode; }
+            set { _legalPostcode = value; }
+        }
+
+        private string _legalCountry;
+        /// <summary>
+        /// Company Legal Address - Country
         /// The two digit country code for the country where this merchant is legally established.
         /// </summary>
-        public string Country { get; set; }
+        [JsonIgnore]
+        [Obsolete("No longer used. Please use Legal Address.")]
+        public string Country
+        {
+            get { return _legalCountry; }
+            set { _legalCountry = value; }
+        }
+        /// <summary>
+        /// Company Legal Address - Country
+        /// </summary>
+        public string LegalCountry
+        {
+            get { return _legalCountry; }
+            set { _legalCountry = value; }
+        }
+
+        /// <summary>
+        /// Company Trading Address - Street
+        /// </summary>
+        public string TradingStreetAddress { get; set; }
+        /// <summary>
+        /// Company Trading Address - Suburb
+        /// </summary>
+        public string TradingSuburb { get; set; }
+        /// <summary>
+        /// Company Trading Address - State
+        /// </summary>
+        public string TradingState { get; set; }
+        /// <summary>
+        /// Company Trading Address - Postcode (also known as Zip Code)
+        /// </summary>
+        public string TradingPostcode { get; set; }
+        /// <summary>
+        /// Company Trading Address - Country
+        /// The two digit country code for the country where this merchant is trading from.
+        /// </summary>
+        public string TradingCountry { get; set; }
         /// <summary>
         /// This text will appear on the payer's bank statement for each transaction. You usually only have 16 characters, so be brief and identifiable.
         /// </summary>
