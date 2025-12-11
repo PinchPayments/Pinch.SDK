@@ -49,7 +49,14 @@ namespace Pinch.SDK.Payments
         /// The status of the payment. eg. 'scheduled', 'processing', 'settled'
         /// </summary>
         public string Status { get; set; }
-
+        /// <summary>
+        /// The type of dishonour. eg. 'insufficient-funds', 'blocked-by-bank', etc.
+        /// </summary>
+        public string DishonourType { get; set; }
+        /// <summary>
+        /// When a payment is cancelled, this field contains the reason why
+        /// </summary>
+        public string CancellationReason { get; set; }
         /// <summary>
         /// A free form field for applications to populate data. Metadata from plans and subscriptions will be available here too.
         /// </summary>

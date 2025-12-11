@@ -52,6 +52,14 @@ namespace Pinch.SDK.Payments
         /// </summary>
         public string Status { get; set; }
         /// <summary>
+        /// The type of dishonour. eg. 'insufficient-funds', 'blocked-by-bank', etc.
+        /// </summary>
+        public string DishonourType { get; set; }
+        /// <summary>
+        /// When a payment is cancelled, this field contains the reason why
+        /// </summary>
+        public string CancellationReason { get; set; }
+        /// <summary>
         /// The date that this payment will most likely be settled. Can change based on several factors, but will usually be accurate.
         /// </summary>
         public DateTime EstimatedTransferDate { get; set; }
