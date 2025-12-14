@@ -81,6 +81,7 @@ namespace Pinch.SDK.Plans
         /// <returns></returns>
         public async Task<ApiResponse<Plan, PlanSaveOptions>> Save(PlanSaveOptions options)
         {
+            // Must use PostHttp<T, TOptions> to handle inline errors response
             var response = await PostHttp<Plan, PlanSaveOptions>("plans", options);
 
             return response.ToApiResponse();
