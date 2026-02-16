@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
@@ -180,10 +181,12 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="payerId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<PaymentExpanded>> GetForPayer(string payerId)
+        public async Task<Paged<PaymentExpanded>> GetForPayer(string payerId, int page = 1, int pageSize = 50)
         {
-            var response = await GetHttp<IEnumerable<PaymentExpanded>>($"payments/payer/{payerId}");
+            var url = $"payments/payer/{payerId}?page={page}&pagesize={pageSize}";
 
+            var response = await GetHttp<Paged<PaymentExpanded>>(url);
+            
             return response.Data;
         }
 
@@ -192,10 +195,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<NonceApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
+        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments", options);
-            return response.ToNonceResponse();
+            return response.ToIdempotencyKeyResponse();
         }
 
         /// <summary>
@@ -203,10 +206,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<NonceApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
+        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments/realtime", options);
-            return response.ToNonceResponse();
+            return response.ToIdempotencyKeyResponse();
         }
 
         /// <summary>
@@ -229,10 +232,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options">Payment nonce.</param>
         /// <returns></returns>
-        public async Task<NonceApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
+        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments/nonce", options);
-            return response.ToNonceResponse();
+            return response.ToIdempotencyKeyResponse();
         }
     }
 }

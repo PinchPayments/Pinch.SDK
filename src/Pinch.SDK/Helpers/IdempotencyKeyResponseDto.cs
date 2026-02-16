@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Pinch.SDK.Helpers
 {
-    public class NonceResponseDto
+    public class IdempotencyKeyResponseDto
     {
-        public bool IsNonceReplay { get; set; }
+        public bool IsIdempotencyKeyReplay { get; set; }
 
         [JsonConverter(typeof(SingleOrArrayConverter<string>))]
-        public List<string> Nonce { get; set; }
+        public List<string> IdempotencyKey { get; set; }
     }
 
-    public class NonceResponseDto<T> : NonceResponseDto
+    public class IdempotencyKeyResponseDto<T> : IdempotencyKeyResponseDto
     {
         public T Data { get; set; }
     }

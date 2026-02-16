@@ -22,13 +22,7 @@ namespace Pinch.SDK.Merchants
         public string BankAccountName { get; set; }
 
         private string _legalStreetAddress;
-        [JsonIgnore]
-        [Obsolete("No longer used. Please use Legal Address.")]
-        public string StreetAddress
-        {
-            get { return _legalStreetAddress; }
-            set { _legalStreetAddress = value; }
-        }
+       
         public string LegalStreetAddress
         {
             get { return _legalStreetAddress; }
@@ -36,13 +30,7 @@ namespace Pinch.SDK.Merchants
         }
 
         private string _legalSuburb;
-        [JsonIgnore]
-        [Obsolete("No longer used. Please use Legal Address.")]
-        public string Suburb
-        {
-            get { return _legalSuburb; }
-            set { _legalSuburb = value; }
-        }
+      
         public string LegalSuburb
         {
             get { return _legalSuburb; }
@@ -50,13 +38,7 @@ namespace Pinch.SDK.Merchants
         }
 
         private string _legalState;
-        [JsonIgnore]
-        [Obsolete("No longer used. Please use Legal Address.")]
-        public string State
-        {
-            get { return _legalState; }
-            set { _legalState = value; }
-        }
+       
         public string LegalState
         {
             get { return _legalState; }
@@ -64,13 +46,7 @@ namespace Pinch.SDK.Merchants
         }
 
         private string _legalPostcode;
-        [JsonIgnore]
-        [Obsolete("No longer used. Please use Legal Address.")]
-        public string Postcode
-        {
-            get { return _legalPostcode; }
-            set { _legalPostcode = value; }
-        }
+       
         public string LegalPostcode
         {
             get { return _legalPostcode; }
@@ -78,13 +54,7 @@ namespace Pinch.SDK.Merchants
         }
 
         private string _legalCountry;
-        [JsonIgnore]
-        [Obsolete("No longer used. Please use Legal Address.")]
-        public string Country
-        {
-            get { return _legalCountry; }
-            set { _legalCountry = value; }
-        }
+       
         public string LegalCountry
         {
             get { return _legalCountry; }
@@ -109,7 +79,6 @@ namespace Pinch.SDK.Merchants
         //Compliance Status
         public Compliance Compliance { get; set; }
 
-        public IList<Contact> Contacts { get; set; } = new List<Contact>();
         public IList<MerchantIdentifierDto> MerchantIdentifiers { get; set; } = new List<MerchantIdentifierDto>();
     }
 }

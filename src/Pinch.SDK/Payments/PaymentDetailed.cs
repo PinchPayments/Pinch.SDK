@@ -85,10 +85,10 @@ namespace Pinch.SDK.Payments
         public SubscriptionPayment Subscription { get; set; }
 
         /// <summary>
-        /// The Nonce that was sent with the initial request
+        /// The IdempotencyKey that was sent with the initial request
         /// </summary>
         [JsonConverter(typeof(SingleOrArrayConverter<string>))]
-        public List<string> Nonce { get; set; }
+        public List<string> IdempotencyKey { get; set; }
 
         public PaymentDetailed()
         {

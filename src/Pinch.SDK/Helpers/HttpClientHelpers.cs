@@ -98,10 +98,10 @@ namespace Pinch.SDK.Helpers
 
         public List<ApiError> Errors { get; set; }
 
-        public bool IsNonceReplay { get; set; }
+        public bool IsIdempotencyKeyReplay { get; set; }
 
         [JsonConverter(typeof(SingleOrArrayConverter<string>))]
-        public List<string> Nonce { get; set; }
+        public List<string> IdempotencyKey { get; set; }
 
         public QuickResponse()
         {
@@ -125,7 +125,7 @@ namespace Pinch.SDK.Helpers
             if (!message.IsSuccessStatusCode)
             {
                 response.HandleFailedCall();
-                response.HandleNonceResponse();
+                response.HandleIdempotencyKeyResponse();
             }
 
             return response;
@@ -154,14 +154,14 @@ namespace Pinch.SDK.Helpers
             }
         }
         
-        protected void HandleNonceResponse()
+        protected void HandleIdempotencyKeyResponse()
         {
             try
             {
-                var result = JsonConvert.DeserializeObject<NonceResponseDto>(ResponseBody);
+                var result = JsonConvert.DeserializeObject<IdempotencyKeyResponseDto>(ResponseBody);
 
-                Nonce = result.Nonce;
-                IsNonceReplay = result.IsNonceReplay;
+                IdempotencyKey = result.IdempotencyKey;
+                IsIdempotencyKeyReplay = result.IsIdempotencyKeyReplay;
             }
             catch (Exception ex)
             {
@@ -183,14 +183,14 @@ namespace Pinch.SDK.Helpers
             };
         }
 
-        public NonceApiResponse<T> ToNonceResponse()
+        public IdempotencyKeyApiResponse<T> ToIdempotencyKeyResponse()
         {
-            return new NonceApiResponse<T>()
+            return new IdempotencyKeyApiResponse<T>()
             {
                 Errors = Errors,
                 Data = Data,
-                IsNonceReplay = IsNonceReplay,
-                Nonce = Nonce
+                IsIdempotencyKeyReplay = IsIdempotencyKeyReplay,
+                IdempotencyKey = IdempotencyKey
             };
         }
 
@@ -208,21 +208,21 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
-                response.HandleNonceResponse();
+                response.HandleIdempotencyKeyResponse();
             }
 
             return response;
         }
 
-        protected void HandleNonceResponse()
+        protected void HandleIdempotencyKeyResponse()
         {
             try
             {
 
-                var result = JsonConvert.DeserializeObject<NonceResponseDto<T>>(ResponseBody);
+                var result = JsonConvert.DeserializeObject<IdempotencyKeyResponseDto<T>>(ResponseBody);
 
-                Nonce = result.Nonce;
-                IsNonceReplay = result.IsNonceReplay;
+                IdempotencyKey = result.IdempotencyKey;
+                IsIdempotencyKeyReplay = result.IsIdempotencyKeyReplay;
                 Data = result.Data;
             }
             catch (Exception ex)
@@ -259,7 +259,7 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
-                response.HandleNonceResponse();
+                response.HandleIdempotencyKeyResponse();
             }
 
             return response;
@@ -328,7 +328,7 @@ namespace Pinch.SDK.Helpers
             else
             {
                 response.HandleFailedCall();
-                response.HandleNonceResponse();
+                response.HandleIdempotencyKeyResponse();
             }
 
             return response;

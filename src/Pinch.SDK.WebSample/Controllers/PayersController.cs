@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pinch.SDK.Payers;
+using Pinch.SDK.Payments;
 using Pinch.SDK.Sources;
 using Pinch.SDK.WebSample.Helpers;
 using Pinch.SDK.WebSample.Models;
@@ -44,7 +45,7 @@ namespace Pinch.SDK.WebSample.Controllers
             var model = new PayerDetailsVm()
             {
                 Payer = payer.Data,
-                Payments = payments
+                Payments = payments.totalItems > 0 ? payments.Data : new List<PaymentExpanded>()
             };
 
             return View(model);

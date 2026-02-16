@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Pinch.SDK
+﻿namespace Pinch.SDK
 {
     /// <summary>
     /// Some constants containing the default settings for Pinch.
@@ -22,9 +17,5 @@ namespace Pinch.SDK
         /// The Base URI for the Pinch Authentication Server
         /// </summary>
         public const string AuthBaseUri_Production = "https://auth.getpinch.com.au";
-        /// <summary>
-        /// The current latest API version. This is included as a header in all API calls.
-        /// </summary>
-        public const string LatestApiVersion = "2020.1";
     }
 }

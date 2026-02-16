@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Pinch.SDK.Converters;
-using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK
 {
-    public class NonceApiResponse<T> : ApiResponse<T>
+    public class IdempotencyKeyApiResponse<T> : ApiResponse<T>
     {
-        public bool IsNonceReplay { get; set; }
+        public bool IsIdempotencyKeyReplay { get; set; }
 
         [JsonConverter(typeof(SingleOrArrayConverter<string>))]
-        public List<string> Nonce { get; set; }
+        public List<string> IdempotencyKey { get; set; }
     }
 
     public class ApiResponse

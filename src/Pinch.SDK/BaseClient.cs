@@ -14,7 +14,7 @@ namespace Pinch.SDK
     {
         protected readonly PinchApiOptions Options;
         private readonly Func<HttpClient> _httpClientFactory;
-        private readonly Func<bool, Task<string>> _getAccessToken;        
+        private readonly Func<bool, Task<string>> _getAccessToken;
 
         public BaseClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
         {
@@ -24,7 +24,7 @@ namespace Pinch.SDK
         }
 
         protected async Task<QuickResponse<T>> GetHttp<T>(string url)
-        {            
+        {
             return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Get, Options.BaseUri + url));
         }
 
@@ -34,15 +34,15 @@ namespace Pinch.SDK
         }
 
         protected async Task<QuickResponse<T>> PostHttp<T>(string url, Dictionary<string, string> parameters)
-        {            
+        {
             return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
             {
                 Content = HttpClientHelpers.GetPostBody(parameters)
-            });            
+            });
         }
 
         protected async Task<QuickResponse<T>> PostHttp<T>(string url, object data)
-        {            
+        {
             return await SendHttp<T>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
             {
                 Content = HttpClientHelpers.GetJsonBody(data)
@@ -58,7 +58,7 @@ namespace Pinch.SDK
         }
 
         protected async Task<QuickResponse<T, TOptions>> PostHttp<T, TOptions>(string url, object data)
-        {            
+        {
             return await SendHttp<T, TOptions>(() => new HttpRequestMessage(HttpMethod.Post, Options.BaseUri + url)
             {
                 Content = HttpClientHelpers.GetJsonBody(data)
@@ -78,18 +78,18 @@ namespace Pinch.SDK
                 await SetAuthHeader(request, false);
 
                 var response = await _httpClientFactory().SendAsync(request);
-                
+
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     request = requestFunc();
                     await SetAuthHeader(request, true);
                     response = await _httpClientFactory().SendAsync(request);
-                }                
+                }
 
                 return await QuickResponse.FromMessage(response);
             }
             catch (Exception ex)
-            {                
+            {
                 return new QuickResponse()
                 {
                     Errors = new List<ApiError>()
@@ -108,18 +108,18 @@ namespace Pinch.SDK
                 await SetAuthHeader(request, false);
 
                 var response = await _httpClientFactory().SendAsync(request);
-                
+
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     request = requestFunc();
                     await SetAuthHeader(request, true);
                     response = await _httpClientFactory().SendAsync(request);
-                }                
+                }
 
                 return await QuickResponse<T>.FromMessage(response);
             }
             catch (Exception ex)
-            {                
+            {
                 return new QuickResponse<T>()
                 {
                     Errors = new List<ApiError>()
@@ -138,18 +138,18 @@ namespace Pinch.SDK
                 await SetAuthHeader(request, false);
 
                 var response = await _httpClientFactory().SendAsync(request);
-                
+
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     request = requestFunc();
                     await SetAuthHeader(request, true);
                     response = await _httpClientFactory().SendAsync(request);
-                }                
+                }
 
                 return await QuickResponse<T, TOptions>.FromMessage(response);
             }
             catch (Exception ex)
-            {                
+            {
                 return new QuickResponse<T, TOptions>()
                 {
                     Errors = new List<ApiError>()
@@ -168,18 +168,18 @@ namespace Pinch.SDK
                 await SetAuthHeader(request, false);
 
                 var response = await _httpClientFactory().SendAsync(request);
-                
+
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     request = requestFunc();
                     await SetAuthHeader(request, true);
                     response = await _httpClientFactory().SendAsync(request);
-                }                
+                }
 
                 return await QuickFileResponse.FromMessage(response);
             }
             catch (Exception ex)
-            {                
+            {
                 return new QuickFileResponse()
                 {
                     Errors = new List<ApiError>()
@@ -201,10 +201,7 @@ namespace Pinch.SDK
                 message.Headers.Add("Current-Merchant", Options.ImpersonateMerchantId);
             }
 
-            if (!string.IsNullOrEmpty(Options.ApiVersion))
-            {
-                message.Headers.Add("Pinch-Version", Options.ApiVersion);
-            }
+            message.Headers.Add("Pinch-Version", "2026.1");
         }
 
         private string GetRecursiveErrorMessage(Exception ex, string delimeter = " --- ")
