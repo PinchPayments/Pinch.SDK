@@ -20,9 +20,9 @@ namespace Pinch.SDK.Transfers
             return response.Data;
         }
 
-        public async Task<List<Transfer>> GetTransfers(int page = 1, int pageSize = 50)
+        public async Task<Paged<Transfer>> GetTransfers(int page = 1, int pageSize = 50)
         {
-            var response = await GetHttp<List<Transfer>>($"transfers?page={page}&pagesize={pageSize}");
+            var response = await GetHttp<Paged<Transfer>>($"transfers?page={page}&pagesize={pageSize}");
 
             return response.Data;
         }
