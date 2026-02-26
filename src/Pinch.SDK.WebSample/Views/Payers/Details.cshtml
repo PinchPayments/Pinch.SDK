@@ -58,6 +58,7 @@
             <th>ID</th>
             <th>Type</th>
             <th>Details</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -86,10 +87,10 @@
                 </td>
             </tr>
         }
-        @if (!Model.Payments.Any())
+        @if (!Model.Payer.Sources.Any())
         {
             <tr>
-                <td colspan="5">No payments found for payer</td>
+                <td colspan="4">No sources found for payer</td>
             </tr>
         }
         </tbody>
