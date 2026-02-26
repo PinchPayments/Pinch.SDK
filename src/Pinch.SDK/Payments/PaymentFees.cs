@@ -1,5 +1,8 @@
 ﻿namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Represents the fees associated with a payment transaction.
+    /// </summary>
     public class PaymentFees
     {
         /// <summary>

@@ -2,6 +2,9 @@
 
 namespace Pinch.SDK.Sources
 {
+    /// <summary>
+    /// Options for saving a payment source (bank account or credit card) for a payer.
+    /// </summary>
     public class SourceSaveOptions
     {
         /// <summary>

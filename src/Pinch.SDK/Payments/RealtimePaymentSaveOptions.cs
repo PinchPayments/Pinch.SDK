@@ -2,6 +2,9 @@
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Options for saving a realtime payment transaction.
+    /// </summary>
     public class RealtimePaymentSaveOptions
     {
         // Existing Payer

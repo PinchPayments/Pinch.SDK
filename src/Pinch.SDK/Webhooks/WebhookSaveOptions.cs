@@ -2,6 +2,9 @@
 
 namespace Pinch.SDK.Webhooks
 {
+    /// <summary>
+    /// Options for creating or updating a webhook subscription.
+    /// </summary>
     public class WebhookSaveOptions
     {
         /// <summary>

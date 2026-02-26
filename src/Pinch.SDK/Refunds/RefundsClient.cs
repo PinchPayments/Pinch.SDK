@@ -6,6 +6,9 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Refunds
 {
+    /// <summary>
+    /// Client for managing refund operations.
+    /// </summary>
     public class RefundsClient : BaseClient
     {
         public RefundsClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)

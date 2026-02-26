@@ -1,5 +1,8 @@
 ﻿namespace Pinch.SDK.Statements
 {
+    /// <summary>
+    /// Represents a daily statement
+    /// </summary>
     public class DailyStatement
     {
         /// <summary>

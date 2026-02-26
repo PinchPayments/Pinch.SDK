@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Pinch.SDK.Subscriptions
 {
+    /// <summary>
+    /// Options for creating a subscription
+    /// </summary>
     public class SubscriptionCreateOptions
     {
         /// <summary>

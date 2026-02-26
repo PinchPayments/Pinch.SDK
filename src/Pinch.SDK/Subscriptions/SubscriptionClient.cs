@@ -6,6 +6,9 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Subscriptions
 {
+    /// <summary>
+    /// Client for managing subscriptions in the Pinch API.
+    /// </summary>
     public class SubscriptionClient : BaseClient
     {
         public SubscriptionClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)

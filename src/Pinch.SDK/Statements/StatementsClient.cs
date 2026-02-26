@@ -5,6 +5,9 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Statements
 {
+    /// <summary>
+    /// Client for managing statements including daily statements and merchant invoices
+    /// </summary>
     public class StatementsClient : BaseClient
     {
         public StatementsClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory) 

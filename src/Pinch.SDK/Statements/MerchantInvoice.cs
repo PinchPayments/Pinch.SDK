@@ -1,5 +1,8 @@
 ﻿namespace Pinch.SDK.Statements
 {
+    /// <summary>
+    /// Represents a merchant invoice.
+    /// </summary>
     public class MerchantInvoice
     {
         /// <summary>

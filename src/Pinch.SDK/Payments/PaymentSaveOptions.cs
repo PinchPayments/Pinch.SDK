@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Options for saving a payment.
+    /// </summary>
     public class PaymentSaveOptions
     {
         /// <summary>

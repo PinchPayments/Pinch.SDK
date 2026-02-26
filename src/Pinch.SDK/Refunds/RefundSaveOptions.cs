@@ -1,5 +1,8 @@
 ﻿namespace Pinch.SDK.Refunds
 {
+    /// <summary>
+    /// Options for creating a refund.
+    /// </summary>
     public class RefundSaveOptions
     {
         /// <summary>

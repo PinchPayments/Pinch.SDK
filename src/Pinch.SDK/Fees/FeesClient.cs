@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Pinch.SDK.Fees
 {
+    /// <summary>
+    /// Client for interacting with Pinch fee-related API endpoints
+    /// </summary>
     public class FeesClient : BaseClient
     {
         public FeesClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)

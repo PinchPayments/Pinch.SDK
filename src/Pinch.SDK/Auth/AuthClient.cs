@@ -9,6 +9,9 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Auth
 {
+    /// <summary>
+    /// Provides authentication and authorization functionality for the Pinch SDK.
+    /// </summary>
     public class AuthClient
     {
         private readonly string _secretKey;
@@ -17,6 +20,14 @@ namespace Pinch.SDK.Auth
         private readonly List<string> _additionalScopes;
         private readonly Func<HttpClient> _httpClientFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthClient"/> class.
+        /// </summary>
+        /// <param name="secretKey">The secret key for authentication.</param>
+        /// <param name="authUri">The authentication server URI.</param>
+        /// <param name="baseUri">The base URI for the API.</param>
+        /// <param name="additionalScopes">Additional OAuth scopes to request.</param>
+        /// <param name="httpClientFactory">Factory function to create HTTP client instances.</param>
         public AuthClient(string secretKey, string authUri, string baseUri, List<string> additionalScopes, Func<HttpClient> httpClientFactory)
         {
             _secretKey = secretKey;
@@ -27,11 +38,24 @@ namespace Pinch.SDK.Auth
             _httpClientFactory = httpClientFactory;
         }
 
+        /// <summary>
+        /// Gets the OAuth connect URL for authorization.
+        /// </summary>
+        /// <param name="applicationId">The application/client identifier.</param>
+        /// <param name="redirectUri">The redirect URI after authorization.</param>
+        /// <returns>The authorization URL.</returns>
         public string GetConnectUrl(string applicationId, string redirectUri)
         {
             return $"{_authUri}/connect/authorize?client_id={applicationId}&redirect_uri={redirectUri}&response_type=code&scope=api1 offline_access openid";
         }
 
+        /// <summary>
+        /// Exchanges an authorization code for an access token.
+        /// </summary>
+        /// <param name="code">The authorization code.</param>
+        /// <param name="clientId">The client identifier.</param>
+        /// <param name="redirectUri">The redirect URI used in the authorization request.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the access token response.</returns>
         public async Task<GetAccessTokenFromCodeResponse> GetAccessTokenFromCode(string code, string clientId, string redirectUri)
         {
             var client = new HttpClient()
@@ -52,6 +76,12 @@ namespace Pinch.SDK.Auth
             return response.Data;
         }
 
+        /// <summary>
+        /// Gets an access token using client credentials (secret key).
+        /// </summary>
+        /// <param name="secretKey">The client secret key.</param>
+        /// <param name="clientId">The client identifier.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the access token response.</returns>
         public async Task<GetAccessTokenFromSecretKeyResponse> GetAccessTokenFromSecretKey(string secretKey, string clientId)
         {
             var client = new HttpClient()
@@ -84,6 +114,13 @@ namespace Pinch.SDK.Auth
             return response.Data;
         }
 
+        /// <summary>
+        /// Gets a new access token using a refresh token.
+        /// </summary>
+        /// <param name="refreshToken">The refresh token.</param>
+        /// <param name="secretKey">The client secret key.</param>
+        /// <param name="clientId">The client identifier.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the access token response.</returns>
         public async Task<GetAccessTokenFromRefreshTokenResponse> GetAccessTokenFromRefreshToken(string refreshToken, string secretKey, string clientId)
         {
             var disco = await DiscoveryClient.GetAsync(_authUri);
@@ -101,6 +138,11 @@ namespace Pinch.SDK.Auth
             };
         }
 
+        /// <summary>
+        /// Gets the user claims associated with an access token.
+        /// </summary>
+        /// <param name="accessToken">The access token.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the list of claims.</returns>
         public async Task<List<Claim>> GetClaims(string accessToken)
         {
             var discoveryClient = new DiscoveryClient(_authUri);

@@ -7,6 +7,9 @@ using Pinch.SDK.Subscriptions;
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Represents detailed information about a payment transaction
+    /// </summary>
     public class PaymentDetailed
     {
         /// <summary>

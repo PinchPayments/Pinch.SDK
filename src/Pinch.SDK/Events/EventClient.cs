@@ -6,8 +6,17 @@ using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Events
 {
+    /// <summary>
+    /// Client for interacting with Pinch Events API.
+    /// </summary>
     public class EventClient : BaseClient
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventClient"/> class.
+        /// </summary>
+        /// <param name="options">The Pinch API options.</param>
+        /// <param name="getAccessToken">Function to retrieve access token.</param>
+        /// <param name="httpClientFactory">Factory function to create HttpClient instances.</param>
         public EventClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory) 
             : base(options, getAccessToken, httpClientFactory)
         {
