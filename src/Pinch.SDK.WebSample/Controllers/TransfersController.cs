@@ -19,7 +19,7 @@ namespace Pinch.SDK.WebSample.Controllers
         {
             var transfers = await GetApi().Transfer.GetTransfers();
 
-            return View(transfers.Data.ToList());
+            return View(transfers?.Data?.ToList());
         }
 
         public async Task<IActionResult> Details(string id)
