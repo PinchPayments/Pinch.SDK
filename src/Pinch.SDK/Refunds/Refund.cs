@@ -85,13 +85,13 @@
         public AttemptFee RefundedFees { get; set; }
 
         /// <summary>
-        /// Gets or sets the nonce, a unique token generated for this refund transaction.
-        /// </summary>
-        public string Nonce { get; set; }
-
-        /// <summary>
         /// Gets or sets the unique identifier of the original payment being refunded.
         /// </summary>
         public string PaymentId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the idempotency key, a unique token generated for this refund transaction.
+        /// </summary>
+        public string IdempotencyKey { get; set; }
     }
 }

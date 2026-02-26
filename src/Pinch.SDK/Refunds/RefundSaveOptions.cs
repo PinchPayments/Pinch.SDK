@@ -19,9 +19,9 @@
         public string Reason { get; set; }
 
         /// <summary>
-        /// Optional. Pinch will echo back the nonce value in the response, this is for replay protection.
-        /// If the same Nonce is detected the in progress refund object will be returned.
+        /// Optional. Pinch will echo back the idempotency key value in the response, this is for replay protection.
+        /// If the same idempotency key is detected the in progress refund object will be returned.
         /// </summary>
-        public string Nonce { get; set; }
+        public string IdempotencyKey { get; set; }
     }
 }
