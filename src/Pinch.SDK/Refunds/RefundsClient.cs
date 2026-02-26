@@ -81,13 +81,13 @@ namespace Pinch.SDK.Refunds
         }
 
         /// <summary>
-        /// Check a refund nonce
+        /// Check a refund idempotency key
         /// </summary>
-        /// <param name="options">Refund nonce.</param>
+        /// <param name="options">Refund idempotency key.</param>
         /// <returns></returns>
-        public async Task<IdempotencyKeyApiResponse<Refund>> CheckNonce(RefundCheckNonceOptions options)
+        public async Task<IdempotencyKeyApiResponse<Refund>> CheckIdempotencyKey(RefundCheckIdempotencyKeyOptions options)
         {
-            var response = await PostHttp<Refund>("refunds/nonce", options);
+            var response = await PostHttp<Refund>("refunds/idempotency-check", options);
             return response.ToIdempotencyKeyResponse();
         }
         
