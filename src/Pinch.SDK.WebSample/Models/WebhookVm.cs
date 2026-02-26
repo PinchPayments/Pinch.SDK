@@ -10,5 +10,6 @@ namespace Pinch.SDK.WebSample.Models
         public string Uri { get; set; }
         public string WebhookFormat { get; set; }
         public string EventTypes { get; set; }
+        public string ApiVersion { get; set; }
     }
 }
