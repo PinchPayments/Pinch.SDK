@@ -6,7 +6,7 @@ namespace Pinch.SDK.Payments
     /// Represents a dishonoured payment transaction.
     /// A dishonour occurs when a payment attempt is rejected or fails to process, 
     /// typically due to insufficient funds, invalid account, or other payment processing issues.
-    /// </summary>`
+    /// </summary>
     public class Dishonour
     {
         /// <summary>
@@ -22,7 +22,7 @@ namespace Pinch.SDK.Payments
 
         /// <summary>
         /// Gets or sets the fees associated with the dishonoured payment.
-        /// Typically includes dishonour or rejection fees charged by the financial institution.
+        /// Typically, includes dishonour or rejection fees charged by the financial institution.
         /// </summary>
         public long Fees { get; set; }
 

@@ -32,14 +32,8 @@ namespace Pinch.SDK.Merchants
         /// </summary>
         public string Status { get; set; }
 
-        /// <summary>
-        /// Gets or sets the date and time when the compliance submission was made.
-        /// </summary>
         private DateTimeOffset SubmissionDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the date and time when the compliance decision was made, if applicable.
-        /// </summary>
         private DateTimeOffset? DecisionDate { get; set; }
 
         /// <summary>

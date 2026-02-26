@@ -29,7 +29,7 @@ namespace Pinch.SDK.Webhooks
 
 
         /// <summary>
-        /// Optional. API version in format YYYY.M (for example, 2024.1 or 2025.1). Controls the webhook payload schema and related behavior for this subscription.
+        /// Optional. API version in format YYYY.M (for example, 2020.1 or 2026.1). Controls the webhook payload schema and related behavior for this subscription.
         /// </summary>
         public string ApiVersion { get; set; }
     }
