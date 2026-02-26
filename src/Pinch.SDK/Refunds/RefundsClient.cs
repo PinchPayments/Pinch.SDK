@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
-using Pinch.SDK.Payers;
-using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Refunds
 {

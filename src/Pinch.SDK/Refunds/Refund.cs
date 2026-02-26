@@ -1,6 +1,4 @@
-﻿using Pinch.SDK.Payments;
-
-namespace Pinch.SDK.Refunds
+﻿namespace Pinch.SDK.Refunds
 {
     public class Refund
     {

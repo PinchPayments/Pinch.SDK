@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Pinch.SDK.Plans
+﻿namespace Pinch.SDK.Plans
 {
     public class PlanFreePeriod
     {

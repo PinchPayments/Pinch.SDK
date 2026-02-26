@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Text;
 using IdentityModel.Client;
-using Newtonsoft.Json;
 using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Auth

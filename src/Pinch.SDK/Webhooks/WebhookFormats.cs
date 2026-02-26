@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pinch.SDK.Webhooks
+﻿namespace Pinch.SDK.Webhooks
 {
     public static class WebhookFormats
     {

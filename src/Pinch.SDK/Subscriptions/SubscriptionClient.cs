@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
-using Pinch.SDK.Plans;
 
 namespace Pinch.SDK.Subscriptions
 {

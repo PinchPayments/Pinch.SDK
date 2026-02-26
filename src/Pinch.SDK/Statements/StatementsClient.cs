@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
-using Pinch.SDK.Merchants;
 
 namespace Pinch.SDK.Statements
 {

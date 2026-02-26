@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Pinch.SDK.Sources;
+﻿using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Payers
 {

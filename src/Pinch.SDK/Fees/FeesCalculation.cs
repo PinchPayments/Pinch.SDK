@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pinch.SDK.Payments;
+﻿using Pinch.SDK.Payments;
 using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Fees
