@@ -226,15 +226,15 @@ namespace Pinch.SDK.Payments
                 Errors = response.Errors
             };
         }
-
+        
         /// <summary>
-        /// Check a payment nonce
+        /// Check a payment idempotency key
         /// </summary>
-        /// <param name="options">Payment nonce.</param>
+        /// <param name="options">Payment idempotency key.</param>
         /// <returns></returns>
-        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
+        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> CheckIdempotencyKey(PaymentCheckIdempotencyKeyOptions options)
         {
-            var response = await PostHttp<PaymentDetailed>("payments/nonce", options);
+            var response = await PostHttp<PaymentDetailed>("payments/idempotency-check", options);
             return response.ToIdempotencyKeyResponse();
         }
     }

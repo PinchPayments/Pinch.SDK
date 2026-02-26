@@ -46,46 +46,6 @@
                         </div>
                     </div>
                 </div>
-                
-    @*             <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-6">
-                        <p class="text-center"><strong>-- or --</strong></p>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Credit Card</label>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <input id="cardNumber" class="form-control" placeholder="Card Number" />
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <input id="expiryMonth" class="form-control" placeholder="Expiry Month" />
-                                    <span class="text-danger"></span>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input id="expiryYear" class="form-control" placeholder="Expiry Year" />
-                                    <span class="text-danger"></span>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input id="cvc" class="form-control" placeholder="CVC" />
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <input id="cardHolderName" class="form-control" placeholder="Card Holder Name" />
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> *@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save Source" class="btn btn-primary" />
@@ -95,12 +55,12 @@
         </form>
     </div>
 </div>
-
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
