@@ -36,7 +36,7 @@ namespace Pinch.SDK.Webhooks
         public string Uri { get; set; }
 
         /// <summary>
-        /// Gets or sets the format of the webhook payload (e.g., JSON, XML).
+        /// Gets or sets the format of the webhook payload (e.g., pascal case or camel case).
         /// </summary>
         public string WebhookFormat { get; set; }
 
