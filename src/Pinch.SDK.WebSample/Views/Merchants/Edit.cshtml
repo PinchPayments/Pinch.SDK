@@ -146,67 +146,6 @@
             </div>
         </div>
 
-        <h4>Contacts</h4>
-        @for (int i = 0; i < Model.Contacts.Count(); i++)
-        {
-            <input type="hidden" asp-for="Contacts[i].Id" />
-
-            <div class="form-group">
-                <label class="col-md-2 control-label">First Name</label>
-                <div class="col-md-10">
-                    <input asp-for="Contacts[i].FirstName" class="form-control" />
-                    <span asp-validation-for="Contacts[i].FirstName" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contacts[i].LastName" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Contacts[i].LastName" class="form-control" />
-                    <span asp-validation-for="Contacts[i].LastName" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contacts[i].ContactType" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <select asp-for="Contacts[i].ContactType">
-                        <option value="owner">Owner</option>
-                        <option value="director">Director</option>
-                        <option value="shareholder">Shareholder</option>
-                        <option value="executive">Executive</option>
-                    </select>
-                    <span asp-validation-for="Contacts[i].ContactType" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contacts[i].Phone" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Contacts[i].Phone" class="form-control" />
-                    <span asp-validation-for="Contacts[i].Phone" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contacts[i].Dob" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Contacts[i].Dob" class="form-control" />
-                    <span asp-validation-for="Contacts[i].Dob" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contacts[i].GovernmentNumber" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Contacts[i].GovernmentNumber" class="form-control" />
-                    <span asp-validation-for="Contacts[i].GovernmentNumber" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contacts[i].IsPrimaryContact" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Contacts[i].IsPrimaryContact" class="form-control" />
-                    <span asp-validation-for="Contacts[i].IsPrimaryContact" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

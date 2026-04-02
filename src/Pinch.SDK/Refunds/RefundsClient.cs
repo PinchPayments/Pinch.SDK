@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
-using Pinch.SDK.Payers;
-using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Refunds
 {
+    /// <summary>
+    /// Client for managing refund operations.
+    /// </summary>
     public class RefundsClient : BaseClient
     {
         public RefundsClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
@@ -82,14 +81,14 @@ namespace Pinch.SDK.Refunds
         }
 
         /// <summary>
-        /// Check a refund nonce
+        /// Check a refund idempotency key
         /// </summary>
-        /// <param name="options">Refund nonce.</param>
+        /// <param name="options">Refund idempotency key.</param>
         /// <returns></returns>
-        public async Task<NonceApiResponse<Refund>> CheckNonce(RefundCheckNonceOptions options)
+        public async Task<IdempotencyKeyApiResponse<Refund>> CheckIdempotencyKey(RefundCheckIdempotencyKeyOptions options)
         {
-            var response = await PostHttp<Refund>("refunds/nonce", options);
-            return response.ToNonceResponse();
+            var response = await PostHttp<Refund>("refunds/idempotency-check", options);
+            return response.ToIdempotencyKeyResponse();
         }
         
         /// <summary>

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
-using Pinch.SDK.Plans;
 
 namespace Pinch.SDK.Subscriptions
 {
+    /// <summary>
+    /// Client for managing subscriptions in the Pinch API.
+    /// </summary>
     public class SubscriptionClient : BaseClient
     {
         public SubscriptionClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
@@ -63,10 +65,12 @@ namespace Pinch.SDK.Subscriptions
         /// Get all subscriptions for a payer.
         /// </summary>
         /// <param name="payerId">Payer ID</param>
+        /// <param name="page">The current page</param>
+        /// <param name="pageSize">Number of subscriptions to retrieve with each call to the API</param>
         /// <returns></returns>
-        public async Task<ApiResponse<Paged<Subscription>>> GetSubscriptionsForPayer(string payerId)
+        public async Task<ApiResponse<Paged<Subscription>>> GetSubscriptionsForPayer(string payerId, int page = 1, int pageSize = 50)
         {
-            var response = await GetHttp<Paged<Subscription>>($"subscriptions/payer/{payerId}");            
+            var response = await GetHttp<Paged<Subscription>>($"subscriptions/payer/{payerId}?page={page}&pagesize={pageSize}");            
 
             return response.ToApiResponse();
         }

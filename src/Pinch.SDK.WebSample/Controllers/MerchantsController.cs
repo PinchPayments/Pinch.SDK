@@ -21,10 +21,12 @@ namespace Pinch.SDK.WebSample.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var merchant = await GetApi().Merchant.GetMerchant();
+            var managedMerchants = await GetApi().Merchant.GetAllManagedMerchants();
             var model = new MerchantsVm()
             {
-                MyMerchant = await GetApi().Merchant.GetMerchant(),
-                ManagedMerchants = await GetApi().Merchant.GetAllManagedMerchants(),
+                MyMerchant = merchant,
+                ManagedMerchants = managedMerchants,
                 ImpersonatedMerchantId = ImpersonatedMerchantId
             };
 
@@ -80,10 +82,6 @@ namespace Pinch.SDK.WebSample.Controllers
                 BankAccountNumber = merchant.BankAccountNumber,
                 BankAccountRoutingNumber = merchant.BankAccountRoutingNumber,
                 CompanyName = merchant.CompanyName,
-                Postcode = merchant.Postcode,
-                StreetAddress = merchant.StreetAddress,
-                Suburb = merchant.Suburb,
-                State = merchant.State,
                 LegalPostcode = merchant.LegalPostcode,
                 LegalStreetAddress = merchant.LegalStreetAddress,
                 LegalSuburb = merchant.LegalSuburb,
@@ -98,14 +96,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 CompanyEmail = merchant.CompanyEmail,
                 CompanyPhone = merchant.CompanyPhone,
                 CompanyWebsiteUrl = merchant.CompanyWebsiteUrl,
-                NatureOfBusiness = merchant.NatureOfBusiness,
-                Contacts = merchant.Contacts.Select(x => new ContactSaveOptions()
-                {
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Email = x.Email,
-                    ContactType = x.ContactType
-                }).ToList()
+                NatureOfBusiness = merchant.NatureOfBusiness
             };
 
             return View(model);

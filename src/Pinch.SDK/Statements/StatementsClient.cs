@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
-using Pinch.SDK.Merchants;
 
 namespace Pinch.SDK.Statements
 {
+    /// <summary>
+    /// Client for managing statements including daily statements and merchant invoices
+    /// </summary>
     public class StatementsClient : BaseClient
     {
         public StatementsClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory) 

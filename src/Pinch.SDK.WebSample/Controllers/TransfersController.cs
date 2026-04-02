@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,18 +11,15 @@ namespace Pinch.SDK.WebSample.Controllers
 {
     public class TransfersController : BaseController
     {
-        private readonly PinchSettings _settings;
-
         public TransfersController(IOptions<PinchSettings> settings) : base(settings)
         {
-            _settings = settings.Value;
         }
 
         public async Task<IActionResult> Index()
         {
             var transfers = await GetApi().Transfer.GetTransfers();
 
-            return View(transfers);
+            return View(transfers?.Data?.ToList());
         }
 
         public async Task<IActionResult> Details(string id)

@@ -2,8 +2,23 @@
 
 namespace Pinch.SDK
 {
+    /// <summary>
+    /// Configuration options for the Pinch API client.
+    /// </summary>
     public class PinchApiOptions
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PinchApiOptions"/> class.
+        /// </summary>
+        /// <param name="isLive">Indicates whether to use the live or test environment. Defaults to false (test).</param>
+        /// <param name="baseUri">Optional custom base URI for the API.</param>
+        /// <param name="authUri">Optional custom authentication URI.</param>
+        /// <param name="accessToken">The access token for authentication.</param>
+        /// <param name="refreshToken">The refresh token for obtaining new access tokens.</param>
+        /// <param name="applicationId">The application identifier.</param>
+        /// <param name="impersonateMerchantId">Optional merchant ID to impersonate.</param>
+        /// <param name="webhookVerificationClockSkewThreshold">Maximum time difference in seconds for webhook verification. Defaults to 300 seconds (5 minutes).</param>
+        /// <param name="additionalScopes">Optional list of additional OAuth scopes to request.</param>
         public PinchApiOptions(
             bool? isLive = null,
             string baseUri = null,
@@ -11,16 +26,12 @@ namespace Pinch.SDK
             string accessToken = null,
             string refreshToken = null,
             string applicationId = null,
-            string apiVersion = null,
             string impersonateMerchantId = null,
             int? webhookVerificationClockSkewThreshold = null,
             List<string> additionalScopes = null)
         {
             IsLive = isLive ?? false;
-            ApiVersion = !string.IsNullOrEmpty(apiVersion)
-                ? apiVersion
-                : Settings.LatestApiVersion;
-
+           
             if (!string.IsNullOrEmpty(baseUri))
             {
                 BaseUri = $"{baseUri.TrimEnd('/')}/{(IsLive ? "live" : "test")}/";
@@ -39,18 +50,35 @@ namespace Pinch.SDK
             AdditionalScopes = additionalScopes;
         }
         
-        public bool IsLive { get; }
-        public string BaseUri { get; }
-        public string AuthUri { get; }
-        public string AccessToken { get; }
-        public string RefreshToken { get; }
-        public string ApplicationId { get; }
-
         /// <summary>
-        /// Set this to specify which version of the API you have coded against. Omitting this in the SDK is fine as we'll
-        /// use the most recent version. Used for backwards compatibility.
+        /// Gets a value indicating whether the live or test environment is being used.
         /// </summary>
-        public string ApiVersion { get; }
+        public bool IsLive { get; }
+        
+        /// <summary>
+        /// Gets the base URI for API requests.
+        /// </summary>
+        public string BaseUri { get; }
+        
+        /// <summary>
+        /// Gets the authentication URI.
+        /// </summary>
+        public string AuthUri { get; }
+        
+        /// <summary>
+        /// Gets the access token for authentication.
+        /// </summary>
+        public string AccessToken { get; }
+        
+        /// <summary>
+        /// Gets the refresh token for obtaining new access tokens.
+        /// </summary>
+        public string RefreshToken { get; }
+        
+        /// <summary>
+        /// Gets the application identifier.
+        /// </summary>
+        public string ApplicationId { get; }
 
         /// <summary>
         /// Set this Merchant ID to impersonate a different merchant.

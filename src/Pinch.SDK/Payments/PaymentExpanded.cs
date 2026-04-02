@@ -3,6 +3,9 @@ using Pinch.SDK.Payers;
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Represents an expanded payment with detailed information including payer details
+    /// </summary>
     public class PaymentExpanded
     {
         /// <summary>
