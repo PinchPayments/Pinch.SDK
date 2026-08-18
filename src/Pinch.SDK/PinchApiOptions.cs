@@ -16,6 +16,7 @@ namespace Pinch.SDK
         /// <param name="accessToken">The access token for authentication.</param>
         /// <param name="refreshToken">The refresh token for obtaining new access tokens.</param>
         /// <param name="applicationId">The application identifier.</param>
+        /// <param name="apiVersion">The API version.</param>
         /// <param name="impersonateMerchantId">Optional merchant ID to impersonate.</param>
         /// <param name="webhookVerificationClockSkewThreshold">Maximum time difference in seconds for webhook verification. Defaults to 300 seconds (5 minutes).</param>
         /// <param name="additionalScopes">Optional list of additional OAuth scopes to request.</param>
@@ -26,11 +27,15 @@ namespace Pinch.SDK
             string accessToken = null,
             string refreshToken = null,
             string applicationId = null,
+            string apiVersion = null,
             string impersonateMerchantId = null,
             int? webhookVerificationClockSkewThreshold = null,
             List<string> additionalScopes = null)
         {
             IsLive = isLive ?? false;
+            ApiVersion = !string.IsNullOrEmpty(apiVersion)
+                ? apiVersion
+                : Settings.LatestApiVersion;
            
             if (!string.IsNullOrEmpty(baseUri))
             {
@@ -79,6 +84,12 @@ namespace Pinch.SDK
         /// Gets the application identifier.
         /// </summary>
         public string ApplicationId { get; }
+
+        /// <summary>
+        /// Set this to specify which version of the API you have coded against. Omitting this in the SDK is fine as we'll
+        /// use the most recent version. Used for backwards compatibility.
+        /// </summary>
+        public string ApiVersion { get; }
 
         /// <summary>
         /// Set this Merchant ID to impersonate a different merchant.
