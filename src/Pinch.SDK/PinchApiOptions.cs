@@ -36,7 +36,7 @@ namespace Pinch.SDK
             ApiVersion = !string.IsNullOrEmpty(apiVersion)
                 ? apiVersion
                 : Settings.LatestApiVersion;
-           
+
             if (!string.IsNullOrEmpty(baseUri))
             {
                 BaseUri = $"{baseUri.TrimEnd('/')}/{(IsLive ? "live" : "test")}/";
@@ -45,7 +45,7 @@ namespace Pinch.SDK
             {
                 BaseUri = IsLive ? Settings.ApiBaseUri_Production : Settings.ApiBaseUri_Test;
             }
-            
+
             AuthUri = !string.IsNullOrEmpty(authUri) ? authUri : Settings.AuthBaseUri_Production;
             AccessToken = accessToken;
             RefreshToken = refreshToken;
@@ -54,32 +54,32 @@ namespace Pinch.SDK
             WebhookVerificationClockSkewThreshold = webhookVerificationClockSkewThreshold ?? 300; // Defaults to 5 minutes
             AdditionalScopes = additionalScopes;
         }
-        
+
         /// <summary>
         /// Gets a value indicating whether the live or test environment is being used.
         /// </summary>
         public bool IsLive { get; }
-        
+
         /// <summary>
         /// Gets the base URI for API requests.
         /// </summary>
         public string BaseUri { get; }
-        
+
         /// <summary>
         /// Gets the authentication URI.
         /// </summary>
         public string AuthUri { get; }
-        
+
         /// <summary>
         /// Gets the access token for authentication.
         /// </summary>
         public string AccessToken { get; }
-        
+
         /// <summary>
         /// Gets the refresh token for obtaining new access tokens.
         /// </summary>
         public string RefreshToken { get; }
-        
+
         /// <summary>
         /// Gets the application identifier.
         /// </summary>

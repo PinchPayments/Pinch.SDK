@@ -341,8 +341,6 @@ namespace Pinch.SDK
             {
                 message.Headers.Add("Pinch-Version", Options.ApiVersion);
             }
-
-            message.Headers.Add("Pinch-Version", "2026.1");
         }
 
         /// <summary>
