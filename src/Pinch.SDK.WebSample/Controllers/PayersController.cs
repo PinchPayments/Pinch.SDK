@@ -40,7 +40,7 @@ namespace Pinch.SDK.WebSample.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var payer = await GetApi().Payer.Get(id);
-            var payments = await GetApi().Payment.GetForPayer(id);
+            var payments = await GetApi().Payment.GetForPayerPaged(id);
 
             var model = new PayerDetailsVm()
             {

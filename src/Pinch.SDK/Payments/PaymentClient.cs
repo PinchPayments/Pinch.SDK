@@ -179,12 +179,36 @@ namespace Pinch.SDK.Payments
         /// Get all payments for the given payer.
         /// </summary>
         /// <param name="payerId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<Paged<PaymentExpanded>> GetForPayer(string payerId, int page = 1, int pageSize = 50)
+        public async Task<Paged<PaymentExpanded>> GetForPayerPaged(string payerId, int page = 1, int pageSize = 50)
         {
             var url = $"payments/payer/{payerId}?page={page}&pagesize={pageSize}";
 
             var response = await GetHttp<Paged<PaymentExpanded>>(url);
+
+            return response.Data;
+        }
+
+        /// <summary>
+        /// Get all payments for the given payer.
+        /// </summary>
+        /// <param name="payerId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Obsolete("Use GetForPayerPaged instead.")]
+        public async Task<IEnumerable<PaymentExpanded>> GetForPayer(string payerId, int page = 1, int pageSize = 50)
+        {
+            if (Options.ApiVersion != "2020.1")
+            {
+                throw new Exception("This method is now only supported for version 2020.1. Please use GetForPayerPaged instead.");
+            }
+
+            var url = $"payments/payer/{payerId}?page={page}&pagesize={pageSize}";
+
+            var response = await GetHttp<IEnumerable<PaymentExpanded>>(url);
 
             return response.Data;
         }

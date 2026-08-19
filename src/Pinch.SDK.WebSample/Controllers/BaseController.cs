@@ -34,6 +34,7 @@ namespace Pinch.SDK.WebSample.Controllers
                     baseUri: _settings.BaseUri,
                     authUri: _settings.AuthUri,
                     applicationId: _settings.ApplicationId,
+                    apiVersion: _settings.ApiVersion,
                     accessToken: token.AccessToken,
                     refreshToken: token.RefreshToken,
                     impersonateMerchantId: ImpersonatedMerchantId
@@ -45,6 +46,7 @@ namespace Pinch.SDK.WebSample.Controllers
                 baseUri: _settings.BaseUri,
                 authUri: _settings.AuthUri,
                 applicationId: _settings.ApplicationId,
+                apiVersion: _settings.ApiVersion,
                 impersonateMerchantId: ImpersonatedMerchantId
             ));
         }
