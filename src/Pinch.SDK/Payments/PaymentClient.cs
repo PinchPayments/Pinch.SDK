@@ -174,7 +174,7 @@ namespace Pinch.SDK.Payments
 
             return response.Data;
         }
-        
+
         /// <summary>
         /// Get all payments for the given payer.
         /// </summary>
@@ -185,7 +185,7 @@ namespace Pinch.SDK.Payments
             var url = $"payments/payer/{payerId}?page={page}&pagesize={pageSize}";
 
             var response = await GetHttp<Paged<PaymentExpanded>>(url);
-            
+
             return response.Data;
         }
 
@@ -225,7 +225,7 @@ namespace Pinch.SDK.Payments
                 Errors = response.Errors
             };
         }
-        
+
         /// <summary>
         /// Check a payment idempotency key
         /// </summary>
@@ -235,6 +235,18 @@ namespace Pinch.SDK.Payments
         {
             var response = await PostHttp<PaymentDetailed>("payments/idempotency-check", options);
             return response.ToIdempotencyKeyResponse();
+        }
+
+        /// <summary>
+        /// Check a payment nonce
+        /// </summary>
+        /// <param name="options">Payment nonce.</param>
+        /// <returns></returns>
+        [Obsolete("Use CheckIdempotencyKey instead.")]
+        public async Task<NonceApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
+        {
+            var response = await PostHttp<PaymentDetailed>("payments/nonce", options);
+            return response.ToNonceResponse();
         }
     }
 }
