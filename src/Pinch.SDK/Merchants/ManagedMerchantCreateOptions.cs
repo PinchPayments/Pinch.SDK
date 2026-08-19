@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Pinch.SDK.Merchants
 {
+    /// <summary>
+    /// Options for creating a managed merchant account.
+    /// </summary>
     public class ManagedMerchantCreateOptions
     {
         // Merchant Information

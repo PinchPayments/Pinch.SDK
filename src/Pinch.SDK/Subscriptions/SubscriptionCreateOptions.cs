@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pinch.SDK.Subscriptions
 {
+    /// <summary>
+    /// Options for creating a subscription
+    /// </summary>
     public class SubscriptionCreateOptions
     {
         /// <summary>

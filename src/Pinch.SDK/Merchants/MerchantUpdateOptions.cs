@@ -1,13 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Pinch.SDK.Merchants
 {
     /// <summary>
-    /// Merchant and Primary Contact information
+    /// Merchant information
     /// </summary>
     public class MerchantUpdateOptions
     {
@@ -192,11 +190,7 @@ namespace Pinch.SDK.Merchants
         /// The Merchants TimeZone. Ensure this is in tz format, eg 'Australia/Sydney'
         /// </summary>
         public string TimeZone { get; set; }
-        /// <summary>
-        /// A list of the relevant business owners or executives for this account (used for compliance and administration)
-        /// </summary>
-        public List<ContactSaveOptions> Contacts { get; set; } = new List<ContactSaveOptions>();
-
+        
         /// <summary>
         /// Optional list of Identifiers for the Merchant in external providers.
         /// </summary>

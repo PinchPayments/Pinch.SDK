@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Pinch.SDK.Merchants
+﻿namespace Pinch.SDK.Merchants
 {
     /// <summary>
     /// The information about a Merchant that is publicly available.

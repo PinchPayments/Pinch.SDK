@@ -6,60 +6,62 @@
 }
 
 <h2>Payer Details</h2>
+@if (Model.Payer != null)
+{
+    <p>
+        <pre>@JsonConvert.SerializeObject(Model.Payer, Formatting.Indented)</pre>
+    </p>
 
-<p>
-    <pre>@JsonConvert.SerializeObject(Model.Payer, Formatting.Indented)</pre>
-</p>
-
-<h3>
-    Payments for Payer
-    <a href="@Url.Action("New", "Payments", new {PayerId = Model.Payer.Id})" class="btn btn-primary pull-right">New Payment</a>
-</h3>    
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Amount</th>
-            <th>Transaction Date</th>
-            <th>Description</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var payer in Model.Payments)
-        {
+    <h3>
+        Payments for Payer
+        <a href="@Url.Action("New", "Payments", new { PayerId = Model.Payer.Id })" class="btn btn-primary pull-right">New Payment</a>
+    </h3>
+    @if (Model.Payments != null && Model.Payments.Any())
+    {
+        <table class="table">
+            <thead>
             <tr>
-                <td>@payer.Id</td>
-                <td>@payer.Amount</td>
-                <td>@payer.TransactionDate</td>
-                <td>@payer.Description</td>
-                <td>@payer.Status</td>
+                <th>ID</th>
+                <th>Amount</th>
+                <th>Transaction Date</th>
+                <th>Description</th>
+                <th>Status</th>
             </tr>
-        }
-        @if (!Model.Payments.Any())
-        {
-            <tr>
-                <td colspan="5">No payments found for payer</td>
-            </tr>
-        }
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+            @foreach (var payer in Model.Payments)
+            {
+                <tr>
+                    <td>@payer.Id</td>
+                    <td>@payer.Amount</td>
+                    <td>@payer.TransactionDate</td>
+                    <td>@payer.Description</td>
+                    <td>@payer.Status</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No payments for payer</p>
+    }
 
-<h3>
-    Sources for Payer
-    <a href="@Url.Action("NewSource", "Payers", new {PayerId = Model.Payer.Id})" class="btn btn-primary pull-right">New Source</a>
-</h3>
-    
-<table class="table">
-    <thead>
+    <h3>
+        Sources for Payer
+        <a href="@Url.Action("NewSource", "Payers", new { PayerId = Model.Payer.Id })" class="btn btn-primary pull-right">New Source</a>
+    </h3>
+
+    <table class="table">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Type</th>
             <th>Details</th>
+            <th></th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var source in Model.Payer.Sources)
         {
             <tr>
@@ -78,18 +80,19 @@
                 <td>
                     @using (Html.BeginForm("DeleteSource", "Payers"))
                     {
-                        <input type="hidden" name="PayerId" value="@Model.Payer.Id" />
-                        <input type="hidden" name="SourceId" value="@source.Id" />
+                        <input type="hidden" name="PayerId" value="@Model.Payer.Id"/>
+                        <input type="hidden" name="SourceId" value="@source.Id"/>
                         <button type="submit" class="btn btn-link">Delete Source</button>
                     }
                 </td>
             </tr>
         }
-        @if (!Model.Payments.Any())
+        @if (!Model.Payer.Sources.Any())
         {
             <tr>
-                <td colspan="5">No payments found for payer</td>
+                <td colspan="4">No sources found for payer</td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}

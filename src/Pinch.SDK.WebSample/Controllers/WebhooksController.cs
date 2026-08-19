@@ -33,12 +33,13 @@ namespace Pinch.SDK.WebSample.Controllers
             var options = new WebhookSaveOptions()
             {
                 Uri = model.Uri,
+                ApiVersion = model.ApiVersion,
                 WebhookFormat = model.WebhookFormat
                     ?.ToLower(),
                 EventTypes = model.EventTypes
                     ?.ToLower()
                     ?.Split(";, ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                    ?.ToList()  
+                    ?.ToList()
             };
 
             var result = await GetApi().Webhook.Save(options);
@@ -71,7 +72,7 @@ namespace Pinch.SDK.WebSample.Controllers
         public async Task<IActionResult> ReceiveWebhook()
         {
             using (var sr = new StreamReader(Request.Body))
-            {                
+            {
                 var body = await sr.ReadToEndAsync();
                 var headers = Request.Headers.ToDictionary(x => x.Key, x => x.Value);
 

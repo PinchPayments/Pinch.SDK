@@ -2,6 +2,9 @@
 
 namespace Pinch.SDK.Merchants
 {
+    /// <summary>
+    /// Options for uploading a document to a merchant.
+    /// </summary>
     public class DocumentUploadOptions
     {
         /// <summary>

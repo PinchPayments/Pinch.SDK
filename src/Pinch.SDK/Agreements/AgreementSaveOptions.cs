@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Pinch.SDK.Agreements
+﻿namespace Pinch.SDK.Agreements
 {
     /// <summary>
     /// Create a new agreement

@@ -1,15 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Pinch.SDK.Helpers;
 
 namespace Pinch.SDK.Agreements
 {
+    /// <summary>
+    /// Client for managing Agreements with the Pinch API
+    /// </summary>
     public class AgreementClient : BaseClient
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AgreementClient"/> class
+        /// </summary>
+        /// <param name="options">API configuration options</param>
+        /// <param name="getAccessToken">Function to retrieve access token</param>
+        /// <param name="httpClientFactory">Factory function to create HTTP client instances</param>
         public AgreementClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)
         {

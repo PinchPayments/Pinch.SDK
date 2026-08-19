@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pinch.SDK.Payments
+﻿namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Represents the fees associated with a payment transaction.
+    /// </summary>
     public class PaymentFees
     {
         /// <summary>

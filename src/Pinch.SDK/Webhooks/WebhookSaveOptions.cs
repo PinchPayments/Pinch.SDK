@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Pinch.SDK.Webhooks
 {
+    /// <summary>
+    /// Options for creating or updating a webhook subscription.
+    /// </summary>
     public class WebhookSaveOptions
     {
         /// <summary>
@@ -27,5 +26,10 @@ namespace Pinch.SDK.Webhooks
         /// Optional. This is a list of the types of events that will be returned via the webhook. See EventTypes for a list of available events. Defaults to ALL event types. 
         /// </summary>
         public List<string> EventTypes { get; set; }
+        
+        /// <summary>
+        /// Optional. API version in format YYYY.M (for example, 2020.1 or 2026.1). Controls the webhook payload schema and related behavior for this subscription.
+        /// </summary>
+        public string ApiVersion { get; set; }
     }
 }

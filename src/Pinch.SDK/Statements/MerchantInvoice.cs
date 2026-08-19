@@ -1,8 +1,8 @@
-﻿using System;
-using Pinch.SDK.Payers;
-
-namespace Pinch.SDK.Statements
+﻿namespace Pinch.SDK.Statements
 {
+    /// <summary>
+    /// Represents a merchant invoice.
+    /// </summary>
     public class MerchantInvoice
     {
         /// <summary>

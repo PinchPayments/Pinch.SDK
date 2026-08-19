@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Represents a payment settlement with associated fees and transfer information
+    /// </summary>
     public class Settlement
     {
         /// <summary>

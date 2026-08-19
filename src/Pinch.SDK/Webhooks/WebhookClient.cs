@@ -8,13 +8,27 @@ using System.Threading.Tasks;
 
 namespace Pinch.SDK.Webhooks
 {
+    /// <summary>
+    /// Client for managing webhooks in the Pinch API
+    /// </summary>
     public class WebhookClient: BaseClient
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebhookClient"/> class
+        /// </summary>
+        /// <param name="options">The Pinch API options</param>
+        /// <param name="getAccessToken">Function to retrieve an access token</param>
+        /// <param name="httpClientFactory">Factory to create HTTP client instances</param>
         public WebhookClient(PinchApiOptions options, Func<bool, Task<string>> getAccessToken, Func<HttpClient> httpClientFactory)
             : base(options, getAccessToken, httpClientFactory)
         {
         }
 
+        /// <summary>
+        /// Saves a webhook configuration
+        /// </summary>
+        /// <param name="options">The webhook save options</param>
+        /// <returns>An API response containing the saved webhook</returns>
         public async Task<ApiResponse<Webhook>> Save(WebhookSaveOptions options)
         {
             var response = await PostHttp<Webhook>("webhooks", options);
@@ -22,6 +36,10 @@ namespace Pinch.SDK.Webhooks
             return response.ToApiResponse();
         }
 
+        /// <summary>
+        /// Retrieves all configured webhooks
+        /// </summary>
+        /// <returns>An API response containing the list of webhooks</returns>
         public async Task<ApiResponse<List<Webhook>>> GetWebhooks()
         {
             var response = await GetHttp<List<Webhook>>($"webhooks");
@@ -41,6 +59,13 @@ namespace Pinch.SDK.Webhooks
             return response.ToApiResponse();
         }
 
+        /// <summary>
+        /// Verifies the authenticity of a webhook request using the Pinch signature
+        /// </summary>
+        /// <param name="webhookSecret">The webhook secret key for verification</param>
+        /// <param name="requestBody">The raw request body</param>
+        /// <param name="headers">The request headers containing the Pinch-Signature header</param>
+        /// <returns>True if the webhook signature is valid; otherwise, false</returns>
         public bool VerifyWebhook(string webhookSecret, string requestBody, IDictionary<string, string[]> headers)
         {
             var header = headers

@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pinch.SDK.Transfers;
+﻿using Pinch.SDK.Transfers;
 
 namespace Pinch.SDK.Events
 {
+    /// <summary>
+    /// Represents an event related to a transfer.
+    /// </summary>
     public class TransferEvent
     {
+        /// <summary>
+        /// Gets or sets the transfer associated with this event.
+        /// </summary>
         public Transfer Transfer { get; set; }
     }
 }

@@ -174,15 +174,41 @@ namespace Pinch.SDK.Payments
 
             return response.Data;
         }
-        
+
         /// <summary>
         /// Get all payments for the given payer.
         /// </summary>
         /// <param name="payerId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<PaymentExpanded>> GetForPayer(string payerId)
+        public async Task<Paged<PaymentExpanded>> GetForPayerPaged(string payerId, int page = 1, int pageSize = 50)
         {
-            var response = await GetHttp<IEnumerable<PaymentExpanded>>($"payments/payer/{payerId}");
+            var url = $"payments/payer/{payerId}?page={page}&pagesize={pageSize}";
+
+            var response = await GetHttp<Paged<PaymentExpanded>>(url);
+
+            return response.Data;
+        }
+
+        /// <summary>
+        /// Get all payments for the given payer.
+        /// </summary>
+        /// <param name="payerId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Obsolete("Use GetForPayerPaged instead.")]
+        public async Task<IEnumerable<PaymentExpanded>> GetForPayer(string payerId, int page = 1, int pageSize = 50)
+        {
+            if (Options.ApiVersion != "2020.1")
+            {
+                throw new Exception("This method is now only supported for version 2020.1. Please use GetForPayerPaged instead.");
+            }
+
+            var url = $"payments/payer/{payerId}?page={page}&pagesize={pageSize}";
+
+            var response = await GetHttp<IEnumerable<PaymentExpanded>>(url);
 
             return response.Data;
         }
@@ -192,10 +218,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<NonceApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
+        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> Save(PaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments", options);
-            return response.ToNonceResponse();
+            return response.ToIdempotencyKeyResponse();
         }
 
         /// <summary>
@@ -203,10 +229,10 @@ namespace Pinch.SDK.Payments
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<NonceApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
+        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> ExecuteRealtime(RealtimePaymentSaveOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments/realtime", options);
-            return response.ToNonceResponse();
+            return response.ToIdempotencyKeyResponse();
         }
 
         /// <summary>
@@ -225,10 +251,22 @@ namespace Pinch.SDK.Payments
         }
 
         /// <summary>
+        /// Check a payment idempotency key
+        /// </summary>
+        /// <param name="options">Payment idempotency key.</param>
+        /// <returns></returns>
+        public async Task<IdempotencyKeyApiResponse<PaymentDetailed>> CheckIdempotencyKey(PaymentCheckIdempotencyKeyOptions options)
+        {
+            var response = await PostHttp<PaymentDetailed>("payments/idempotency-check", options);
+            return response.ToIdempotencyKeyResponse();
+        }
+
+        /// <summary>
         /// Check a payment nonce
         /// </summary>
         /// <param name="options">Payment nonce.</param>
         /// <returns></returns>
+        [Obsolete("Use CheckIdempotencyKey instead.")]
         public async Task<NonceApiResponse<PaymentDetailed>> CheckNonce(PaymentCheckNonceOptions options)
         {
             var response = await PostHttp<PaymentDetailed>("payments/nonce", options);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Pinch.SDK.WebSample.Helpers
+﻿namespace Pinch.SDK.WebSample.Helpers
 {
     public class PinchSettings
     {
@@ -14,5 +9,6 @@ namespace Pinch.SDK.WebSample.Helpers
         public string BaseUri { get; set; }
         public string AuthUri { get; set; }
         public bool IsLive { get; set; }
+        public string ApiVersion { get; set; }
     }
 }

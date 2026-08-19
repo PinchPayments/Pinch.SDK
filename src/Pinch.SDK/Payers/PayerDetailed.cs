@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Pinch.SDK.Agreements;
-using Pinch.SDK.Payments;
 using Pinch.SDK.Sources;
 
 namespace Pinch.SDK.Payers

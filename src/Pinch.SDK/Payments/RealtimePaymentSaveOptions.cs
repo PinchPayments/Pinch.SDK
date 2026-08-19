@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Pinch.SDK.Payments
 {
+    /// <summary>
+    /// Options for saving a realtime payment transaction.
+    /// </summary>
     public class RealtimePaymentSaveOptions
     {
         // Existing Payer
@@ -74,9 +77,16 @@ namespace Pinch.SDK.Payments
         public bool IsTrustedDevice { get; set; }
 
         /// <summary>
+        /// Optional. Pinch will echo back the idempotency key value in the response, this is for replay protection.
+        /// If the same IdempotencyKey is detected the in progress payment object will be returned.
+        /// </summary>
+        public List<string> IdempotencyKey { get; set; }
+
+        /// <summary>
         /// Optional. Pinch will echo back the nonce value in the response, this is for replay protection.
         /// If the same Nonce is detected the in progress payment object will be returned.
         /// </summary>
+        [Obsolete("Use IdempotencyKey instead.")]
         public List<string> Nonce { get; set; }
     }
 }
