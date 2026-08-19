@@ -6,6 +6,32 @@ using Pinch.SDK.Converters;
 namespace Pinch.SDK
 {
     /// <summary>
+    /// Represents an API response that includes nonce information.
+    /// </summary>
+    /// <typeparam name="T">The type of data returned in the response.</typeparam>
+    /// <remarks>
+    /// This class extends ApiResponse&lt;T&gt; to provide additional nonce tracking,
+    /// allowing clients to detect and handle replayed requests based on nonces.
+    /// </remarks>
+    public class NonceApiResponse<T> : ApiResponse<T>
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether this response represents a replay of a previous idempotent request.
+        /// </summary>
+        public bool IsNonceReplay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the nonce(s) associated with this request.
+        /// </summary>
+        /// <remarks>
+        /// Can represent either a single string or an array of strings, which are converted
+        /// using the SingleOrArrayConverter to normalize the input into a list.
+        /// </remarks>
+        [JsonConverter(typeof(SingleOrArrayConverter<string>))]
+        public List<string> Nonce { get; set; }
+    }
+
+    /// <summary>
     /// Represents an API response that includes idempotency key information.
     /// </summary>
     /// <typeparam name="T">The type of data returned in the response.</typeparam>

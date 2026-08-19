@@ -168,9 +168,22 @@ namespace Pinch.SDK.Helpers
         public List<ApiError> Errors { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this response is from a nonce replay.
+        /// </summary>
+        [Obsolete("Use IsIdempotencyKeyReplay instead.")]
+        public bool IsNonceReplay { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this response is from an idempotency key replay.
         /// </summary>
         public bool IsIdempotencyKeyReplay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the nonce(s) from the response.
+        /// </summary>
+        [Obsolete("Use IdempotencyKey instead.")]
+        [JsonConverter(typeof(SingleOrArrayConverter<string>))]
+        public List<string> Nonce { get; set; }
 
         /// <summary>
         /// Gets or sets the idempotency key(s) from the response.
@@ -243,7 +256,26 @@ namespace Pinch.SDK.Helpers
                 });
             }
         }
-        
+
+        /// <summary>
+        /// Handles nonce information from the response body.
+        /// </summary>
+        [Obsolete("Use HandleIdempotencyKeyResponse instead.")]
+        protected void HandleNonceResponse()
+        {
+            try
+            {
+                var result = JsonConvert.DeserializeObject<NonceResponseDto>(ResponseBody);
+
+                Nonce = result.Nonce;
+                IsNonceReplay = result.IsNonceReplay;
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
+        }
+
         /// <summary>
         /// Handles idempotency key information from the response body.
         /// </summary>
@@ -284,6 +316,22 @@ namespace Pinch.SDK.Helpers
             {
                 Errors = Errors,
                 Data = Data
+            };
+        }
+
+        /// <summary>
+        /// Converts this quick response to an <see cref="NonceApiResponse{T}"/>.
+        /// </summary>
+        /// <returns>An <see cref="NonceApiResponse{T}"/> containing the data, errors, and nonce information.</returns>
+        [Obsolete("Use ToIdempotencyKeyResponse instead.")]
+        public NonceApiResponse<T> ToNonceResponse()
+        {
+            return new NonceApiResponse<T>()
+            {
+                Errors = Errors,
+                Data = Data,
+                IsNonceReplay = IsNonceReplay,
+                Nonce = Nonce
             };
         }
 
