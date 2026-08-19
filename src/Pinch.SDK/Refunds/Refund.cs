@@ -1,4 +1,6 @@
-﻿namespace Pinch.SDK.Refunds
+﻿using System;
+
+namespace Pinch.SDK.Refunds
 {
     /// <summary>
     /// Represents a refund transaction in the Pinch payment system.
@@ -83,6 +85,12 @@
         /// Gets or sets the details of fees that were refunded as part of this refund transaction.
         /// </summary>
         public AttemptFee RefundedFees { get; set; }
+
+        /// <summary>
+        /// Gets or sets the nonce, a unique token generated for this refund transaction.
+        /// </summary>
+        [Obsolete("Use IdempotencyKey instead.")]
+        public string Nonce { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the original payment being refunded.

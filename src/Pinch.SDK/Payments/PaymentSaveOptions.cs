@@ -53,5 +53,12 @@ namespace Pinch.SDK.Payments
         /// If the same IdempotencyKey is detected the in progress payment object will be returned.
         /// </summary>
         public List<string> IdempotencyKey { get; set; }
+
+        /// <summary>
+        /// Optional. Pinch will echo back the nonce value in the response, this is for replay protection.
+        /// If the same Nonce is detected the in progress payment object will be returned.
+        /// </summary>
+        [Obsolete("Use IdempotencyKey instead.")]
+        public List<string> Nonce { get; set; }
     }
 }

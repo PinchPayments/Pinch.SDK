@@ -91,6 +91,13 @@ namespace Pinch.SDK.Payments
         [JsonConverter(typeof(SingleOrArrayConverter<string>))]
         public List<string> IdempotencyKey { get; set; }
 
+        /// <summary>
+        /// The Nonce that was sent with the initial request
+        /// </summary>
+        [JsonConverter(typeof(SingleOrArrayConverter<string>))]
+        [Obsolete("Use IdempotencyKey instead.")]
+        public List<string> Nonce { get; set; }
+
         public PaymentDetailed()
         {
             Attempts = new List<Attempt>();
