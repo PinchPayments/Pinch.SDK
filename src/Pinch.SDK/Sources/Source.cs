@@ -17,5 +17,9 @@ namespace Pinch.SDK.Sources
         public string DisplayCardNumber { get; set; }
         public string CardScheme { get; set; }
         public string Origin { get; set; }
+        /// <summary>
+        /// Indicates whether the source is able to be used more than once.
+        /// </summary>
+        public bool IsRecurring { get; set; }
     }
 }
