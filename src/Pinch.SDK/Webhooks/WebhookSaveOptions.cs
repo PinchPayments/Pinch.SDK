@@ -27,5 +27,11 @@ namespace Pinch.SDK.Webhooks
         /// Optional. This is a list of the types of events that will be returned via the webhook. See EventTypes for a list of available events. Defaults to ALL event types. 
         /// </summary>
         public List<string> EventTypes { get; set; }
+
+        /// <summary>
+        /// Optional. When true, this webhook will also receive events for merchants managed by this merchant
+        /// (e.g. "merchant-created" events for sub-merchants onboarded under a managing merchant).
+        /// </summary>
+        public bool IncludeManagedMerchants { get; set; }
     }
 }
